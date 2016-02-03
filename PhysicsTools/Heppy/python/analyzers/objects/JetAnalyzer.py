@@ -459,7 +459,7 @@ setattr(JetAnalyzer,"defaultConfig", cfg.Analyzer(
     copyJetsByValue = False,      #Whether or not to copy the input jets or to work with references (should be 'True' if JetAnalyzer is run more than once)
     genJetCol = 'slimmedGenJets',
     rho = ('fixedGridRhoFastjetAll','',''),
-    jetPt = 25.,
+    jetPt = 20.,
     jetEta = 4.7,
     jetEtaCentral = 2.4,
     jetLepDR = 0.4,

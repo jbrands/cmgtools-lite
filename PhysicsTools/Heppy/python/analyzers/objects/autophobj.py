@@ -212,12 +212,30 @@ jetTypeExtra = NTupleObjectType("jetExtra",  baseObjectTypes = [ jetType ], vari
   
 metType = NTupleObjectType("met", baseObjectTypes = [ fourVectorType ], variables = [
     NTupleVariable("sumEt", lambda x : x.sumEt() ),
-    NTupleVariable("rawPt",  lambda x : x.uncorPt() ),
-    NTupleVariable("rawPhi", lambda x : x.uncorPhi() ),
-    NTupleVariable("rawSumEt", lambda x : x.uncorSumEt() ),
+    #NTupleVariable("rawPt",  lambda x : x.uncorPt() ),
+    #NTupleVariable("rawPhi", lambda x : x.uncorPhi() ),
+    #NTupleVariable("rawSumEt", lambda x : x.uncorSumEt() ),
     NTupleVariable("genPt",  lambda x : x.genMET().pt() if x.genMET() else 0 , mcOnly=True ),
     NTupleVariable("genPhi", lambda x : x.genMET().phi() if x.genMET() else 0, mcOnly=True ),
     NTupleVariable("genEta", lambda x : x.genMET().eta() if x.genMET() else 0, mcOnly=True ),
+
+    NTupleVariable("genPx",  lambda x : x.genMET().px() if x.genMET() else 0 , mcOnly=True ),
+    NTupleVariable("genPy",  lambda x : x.genMET().py() if x.genMET() else 0 , mcOnly=True ),
+
+    NTupleVariable("metsig00",   lambda x : x.getSignificanceMatrix()(0,0) ),
+    NTupleVariable("metsig01",   lambda x : x.getSignificanceMatrix()(0,1) ),
+    NTupleVariable("metsig10",   lambda x : x.getSignificanceMatrix()(1,0) ),
+    NTupleVariable("metsig11",   lambda x : x.getSignificanceMatrix()(1,1) ),
+
+    NTupleVariable("genMetsig00",   lambda x : x.genMET().getSignificanceMatrix()(0,0) if x.genMET(\
+) else 0 , mcOnly=True ),
+    NTupleVariable("genMetsig01",   lambda x : x.genMET().getSignificanceMatrix()(0,1) if x.genMET(\
+) else 0 , mcOnly=True ),
+    NTupleVariable("genMetsig10",   lambda x : x.genMET().getSignificanceMatrix()(1,0) if x.genMET(\
+) else 0 , mcOnly=True ),
+    NTupleVariable("genMetsig11",   lambda x : x.genMET().getSignificanceMatrix()(1,1) if x.genMET(\
+) else 0 , mcOnly=True ),
+
 ])
 
 ##------------------------------------------  
@@ -227,6 +245,12 @@ metType = NTupleObjectType("met", baseObjectTypes = [ fourVectorType ], variable
 genParticleType = NTupleObjectType("genParticle", baseObjectTypes = [ particleType ], mcOnly=True, variables = [
     NTupleVariable("charge",   lambda x : x.threeCharge()/3.0, float),
     NTupleVariable("status",   lambda x : x.status(),int),
+    NTupleVariable("isPrompt",   lambda x : isPromptLepton(x, False), int),  
+    #NTupleVariable("isPrompt",   lambda x : x.isPrompt(), int),
+    NTupleVariable("isPromptFinalState",   lambda x : x.isPromptFinalState(), int),
+    NTupleVariable("isDirectPromptTauDecayProduct",   lambda x : x.statusFlags().isDirectPromptTauDecayProduct(), int),
+    #NTupleVariable("isDirectPromptTauDecayProductFinalState",   lambda x : x.isDirectPromptTauDecayProductFinalState(), int),
+
 ])
 genParticleWithMotherId = NTupleObjectType("genParticleWithMotherId", baseObjectTypes = [ genParticleType ], mcOnly=True, variables = [
     NTupleVariable("motherId", lambda x : x.mother(0).pdgId() if x.mother(0) else 0, int, help="pdgId of the mother of the particle"),
@@ -241,3 +265,23 @@ genParticleWithLinksType = NTupleObjectType("genParticleWithLinks", baseObjectTy
     NTupleVariable("motherIndex", lambda x : x.motherIndex, int, help="index of the mother in the generatorSummary")
 ])
 
+def isPromptLepton(lepton, beforeFSR, includeMotherless=True, includeTauDecays=False):
+    if abs(lepton.pdgId()) not in [11,13,15]:
+        return False
+    if lepton.numberOfMothers() == 0:
+        return includeMotherless;
+    mom = lepton.mother()
+    if mom.pdgId() == lepton.pdgId():
+        if beforeFSR: return False
+        return isPromptLepton(mom, beforeFSR, includeMotherless, includeTauDecays)
+    elif abs(mom.pdgId()) == 15:
+        if not includeTauDecays: return False
+        return isPromptLepton(mom, beforeFSR, includeMotherless, includeTauDecays)
+    else:
+        return isNotHadronicId(mom.pdgId(), includeSMLeptons=False)
+
+def isNotHadronicId(pdgId,includeSMLeptons=True):
+    if abs(pdgId) in [11,12,13,14,15,16]:
+        return includeSMLeptons
+    i = (abs(pdgId) % 1000)
+    return i > 10 and i != 21 and i < 100

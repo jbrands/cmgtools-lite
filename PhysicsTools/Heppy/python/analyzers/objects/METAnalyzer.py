@@ -5,6 +5,7 @@ from PhysicsTools.HeppyCore.utils.deltar import *
 from PhysicsTools.HeppyCore.statistics.counter import Counter, Counters
 from PhysicsTools.Heppy.physicsutils.JetReCalibrator import Type1METCorrector, setFakeRawMETOnOldMiniAODs
 import PhysicsTools.HeppyCore.framework.config as cfg
+from CMGTools.H2TauTau.proto.physicsobjects.DiObject import TauMuon, TauElectron #MF
 
 import copy
 import ROOT
@@ -34,6 +35,12 @@ class METAnalyzer( Analyzer ):
             self.handles['cmgCand'] = AutoHandle( self.cfg_ana.candidates, self.cfg_ana.candidatesTypes )
             #self.handles['vertices'] =  AutoHandle( "offlineSlimmedPrimaryVertices", 'std::vector<reco::Vertex>', fallbackLabel="offlinePrimaryVertices" )
             self.mchandles['packedGen'] = AutoHandle( 'packedGenParticles', 'std::vector<pat::PackedGenParticle>' )
+
+        if self.cfg_ana.isTauMu:
+            self.handles['diLeptons'] = AutoHandle( 'cmgTauMuCorSVFitFullSel', 'std::vector<pat::CompositeCandidate>' ) #MF
+        if self.cfg_ana.isTauEle:
+            self.handles['diLeptons'] = AutoHandle( 'cmgTauEleCorSVFitFullSel', 'std::vector<pat::CompositeCandidate>' )
+
 
     def beginLoop(self, setup):
         super(METAnalyzer,self).beginLoop(setup)
@@ -98,6 +105,16 @@ class METAnalyzer( Analyzer ):
         getattr(event,"tkMetPVchs"+self.cfg_ana.collectionPostFix).sumEt = sum([hypot(x[0],x[1]) for x in chargedchs])
         getattr(event,"tkMetPVLoose"+self.cfg_ana.collectionPostFix).sumEt = sum([hypot(x[0],x[1]) for x in chargedPVLoose])
         getattr(event,"tkMetPVTight"+self.cfg_ana.collectionPostFix).sumEt = sum([hypot(x[0],x[1]) for x in chargedPVTight])
+
+    
+        if self.cfg_ana.isTauMu:
+            event.diLeptons = map(TauMuon, self.handles['diLeptons'].product()) #MF                                                                                                     
+        if self.cfg_ana.isTauEle:
+            event.diLeptons = map(TauElectron, self.handles['diLeptons'].product())
+
+        event.diLepton = event.diLeptons[0]
+
+        
 
         if  hasattr(event,'zll_p4'):
             self.adduParaPerp(getattr(event,"tkMet"+self.cfg_ana.collectionPostFix), event.zll_p4,"_zll")
@@ -273,7 +290,7 @@ setattr(METAnalyzer,"defaultConfig", cfg.Analyzer(
     jetAnalyzerPostFix = "",
     old74XMiniAODs = False, # need to set to True to get proper Raw MET on plain 74X MC produced with CMSSW <= 7_4_12
     makeShiftedMETs = True,
-    doTkMet = False,
+    doTkMet = True,
     includeTkMetCHS = True,
     includeTkMetPVLoose = True,
     includeTkMetPVTight = True,

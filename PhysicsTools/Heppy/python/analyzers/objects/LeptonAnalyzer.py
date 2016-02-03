@@ -287,7 +287,7 @@ class LeptonAnalyzer( Analyzer ):
           else: raise RuntimeError,  "Unsupported value for mu_effectiveAreas: can only use Data2012 (rho: ?) and Phys14_25ns_v1 or Spring15_25ns_v1 (rho: fixedGridRhoFastjetAll)"
         # Attach the vertex to them, for dxy/dz calculation
         for mu in allmuons:
-            mu.associatedVertex = event.goodVertices[0] if len(event.goodVertices)>0 else event.vertices[0]
+            mu.associatedVertex = event.vertices[0]#if len(event.goodVertices)>0 else event.vertices[0]
             mu.setTrackForDxyDz(self.cfg_ana.muon_dxydz_track)
 
         # Set tight id if specified
@@ -389,7 +389,7 @@ class LeptonAnalyzer( Analyzer ):
 
         # Attach the vertex
         for ele in allelectrons:
-            ele.associatedVertex = event.goodVertices[0] if len(event.goodVertices)>0 else event.vertices[0]
+            ele.associatedVertex = event.vertices[0] #if len(event.goodVertices)>0 else event.vertices[0]
 
         # Compute relIso with R=0.3 and R=0.4 cones
         for ele in allelectrons:
