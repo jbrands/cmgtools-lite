@@ -174,10 +174,25 @@ class ttHCoreEventAnalyzer( Analyzer ):
             objects40j10l5t = [ j for j in event.cleanJets if j.pt() > 40 ] + [ l for l in event.selectedLeptons if l.pt() > 10 ] + [ t for t in event.selectedIsoCleanTrack ]
             objects40j10l5t.sort(key = lambda obj : obj.pt(), reverse = True)
 
+        
+
+        event.v_mvaMetSig00 = [ m.met().getSignificanceMatrix()(0,0) for m in event.diLeptons ]
+
+        event.mvaMetSig00 = event.diLepton.met().getSignificanceMatrix()(0,0)
+        event.mvaMetSig01 = event.diLepton.met().getSignificanceMatrix()(0,1)
+        event.mvaMetSig10 = event.diLepton.met().getSignificanceMatrix()(1,0)
+        event.mvaMetSig11 = event.diLepton.met().getSignificanceMatrix()(1,1)
+
+        event.svfitMass = event.diLepton.svfitMass()
+        event.svfitMassError = event.diLepton.svfitMassError()
+        event.svfitPt = event.diLepton.svfitPt()
+
+        
         objectsXj10l5t = []
         if hasattr(event, 'selectedIsoCleanTrack'):
             objectsXj10l5t = [ j for j in event.cleanJets if j.pt() > self.jetPt ] + [ l for l in event.selectedLeptons if l.pt() > 10 ] + [ t for t in event.selectedIsoCleanTrack ]
             objectsXj10l5t.sort(key = lambda obj : obj.pt(), reverse = True)
+
             
         event.htJet25 = sum([x.pt() for x in objects25])
         event.mhtJet25vec = ROOT.reco.Particle.LorentzVector(-1.*(sum([x.px() for x in objects25])) , -1.*(sum([x.py() for x in objects25])), 0, 0 )     
@@ -378,9 +393,9 @@ class ttHCoreEventAnalyzer( Analyzer ):
 
         for lep in event.selectedLeptons:
             lep.mvaValueTTH     = self.leptonMVATTH(lep)
-        for lep in event.inclusiveLeptons:
-            if lep not in event.selectedLeptons:
-                lep.mvaValueTTH     = self.leptonMVATTH(lep)
+        #for lep in event.inclusiveLeptons:
+        #    if lep not in event.selectedLeptons:
+        #        lep.mvaValueTTH     = self.leptonMVATTH(lep)
 
 
         # absolute value of the vectorial difference between met and mht

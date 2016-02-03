@@ -62,7 +62,7 @@ class TriggerAnalyzer(Analyzer):
     def beginLoop(self, setup):
         super(TriggerAnalyzer,self).beginLoop(setup)
 
-        self.triggerList = self.cfg_comp.triggers
+        self.triggerList = self.cfg_ana.triggers #JB changed from cfg_comp.triggers
         self.triggerObjects = []
         if hasattr(self.cfg_comp, 'triggerobjects'):
             self.triggerObjects = self.cfg_comp.triggerobjects
@@ -104,7 +104,7 @@ class TriggerAnalyzer(Analyzer):
         trigger_infos = []
         triggers_fired = []
         
-        for trigger_name in self.triggerList + self.extraTrig:
+        for trigger_name in self.triggerList:
             index = names.triggerIndex(trigger_name)
             if index == len(triggerBits):
                 continue
@@ -130,16 +130,43 @@ class TriggerAnalyzer(Analyzer):
             if not trigger_passed:
                 return False
 
+
+        event.triggerObjectEvents_IsoMu17 = []
+        event.triggerObjectEvents_IsoMu18 = []
+        event.triggerObjectEvents_IsoMu24 = []
+        event.triggerObjectEvents_IsoMu22 = []
+        event.triggerObjectEvents_Ele22 = []
+        event.triggerObjectEvents_Ele23 = []
+        event.triggerObjectEvents_Ele32 = []
+
+
         if self.cfg_ana.addTriggerObjects:
             triggerObjects = self.handles['triggerObjects'].product()
             for to in triggerObjects:
                 to.unpackPathNames(names)
                 for info in trigger_infos:
-                    if to.hasPathName(info.name):
+                    if to.hasPathName(info.name, True):
                         # print 'TO name', [n for n in to.filterLabels()], to.hasPathName(info.name, False)
-                        if self.triggerObjects:
-                            if not any(n in to.filterLabels() for n in self.triggerObjects):
-                                continue
+                        #if self.triggerObjects:
+                        #    if not any(n in to.filterLabels() for n in self.triggerObjects):
+                        #        continue
+                        if(info.name == 'HLT_IsoMu17_eta2p1_v1'):
+                            event.triggerObjectEvents_IsoMu17.append(to)
+                        if(info.name == 'HLT_IsoMu18_v2' or info.name == 'HLT_IsoMu18_v1' or info.name == 'HLT_IsoMu18_v3' or info.name == 'HLT_IsoMu18_v4'):
+                            event.triggerObjectEvents_IsoMu18.append(to)
+                        if(info.name == 'HLT_IsoMu24_eta2p1_v1'):
+                            event.triggerObjectEvents_IsoMu24.append(to)
+                        if(info.name == 'HLT_IsoMu24_eta2p1_v2'):
+                            event.triggerObjectEvents_IsoMu24.append(to)
+                        if(info.name == 'HLT_IsoMu22_v1'):
+                            event.triggerObjectEvents_IsoMu22.append(to)
+                        if(info.name == 'HLT_Ele22_eta2p1_WP75_Gsf_v1'):
+                            event.triggerObjectEvents_Ele22.append(to)
+                        if(info.name == 'HLT_Ele23_WPLoose_Gsf_v1' or info.name == 'HLT_Ele23_WPLoose_Gsf_v2' or info.name == 'HLT_Ele23_WPLoose_Gsf_v3' or info.name == 'HLT_Ele23_WPLoose_Gsf_v4'):
+                            event.triggerObjectEvents_Ele23.append(to)
+                        if(info.name == 'HLT_Ele32_eta2p1_WP75_Gsf_v1'):
+                            event.triggerObjectEvents_Ele32.append(to)
+                        
                         info.objects.append(to)
                         info.objIds.add(abs(to.pdgId()))
 

@@ -88,6 +88,43 @@ leptonTypeSusyExtra.addSubObjects([
         ])
 
 
+
+leptonTypeH = NTupleObjectType("leptonH", baseObjectTypes = [ leptonType ], variables = [
+    NTupleVariable("eleMVAId",     lambda x : (x.electronID("POG_MVA_ID_NonTrig_full5x5") + 2*x.electronID("POG_MVA_ID_Trig_full5x5")) if abs(x.pdgId()) == 11 else -1, int, help="Electron mva id working point (2012, full5x5 shapes): 0=none, 1=non-trig, 2=trig, 3=both"),
+    NTupleVariable("mvaId",         lambda lepton : lepton.mvaNonTrigV0(full5x5=True) if abs(lepton.pdgId()) == 11 else lepton.mvaId(), help="EGamma POG MVA ID for non-triggering electrons (as HZZ); MVA Id for muons (BPH+Calo+Trk variables)"),
+    NTupleVariable("corrGsfTrack",   lambda lepton: lepton.gsfTrack().hitPattern().numberOfHits(ROOT.reco.HitPattern.MISSING_INNER_HITS) <= 1 if abs(lepton.pdgId()) == 11 else 0, help="electron.gsfTrack().hitPattern().numberOfHits(ROOT.reco.HitPattern.MISSING_INNER_HITS) <= 1" ),
+    NTupleVariable("passConversionVeto",   lambda lepton: lepton.passConversionVeto() if abs(lepton.pdgId()) == 11 else 0, help="passConversionVeto" ),
+    NTupleVariable("mvaIdTrig",     lambda lepton : lepton.mvaTrigV0(full5x5=True)    if abs(lepton.pdgId()) == 11 else 1, help="EGamma POG MVA ID for triggering electrons; 1 for muons"),
+    NTupleVariable("looseId",       lambda lepton : lepton.isLooseMuon() if abs(lepton.pdgId()) == 13 else 0, help="loose lepton id"),
+    NTupleVariable("validFraction",       lambda lepton : lepton.innerTrack().validFraction() if abs(lepton.pdgId()) == 13 else 0, help="fraction of valid tracker hits"),
+    NTupleVariable("globalMuon",       lambda lepton : lepton.isGlobalMuon() if abs(lepton.pdgId()) == 13 else 0, help="global muon"),
+    NTupleVariable("isTrackerMuon",       lambda lepton : lepton.isTrackerMuon() if abs(lepton.pdgId()) == 13 else 0, help="tracker muon"),
+    NTupleVariable("isPFMuon",       lambda lepton : lepton.isPFMuon() if abs(lepton.pdgId()) == 13 else 0, help="PF muon"),
+    NTupleVariable("normChi2Track",       lambda lepton : lepton.globalTrack().normalizedChi2() if abs(lepton.pdgId()) == 13 & lepton.isGlobalMuon() else 0, help="normChi2Track"),
+    NTupleVariable("trackPosMatch",       lambda lepton : lepton.combinedQuality().chi2LocalPosition if abs(lepton.pdgId()) == 13 else 0, help="trackPosMatch"),
+    NTupleVariable("kickFinder",       lambda lepton : lepton.combinedQuality().trkKink if abs(lepton.pdgId()) == 13 else 0, help="kickFinder"),
+    NTupleVariable("segmentComp",       lambda lepton : lepton.segmentCompatibility() if abs(lepton.pdgId()) == 13 else 0, help="segment compatibility"),
+
+    #NTupleVariable("iso",           lambda lepton : lepton.pfIsolationR03().sumChargedHadrPt + max(lepton.pfIsolationR03().sumNeutralHadronPt + lepton.pfIsolationR03().sumPhotonEt - 0.5*lepton.pfIsolationR03().sumPUPt, 0.0) / lepton.pt(), help "isolation")                                                   
+    NTupleVariable("chargedHadrIsoR03",           lambda lepton : lepton.chargedHadronIsoR(0.3),  help= "self.physObj.pfIsolationR03().sumChargedHadronPt"),
+    NTupleVariable("chargedHadrIsoR04",           lambda lepton : lepton.chargedHadronIsoR(0.4),  help= "self.physObj.pfIsolationR04().sumChargedHadronPt"),
+    NTupleVariable("neutralHadrIsoR03",           lambda lepton : lepton.neutralHadronIsoR(0.3),  help= "self.physObj.pfIsolationR03().sumNeutralHadronEt"),
+    NTupleVariable("neutralHadrIsoR04",           lambda lepton : lepton.neutralHadronIsoR(0.4),  help= "self.physObj.pfIsolationR04().sumNeutralHadronEt"),
+    NTupleVariable("photonIsoR03",           lambda lepton : lepton.photonIsoR(0.3),  help= "self.physObj.pfIsolationR03().sumPhotonEt"),
+    NTupleVariable("photonIsoR04",           lambda lepton : lepton.photonIsoR(0.4),  help= "self.physObj.pfIsolationR04().sumPhotonEt"),
+    NTupleVariable("puChargedHadronIsoR03",           lambda lepton : lepton.puChargedHadronIsoR(0.3),  help= "self.physObj.pfIsolationR03().sumPUPt"),
+    NTupleVariable("puChargedHadronIsoR04",           lambda lepton : lepton.puChargedHadronIsoR(0.4),  help= "self.physObj.pfIsolationR03().sumPUPt"),
+
+    NTupleVariable("mvaIdSpring15NonTrig",   lambda lepton : lepton.mvaRun2("NonTrigSpring15MiniAOD") if abs(lepton.pdgId()) == 11 else 1, help="EGamma POG MVA ID for non-triggering electrons, Spring15 re-training; 1 for muons"),
+    NTupleVariable("POG_PHYS14_25ns_v1_Veto",   lambda lepton : lepton.cutBasedId('POG_PHYS14_25ns_v1_Veto') if abs(lepton.pdgId()) == 11 else 1, help="POG Phys14 25ns cut-based v1 Veto ID"),
+    NTupleVariable("POG_PHYS14_25ns_v2_Veto",   lambda lepton : lepton.cutBasedId('POG_PHYS14_25ns_v2_Veto') if abs(lepton.pdgId()) == 11 else 1, help="POG Phys14 25ns cut-based v2 Veto ID"),
+    NTupleVariable("POG_PHYS14_25ns_v1_ConvVeto_Veto",   lambda lepton : lepton.cutBasedId('POG_PHYS14_25ns_v1_ConvVeto_Veto') if abs(lepton.pdgId()) == 11 else 1, help="POG Phys14 25ns cut-based v1 ConvVeto Veto ID"),
+    NTupleVariable("POG_PHYS14_25ns_v2_ConvVeto_Veto",   lambda lepton : lepton.cutBasedId('POG_PHYS14_25ns_v2_ConvVeto_Veto') if abs(lepton.pdgId()) == 11 else 1, help="POG Phys14 25ns cut-based v2 ConvVeto Veto ID"),
+    #NTupleVariable("cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto",   lambda lepton : lepton.cutBasedId('cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto') if abs(lepton.pdgId()) == 11 else 1, help="cutBasedElectronID-PHYS14-PU20bx25-V2-standalone-veto"),                                       
+
+    NTupleVariable("superClusterEta", lambda x : x.superCluster().eta() if abs(x.pdgId())==11 else -100, help="Electron supercluster pseudorapidity"),
+
+] )
 ##------------------------------------------  
 ## TAU
 ##------------------------------------------  
@@ -95,6 +132,68 @@ leptonTypeSusyExtra.addSubObjects([
 tauTypeSusy = NTupleObjectType("tauSusy",  baseObjectTypes = [ tauType ], variables = [
 ])
 
+tauTypeH = NTupleObjectType("tauH",  baseObjectTypes = [ tauType ], variables = [
+    #NTupleVariable("againstElectronLoose",  lambda x : x.tauID("againstElectronLoose"), int, help="Tau discriminant against electrons, loose"),                                                                                                                                                                    
+    #NTupleVariable("againstElectronMedium",  lambda x : x.tauID("againstElectronMedium"), int, help="Tau discriminant against electrons, medium"),                                                                                                                                                                 
+    #NTupleVariable("againstElectronTight",  lambda x : x.tauID("againstElectronTight"), int, help="Tau discriminant against electrons, tight"),                                                                                                                                                                    
+    NTupleVariable("againstElectronLooseMVA5",  lambda x : x.tauID("againstElectronLooseMVA5"), int, help="Tau discriminant against electrons, MVA5 loose"),
+    NTupleVariable("againstElectronMediumMVA5",  lambda x : x.tauID("againstElectronMediumMVA5"), int, help="Tau discriminant against electrons, MVA5 medium"),
+    NTupleVariable("againstElectronTightMVA5",  lambda x : x.tauID("againstElectronTightMVA5"), int, help="Tau discriminant against electrons, MVA5 tight"),
+    NTupleVariable("againstElectronTightMVA6",  lambda x : x.tauID("againstElectronTightMVA6"), int, help="Tau discriminant against electrons, MVA6 tight"),
+    NTupleVariable("againstElectronVLooseMVA5",  lambda x : x.tauID("againstElectronVLooseMVA5"), int, help="Tau discriminant against electrons, MVA5 Vloose"),
+    NTupleVariable("againstElectronVLooseMVA6",  lambda x : x.tauID("againstElectronVLooseMVA6"), int, help="Tau discriminant against electrons, MVA6 Vloose"),
+    #NTupleVariable("againstElectronVMediumMVA5",  lambda x : x.tauID("againstElectronMediumMVA5"), int, help="Tau discriminant against electrons, MVA5 Vmedium"),                                                                                                                                                  
+    NTupleVariable("againstElectronVTightMVA5",  lambda x : x.tauID("againstElectronVTightMVA5"), int, help="Tau discriminant against electrons, MVA5 Vtight"),
+    NTupleVariable("againstMuonLoose3",  lambda x : x.tauID("againstMuonLoose3"), int, help="Tau discriminant against muons, loose3"),
+    #NTupleVariable("againstMuonMedium2",  lambda x : x.tauID("againstMuonMedium2"), int, help="Tau discriminant against muons, medium2"),                                                                                                                                                                          
+    NTupleVariable("againstMuonTight3",  lambda x : x.tauID("againstMuonTight3"), int, help="Tau discriminant against muons, tight3"),
+
+    NTupleVariable("byCombinedIsolationDeltaBetaCorrRaw3Hits",  lambda x : x.tauID("byCombinedIsolationDeltaBetaCorrRaw3Hits"), float, help="Combined DB 3 Hits isolation"),
+    NTupleVariable("byLooseCombinedIsolationDeltaBetaCorr3Hits",  lambda x : x.tauID("byLooseCombinedIsolationDeltaBetaCorr3Hits"), int, help="Combined DB 3 Hits isolation, loose"),
+    NTupleVariable("byMediumCombinedIsolationDeltaBetaCorr3Hits",  lambda x : x.tauID("byMediumCombinedIsolationDeltaBetaCorr3Hits"), int, help="Combined DB 3 Hits isolation, medium"),
+    NTupleVariable("byTightCombinedIsolationDeltaBetaCorr3Hits",  lambda x : x.tauID("byTightCombinedIsolationDeltaBetaCorr3Hits"), int, help="Combined DB 3 Hits isolation, tight"),
+
+    NTupleVariable("byIsolationMVArun2v1DBnewDMwLTraw",  lambda x : x.tauID("byIsolationMVArun2v1DBnewDMwLTraw"), float, help="new Isolation for pair selection"),
+
+    NTupleVariable("byIsolationMVA3newDMwLTraw",  lambda x : x.tauID("byIsolationMVA3newDMwLTraw"), float, help="raw MVA output of BDT based tau ID discriminator based on isolation Pt sums, trained on 1-prong, 2-prong and 3-prong tau candidates plus lifetime information"),
+    NTupleVariable("byIsolationMVA3oldDMwLTraw",  lambda x : x.tauID("byIsolationMVA3oldDMwLTraw"), float, help="raw MVA output of BDT based tau ID discriminator based on isolation Pt sums, trained on 1-prong, 2-prong and 3-prong tau candidates plus lifetime information"),
+    #NTupleVariable("byIsolationMVA3newDMwoLTraw",  lambda x : x.tauID("byIsolationMVA3newDMwoLTraw"), float, help="raw MVA output of BDT based tau ID discriminator based on isolation Pt sums, trained on 1-prong, 2-prong and 3-prong tau candidates"),
+    #NTupleVariable("byIsolationMVA3oldDMwoLTraw",  lambda x : x.tauID("byIsolationMVA3oldDMwoLTraw"), float, help="raw MVA output of BDT based tau ID discriminator based on isolation Pt sums, trained on 1-prong, 2-prong and 3-prong tau candidates"),                                                          
+
+
+    NTupleVariable("decayModeFinding",  lambda x : x.tauID("decayModeFinding"), int, help="Tau discriminant"),
+    NTupleVariable("decayModeFindingNewDMs",  lambda x : x.tauID("decayModeFindingNewDMs"), int, help="Tau discriminant"),
+
+    NTupleVariable("chargedIsoPtSum",  lambda x : x.tauID("chargedIsoPtSum"), float, help="Deposition by charged particles in isolation cone"),
+
+    NTupleVariable("packedLeadTauCanddXY",  lambda x : x.leadChargedHadrCand().dxy(), float, help="dxy of leadChargedHadrCand"),
+    NTupleVariable("packedLeadTauCanddZ",  lambda x : x.leadChargedHadrCand().dz(), float, help="dz of leadChargedHadrCand"),
+])
+dileptonH = NTupleObjectType("dileptonH",  baseObjectTypes = [ fourVectorType ], variables = [
+    #NTupleVariable("v_metsig00", lambda ev : ev.v_mvaMetSig00, help="MET significance matrix(0,0)"),                                                                                                                                                                                                               
+    #NTupleVariable("vv_metsig00", lambda x : x.met().getSignificanceMatrix()(0,0), help="MET significance matrix(0,0)"),                                                                                                                                                                                           
+    #NTupleVariable("svfitMass", lambda x : x.svfitMass(), float, help="SVFit mass"),
+    #NTupleVariable("svfitMassError", lambda x : x.svfitMassError(), float, help="SVFit mass error"),
+    #NTupleVariable("svfitPt", lambda x : x.svfitPt(), float, help="SVFit mass"),
+    #NTupleVariable("svfitPtError", lambda x : x.svfitPtError(), float, help="SVFit mass error"),
+    #NTupleVariable("svfitEta", lambda x : x.svfitEta(), float, help="SVFit eta"),
+    #NTupleVariable("svfitPhi", lambda x : x.svfitPhi(), float, help="SVFit phi"),
+    
+    NTupleVariable("metsig00", lambda x : x.met().getSignificanceMatrix()(0,0), help="MET significance matrix(0,0)"),
+    NTupleVariable("metsig01", lambda x : x.met().getSignificanceMatrix()(0,1), help="MET significance matrix(0,1)"),
+    NTupleVariable("metsig10", lambda x : x.met().getSignificanceMatrix()(1,0), help="MET significance matrix(1,0)"),
+    NTupleVariable("metsig11", lambda x : x.met().getSignificanceMatrix()(1,1), help="MET significance matrix(1,1)"),
+    NTupleVariable("l1_pt", lambda x : x.leg1().pt(), help="pt of first lepton"),
+    NTupleVariable("l1_eta", lambda x : x.leg1().eta(), help="eta of first lepton"),
+    NTupleVariable("l1_phi", lambda x : x.leg1().phi(), help="phi of first lepton"),
+    NTupleVariable("l1_mass", lambda x : x.leg1().mass(), help="mass of first lepton"),
+    NTupleVariable("l2_pt", lambda x : x.leg2().pt(), help="pt of second lepton"),
+    NTupleVariable("l2_eta", lambda x : x.leg2().eta(), help="eta of second lepton"),
+    NTupleVariable("l2_phi", lambda x : x.leg2().phi(), help="phi of second lepton"),
+    NTupleVariable("l2_mass", lambda x : x.leg2().mass(), help="mass of second lepton"),
+    NTupleVariable("met_pt", lambda x : x.met().pt(), help="met"),
+    NTupleVariable("met_phi", lambda x : x.met().phi(), help="met phi"),
+])
 ##------------------------------------------  
 ##  ISOTRACK
 ##------------------------------------------  
@@ -167,7 +266,11 @@ fatJetType = NTupleObjectType("fatJet",  baseObjectTypes = [ jetType ], variable
     NTupleVariable("minMass", lambda x : (x.tagInfo("caTop").properties().minMass if x.tagInfo("caTop") else -99), float, help="CA8 jet minMass"),
     NTupleVariable("nSubJets", lambda x : (x.tagInfo("caTop").properties().nSubJets if x.tagInfo("caTop") else -99), float, help="CA8 jet nSubJets"),
 ])
-      
+   
+jetTypeH = NTupleObjectType("jetSusy",  baseObjectTypes = [ jetTypeExtra ], variables = [
+    NTupleVariable("mcMatchFlav",  lambda x : getattr(x,'mcMatchFlav',-99), int, mcOnly=True, help="Flavour of associated parton from hard scatter (if any)"),
+])#JB
+   
 ##------------------------------------------  
 ## MET
 ##------------------------------------------  
@@ -230,6 +333,55 @@ heavyFlavourHadronType = NTupleObjectType("heavyFlavourHadron", baseObjectTypes 
     NTupleVariable("jetBTagCSV",  lambda x : x.jet.btag('pfCombinedInclusiveSecondaryVertexV2BJetTags') if x.jet != None else -99, help="CSV b-tag of associated jet"),
     NTupleVariable("jetBTagCMVA",  lambda x : x.jet.btag('pfCombinedMVABJetTags') if x.jet != None else -99, help="CMVA b-tag of associated jet"),
     
+])
+
+triggerObjectIsoMu17 = NTupleObjectType("triggerTypeIsoMu17",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
+triggerObjectIsoMu18 = NTupleObjectType("triggerTypeIsoMu18",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
+triggerObjectIsoMu24 = NTupleObjectType("triggerTypeIsoMu24",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
+triggerObjectIsoMu22 = NTupleObjectType("triggerTypeIsoMu22",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
+triggerObjectEle22 = NTupleObjectType("triggerTypeEle22",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
+triggerObjectEle23 = NTupleObjectType("triggerTypeEle23",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
+triggerObjectEle32 = NTupleObjectType("triggerTypeEle32",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
 ])
 
 

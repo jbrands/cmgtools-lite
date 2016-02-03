@@ -54,7 +54,7 @@ class ttHLepEventAnalyzer( Analyzer ):
             if n25 < self.cfg_ana.minJets25: 
                 return False
 
-        self.makeHadTopDecays(event)
+        #self.makeHadTopDecays(event)
 
         self.counters.counter('events').inc('accepted events')
         return True
