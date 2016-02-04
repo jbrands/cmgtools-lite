@@ -169,7 +169,7 @@ lepAna = cfg.Analyzer(
     inclusive_electron_dz  = 1.0,
     inclusive_electron_lostHits = 1.0,
     # loose electron selection
-    loose_electron_id     = "POG_Cuts_ID_2012_Veto_full5x5",
+    loose_electron_id     = "",
     loose_electron_pt     = 10,
     loose_electron_eta    = 2.5,
     loose_electron_dxy    = 0.045,
