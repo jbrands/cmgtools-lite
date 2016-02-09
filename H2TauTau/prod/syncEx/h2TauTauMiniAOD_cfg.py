@@ -11,7 +11,7 @@ sep_line = '-'*70
 
 process = cms.Process("H2TAUTAU")
 
-process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(-1))
+process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(10))
 
 numberOfFilesToProcess = -1
 debugEventContent = False
@@ -41,16 +41,16 @@ dataset_user = 'CMS'
 dataset_name = ' /SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM'
 dataset_files = '.*root'
 
-process.source = datasetToSource(
-    dataset_user,
-    dataset_name,
-    dataset_files,
-    )
+#process.source = datasetToSource(
+#    dataset_user,
+#    dataset_name,
+#    dataset_files,
+#    )
 
-#process.source = cms.Source("PoolSource",
-#                            fileNames = cms.untracked.vstring("file:localTestFile.root")
-#                            fileNames = cms.untracked.vstring("file:/data/jbrandstetter/CMGTools/testFiles/WJets_miniAODv2.root") 
-#)                                                                                                                                                                                                           
+process.source = cms.Source("PoolSource",
+                            fileNames = cms.untracked.vstring("file:localTestFile.root")
+#                            fileNames = cms.untracked.vstring("file:/data/jbrandstetter/CMGTools/tesFiles/WJets_miniAODv2.root") 
+)                                                                                                                                                                                                           
 
 process.source.inputCommands=cms.untracked.vstring(
     'keep *',

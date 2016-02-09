@@ -148,14 +148,14 @@ lepAna = cfg.Analyzer(
     #doSegmentBasedMuonCleaning=False,
     # inclusive very loose muon selection
     inclusive_muon_id  = "POG_ID_Loose",
-    inclusive_muon_pt  = 10.,
+    inclusive_muon_pt  = 5.,
     inclusive_muon_eta = 2.4,
     inclusive_muon_dxy = 0.5,
     inclusive_muon_dz  = 1.0,
     muon_dxydz_track = "muonBestTrack", #JB instead of "innerTrack"
     # loose muon selection
     loose_muon_id     = "POG_ID_Loose",
-    loose_muon_pt     = 10,
+    loose_muon_pt     = 5.,
     loose_muon_eta    = 2.4,
     loose_muon_dxy    = 0.5,
     loose_muon_dz     = 1.,
@@ -163,14 +163,14 @@ lepAna = cfg.Analyzer(
     # loose_muon_relIso = 0.5, #JB
     # inclusive very loose electron selection
     inclusive_electron_id  = "",
-    inclusive_electron_pt  = 10,
+    inclusive_electron_pt  = 5.,
     inclusive_electron_eta = 2.5,
     inclusive_electron_dxy = 0.5,
     inclusive_electron_dz  = 1.0,
     inclusive_electron_lostHits = 1.0,
     # loose electron selection
     loose_electron_id     = "",
-    loose_electron_pt     = 10,
+    loose_electron_pt     = 5.,
     loose_electron_eta    = 2.5,
     loose_electron_dxy    = 0.045,
     loose_electron_dz     = 0.2,
@@ -179,11 +179,11 @@ lepAna = cfg.Analyzer(
     # muon isolation correction method (can be "rhoArea" or "deltaBeta")
 #    mu_isoCorr = "rhoArea" ,
     mu_isoCorr = "deltaBeta" ,
-    #mu_effectiveAreas = "Phys14_25ns_v1", #(can be 'Data2012' or 'Phys14_25ns_v1')
+    mu_effectiveAreas = "Spring15_25ns_v1", #(can be 'Data2012' or 'Phys14_25ns_v1')
     # electron isolation correction method (can be "rhoArea" or "deltaBeta")
 #    ele_isoCorr = "rhoArea" ,
     ele_isoCorr = "deltaBeta" ,
-    el_effectiveAreas = "Phys14_25ns_v1" , #(can be 'Data2012' or 'Phys14_25ns_v1')
+    el_effectiveAreas = "Spring15_25ns_v1" , #(can be 'Data2012' or 'Phys14_25ns_v1')
     ele_tightId = "Cuts_2012" ,
     # minimum deltaR between a loose electron and a loose muon (on overlaps, discard the electron)
     min_dr_electron_muon = 0.02,
