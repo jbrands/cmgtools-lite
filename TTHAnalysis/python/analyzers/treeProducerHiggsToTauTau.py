@@ -41,22 +41,24 @@ higgsToTauTau_globalObjects.update({
             # put more here
 })
 
+#higgsToTauTau_dileptons = higgsCore_dileptons.copy()
+
 higgsToTauTau_collections = higgsCore_collections.copy()
 higgsToTauTau_collections.update({
 
             # put more here
-            "genParticles"     : NTupleCollection("gen",  genParticleWithMotherId, 200, help="all pruned genparticles"), # need to decide which gen collection ?
-            "generatorSummary"     : NTupleCollection("genSum",  genParticleWithLinksType, 200, help="all pruned genparticles"),
+            "genParticles"     : NTupleCollection("gen",  genParticleWithMotherId, 400, help="all pruned genparticles"), # need to decide which gen collection ?
+            "generatorSummary"     : NTupleCollection("genSum",  genParticleWithLinksType, 400, help="all pruned genparticles"),
             #"gentaus"     : NTupleCollection("genTau",  genParticleWithLinksType, 200, help="all pruned genparticles"),
             ## ---------------------------------------------
 #            "selectedLeptons" : NTupleCollection("LepGood", leptonTypeH, 8, help="Leptons after the preselection"),
-            "selectedElectrons" : NTupleCollection("el", leptonTypeH, 4, help="Electrons after the preselection"),
-            "selectedMuons" : NTupleCollection("mu", leptonTypeH, 4, help="Muons after the preselection"),
+            "selectedElectrons" : NTupleCollection("el", leptonTypeH, 20, help="Electrons after the preselection"),
+            "selectedMuons" : NTupleCollection("mu", leptonTypeH, 20, help="Muons after the preselection"),
 #            "otherLeptons"    : NTupleCollection("LepOther", leptonTypeSusy, 8, help="Leptons after the preselection"),
-            "selectedTaus"    : NTupleCollection("tau", tauTypeH, 6, help="Taus after the preselection"),
+            "selectedTaus"    : NTupleCollection("tau", tauTypeH, 20, help="Taus after the preselection"),
 #            "selectedIsoTrack"    : NTupleCollection("track", isoTrackType, 50, help="isoTrack, sorted by pt"),
             ##------------------------------------------------
-            "cleanJetsAll"       : NTupleCollection("jet",     jetTypeH, 10, help="Jets after full selection and cleaning, sorted by pt"),
+            "cleanJetsAll"       : NTupleCollection("jet",     jetTypeH, 50, help="Jets after full selection and cleaning, sorted by pt"),
 #            "cleanJetsFwd"    : NTupleCollection("JetFwd",  jetTypeSusy, 25, help="Forward jets after full selection and cleaning, sorted by pt"),            
 #mf            "fatJets"         : NTupleCollection("FatJet",  fatJetType,  15, help="AK8 jets, sorted by pt"),
             #"reclusteredFatJets" : NTupleCollection("RCFatJet",     fourVectorType,20, help="FatJets reclusterd from ak4 cleanJetsAll"),
@@ -64,7 +66,8 @@ higgsToTauTau_collections.update({
 #mf            "ivf"       : NTupleCollection("SV",     svType, 20, help="SVs from IVF"),
 #mf            "genBHadrons"  : NTupleCollection("GenBHad", heavyFlavourHadronType, 20, mcOnly=True, help="Gen-level B hadrons"),
 #mf            "genDHadrons"  : NTupleCollection("GenDHad", heavyFlavourHadronType, 20, mcOnly=True, help="Gen-level D hadrons"),
-            "diLeptons"          : NTupleCollection("dilepton",     dileptonH, 100, help="system of decay products of the two tau leptons"),
+            "diLeptons"          : NTupleCollection("dilepton",     dileptonH, 200, help="system of decay products of the two tau leptons"),
+            "LHE_weights"    : NTupleCollection("LHEweight",  weightsInfoType, 1000, mcOnly=True, help="LHE weight info"),
 
             #"met" : NTupleCollection("met", metTypeH, help="PF E_{T}^{miss}, after type 1 corrections"),                             
 

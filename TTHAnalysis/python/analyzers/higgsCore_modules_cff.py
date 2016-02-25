@@ -7,9 +7,10 @@ from PhysicsTools.Heppy.analyzers.core.all import *
 from PhysicsTools.Heppy.analyzers.objects.all import *
 from PhysicsTools.Heppy.analyzers.gen.all import *
 from CMGTools.H2TauTau.proto.analyzers.TriggerAnalyzer import TriggerAnalyzer
+from CMGTools.H2TauTau.proto.analyzers.MCWeighter import MCWeighter
 import os
 
-PDFWeights = []
+PDFWeights = [ ("NNPDF30_lo_as_0130",101) ]
 #PDFWeights = [ ("CT10",53), ("MSTW2008lo68cl",41), ("MMHT2014lo68cl",51), ("NNPDF21_100",101) ]
 #PDFWeights = [ ("NNPDF30_lo_as_0130",101) ] #("NNPDF30_lo_as_0130_nf_4",101)] 
 
@@ -18,6 +19,15 @@ skimAnalyzer = cfg.Analyzer(
     SkimAnalyzerCount, name='skimAnalyzerCount',
     useLumiBlocks = False,
     )
+
+mcWeighter = cfg.Analyzer(
+    MCWeighter,
+    name='MCWeighter'
+)
+
+lheWeightAna = cfg.Analyzer(
+    LHEWeightAnalyzer, name="LHEWeightAnalyzer",
+)
 
 # Pick individual events (normally not in the path)
 eventSelector = cfg.Analyzer(
@@ -356,26 +366,28 @@ ttHCoreEventAna = cfg.Analyzer(
 higgsCoreSequence = [
     triggerObjsAna,
     skimAnalyzer,
-    #eventSelector,                                                                                                                                                                                         
+    #mcWeighter,
+    lheWeightAna,
+    #eventSelector,
     jsonAna,
     triggerAna,
     pileUpAna,
     genAna,
-    #genHiggsAna,                                                                                                                                                                                           
-    #genHFAna,                                                                                                                                                                                              
+    #genHiggsAna,
+    #genHFAna,
     pdfwAna,
-    #susyScanAna,                                                                                                                                                                                           
+    #susyScanAna,
     vertexAna,
     lepAna,
-    #ttHLepSkim,                                                                                                                                                                                            
-    #ttHLepMCAna,                                                                                                                                                                                           
-    #photonAna,                                                                                                                                                                                             
+    #ttHLepSkim,
+    #ttHLepMCAna,
+    #photonAna,
     tauAna,
-    #isoTrackAna,                                                                                                                                                                                           
+    #isoTrackAna,
     jetAna,
     metAna,
     #ttHCoreEventAna,
-    #ttHJetMETSkim                                                                                                                                                                                          
+    #ttHJetMETSkim
     triggerFlagsAna,
 #    eventFlagsAna,
 ]

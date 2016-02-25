@@ -11,7 +11,7 @@ sep_line = '-'*70
 
 process = cms.Process("H2TAUTAU")
 
-process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(10))
+process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(1000))
 
 numberOfFilesToProcess = -1
 debugEventContent = False
@@ -48,7 +48,7 @@ dataset_files = '.*root'
 #    )
 
 process.source = cms.Source("PoolSource",
-                            fileNames = cms.untracked.vstring("file:localTestFile.root")
+                            fileNames = cms.untracked.vstring("file:localTestFile_nlo.root")
 #                            fileNames = cms.untracked.vstring("file:/data/jbrandstetter/CMGTools/tesFiles/WJets_miniAODv2.root") 
 )                                                                                                                                                                                                           
 
@@ -158,7 +158,6 @@ for mvaMETCfg in [process.mvaMETTauMu, process.mvaMETTauEle, process.mvaMETDiMu,
 # OUTPUT definition ----------------------------------------------------------
 process.outpath = cms.EndPath()
 
-
 # JAN: In 2015, we should finally make sure that we apply the correction to all
 # generator-matched taus, regardless of the process
 
@@ -209,10 +208,11 @@ elif channel == 'di-mu':
 else:
     raise ValueError('unrecognized channel')
 
-if runOnMC:
-    
+
+if runOnMC:    
     process.genEvtWeightsCounterPath = cms.Path(process.genEvtWeightsCounter)
     process.schedule.insert(0, process.genEvtWeightsCounterPath)
+
 
 if addPuppi:
     process.schedule.insert(-1, process.puppiPath)

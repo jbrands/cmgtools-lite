@@ -120,6 +120,16 @@ leptonTypeH = NTupleObjectType("leptonH", baseObjectTypes = [ leptonType ], vari
 
     NTupleVariable("superClusterEta", lambda x : x.superCluster().eta() if abs(x.pdgId())==11 else -100, help="Electron supercluster pseudorapidity"),
 
+    NTupleVariable("muonid_loose", lambda x : x.muonID("POG_ID_Loose") if abs(x.pdgId()) == 13 else 0, int, help="loose muon id"),
+    NTupleVariable("muonid_medium", lambda x : x.muonID("POG_ID_Medium") if abs(x.pdgId()) == 13 else 0, int, help="medium muon id"),
+    NTupleVariable("muonid_tight", lambda x : x.muonID("POG_ID_Tight") if abs(x.pdgId()) == 13 else 0, int, help="tight muon id"),
+    NTupleVariable("muonid_tightnovtx", lambda x : x.muonID("POG_ID_TightNoVtx") if abs(x.pdgId()) == 13 else 0, int, help="loose tight muon id, no vertex"),
+    NTupleVariable("muonid_highpt", lambda x : x.muonID("POG_ID_HighPt") if abs(x.pdgId()) == 13 else 0, int, help="muon id highpt"),
+    NTupleVariable("eid_veto", lambda x : x.cutBasedId("POG_SPRING15_25ns_v1_Veto") if abs(x.pdgId()) == 11 else 0, int, help="electron veto id"),
+    NTupleVariable("eid_loose", lambda x : x.cutBasedId("POG_SPRING15_25ns_v1_Loose") if abs(x.pdgId()) == 11 else 0, int, help="electron loose id"),
+    NTupleVariable("eid_medium", lambda x : x.cutBasedId("POG_SPRING15_25ns_v1_Medium") if abs(x.pdgId()) == 11 else 0, int, help="electron medium id"),
+    NTupleVariable("eid_tight", lambda x : x.cutBasedId("POG_SPRING15_25ns_v1_Tight") if abs(x.pdgId()) == 11 else 0, int, help="electron tight id"),
+
 ] )
 ##------------------------------------------  
 ## TAU
@@ -145,6 +155,20 @@ tauTypeH = NTupleObjectType("tauH",  baseObjectTypes = [ tauType ], variables = 
     NTupleVariable("byTightCombinedIsolationDeltaBetaCorr3Hits",  lambda x : x.tauID("byTightCombinedIsolationDeltaBetaCorr3Hits"), int, help="Combined DB 3 Hits isolation, tight"),
 
     NTupleVariable("byIsolationMVArun2v1DBnewDMwLTraw",  lambda x : x.tauID("byIsolationMVArun2v1DBnewDMwLTraw"), float, help="new Isolation for pair selection"),
+    NTupleVariable("byIsolationMVArun2v1DBoldDMwLTraw",  lambda x : x.tauID("byIsolationMVArun2v1DBoldDMwLTraw"), float, help="old Isolation for pair selection"),
+
+    NTupleVariable("byVLooseIsolationMVArun2v1DBoldDMwLT",  lambda x : x.tauID("byVLooseIsolationMVArun2v1DBoldDMwLT"), int, help="byVLooseIsolationMVArun2v1DBoldDMwLT"),
+    NTupleVariable("byLooseIsolationMVArun2v1DBoldDMwLT",  lambda x : x.tauID("byLooseIsolationMVArun2v1DBoldDMwLT"), int, help="byLooseIsolationMVArun2v1DBoldDMwLT"),
+    NTupleVariable("byMediumIsolationMVArun2v1DBoldDMwLT",  lambda x : x.tauID("byMediumIsolationMVArun2v1DBoldDMwLT"), int, help="byMediumIsolationMVArun2v1DBoldDMwLT"),
+    NTupleVariable("byTightIsolationMVArun2v1DBoldDMwLT",  lambda x : x.tauID("byTightIsolationMVArun2v1DBoldDMwLT"), int, help="byTightIsolationMVArun2v1DBoldDMwLT"),
+    NTupleVariable("byVTightIsolationMVArun2v1DBoldDMwLT",  lambda x : x.tauID("byVTightIsolationMVArun2v1DBoldDMwLT"), int, help="byVTightIsolationMVArun2v1DBoldDMwLT"),
+    NTupleVariable("byVLooseIsolationMVArun2v1DBnewDMwLT",  lambda x : x.tauID("byVLooseIsolationMVArun2v1DBnewDMwLT"), int, help="byVLooseIsolationMVArun2v1DBnewDMwLT"),
+    NTupleVariable("byLooseIsolationMVArun2v1DBnewDMwLT",  lambda x : x.tauID("byLooseIsolationMVArun2v1DBnewDMwLT"), int, help="byLooseIsolationMVArun2v1DBnewDMwLT"),
+    NTupleVariable("byMediumIsolationMVArun2v1DBnewDMwLT",  lambda x : x.tauID("byMediumIsolationMVArun2v1DBnewDMwLT"), int, help="byMediumIsolationMVArun2v1DBnewDMwLT"),
+    NTupleVariable("byTightIsolationMVArun2v1DBnewDMwLT",  lambda x : x.tauID("byTightIsolationMVArun2v1DBnewDMwLT"), int, help="byTightIsolationMVArun2v1DBnewDMwLT"),
+    NTupleVariable("byVTightIsolationMVArun2v1DBnewDMwLT",  lambda x : x.tauID("byVTightIsolationMVArun2v1DBnewDMwLT"), int, help="byVTightIsolationMVArun2v1DBnewDMwLT"),
+    
+    
 
     NTupleVariable("byIsolationMVA3newDMwLTraw",  lambda x : x.tauID("byIsolationMVA3newDMwLTraw"), float, help="raw MVA output of BDT based tau ID discriminator based on isolation Pt sums, trained on 1-prong, 2-prong and 3-prong tau candidates plus lifetime information"),
     NTupleVariable("byIsolationMVA3oldDMwLTraw",  lambda x : x.tauID("byIsolationMVA3oldDMwLTraw"), float, help="raw MVA output of BDT based tau ID discriminator based on isolation Pt sums, trained on 1-prong, 2-prong and 3-prong tau candidates plus lifetime information"),
@@ -156,9 +180,14 @@ tauTypeH = NTupleObjectType("tauH",  baseObjectTypes = [ tauType ], variables = 
     NTupleVariable("decayModeFindingNewDMs",  lambda x : x.tauID("decayModeFindingNewDMs"), int, help="Tau discriminant"),
 
     NTupleVariable("chargedIsoPtSum",  lambda x : x.tauID("chargedIsoPtSum"), float, help="Deposition by charged particles in isolation cone"),
+    NTupleVariable("neutralIsoPtSum",  lambda x : x.tauID("neutralIsoPtSum"), float, help="Deposition by neutral particles in isolation cone"),
+
+    NTupleVariable("puCorrPtSum",  lambda x : x.tauID("puCorrPtSum"), float, help="puCorrPtSum"),
 
     NTupleVariable("packedLeadTauCanddXY",  lambda x : x.leadChargedHadrCand().dxy(), float, help="dxy of leadChargedHadrCand"),
     NTupleVariable("packedLeadTauCanddZ",  lambda x : x.leadChargedHadrCand().dz(), float, help="dz of leadChargedHadrCand"),
+
+
 ])
 dileptonH = NTupleObjectType("dileptonH",  baseObjectTypes = [ fourVectorType ], variables = [
     #NTupleVariable("v_metsig00", lambda ev : ev.v_mvaMetSig00, help="MET significance matrix(0,0)"),                                                                                                                                                                                                               

@@ -98,7 +98,8 @@ looper.write()
 
 # assign the right name
 os.system('cp Output/treeProducerHiggsToTauTau/tree.root $PWD/tree.root')
-os.system('cp test.txt $PWD/test.txt')
+#os.system('cp Output/JSONAnalyzer/RLTInfo.root $PWD/RLTInfo.root')
+#os.system('cp Output/MCWeighter/SkimReport.txt $PWD/SkimReport.txt')
 os.system('ls $PWD')
 #os.rename("Output/treeProducerHiggsToTauTau/tree.root", "tree.root")
 

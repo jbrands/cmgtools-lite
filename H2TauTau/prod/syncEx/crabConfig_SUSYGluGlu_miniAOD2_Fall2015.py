@@ -3,7 +3,7 @@ from WMCore.Configuration import Configuration
 config = Configuration()
 
 config.section_("General")
-config.General.requestName   = 'SUSYGluGlu_Fall2015_mt_newGT'
+config.General.requestName   = 'SUSYGluGlu_Fall2015_mt_newGT_160210'
 config.General.transferLogs = True
 
 config.section_("JobType")
@@ -19,7 +19,7 @@ config.Data.totalUnits = -1
 config.Data.publication = True
 #config.Data.publication = False
 # This string is used to construct the output dataset name
-config.Data.outputDatasetTag = 'SUSYGluGlu_Fall2015_mt_newGT'
+config.Data.outputDatasetTag = 'SUSYGluGlu_Fall2015_mt_newGT_160210'
 #!!!
 config.Data.ignoreLocality = True
 
@@ -34,4 +34,4 @@ config.section_("Site")
 config.Site.storageSite = 'T2_AT_Vienna'
 config.Site.whitelist = ["T2_AT_Vienna"]
 #config.Site.whitelist = ["T2_DE_DESY"]
-#config.Site.blacklist = ['T2_AT_Vienna']
+config.Site.blacklist = ['T2_US_Purdue', 'T2_BE_IIHE', 'T2_US_Wisconsin', 'T2_UK_SGrid_Bristol', 'T2_US_Nebraska']

@@ -27,9 +27,9 @@ from CMGTools.H2TauTau.objects.diMuObjectsMVAMET_cff import mvaMETDiMu, cmgDiMu,
 from CMGTools.H2TauTau.skims.skim_cff import tauMuFullSelCount, tauEleFullSelCount, diTauFullSelCount, muEleFullSelCount, diMuFullSelCount
 
 # MVA MET Inputs
-# mvaMetInputPath = cms.Path(
-    # mvaMetInputSequence
-    # )
+mvaMetInputPath = cms.Path(
+    mvaMetInputSequence
+    )
 
 # tau-mu ---
 tauMuPath = cms.Path(

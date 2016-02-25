@@ -53,9 +53,13 @@ higgsCore_globalObjects = {
             #"metNoPU" : NTupleObject("metNoPU", fourVectorType, help="PF noPU E_{T}^{miss}"),
 }
 
+#higgsCore_dileptons = {
+#            "diLeptons"          : NTupleCollection("dilepton",     dileptonH, 200, help="system of decay products of the two tau leptons"),
+#}
+
 higgsCore_collections = {
 #            "genleps"         : NTupleCollection("genLep",     genParticleWithLinksType, 10, help="Generated leptons (e/mu) from W/Z decays"),                                                                                                
 #            "gentauleps"      : NTupleCollection("genLepFromTau", genParticleWithLinksType, 10, help="Generated leptons (e/mu) from decays of taus from W/Z/h decays"),                                                                       
 #            "gentaus"         : NTupleCollection("genTau",     genTauWithLinksExtrasType, 10, help="Generated leptons (tau) from W/Z decays"),                            
-            "generatorSummary" : NTupleCollection("genHS", genParticleWithLinksType, 100 , help="Hard scattering particles, with ancestry and links"),
+            "generatorSummary" : NTupleCollection("genHS", genParticleWithLinksType, 200 , help="Hard scattering particles, with ancestry and links"),
 }

@@ -174,18 +174,18 @@ class ttHCoreEventAnalyzer( Analyzer ):
             objects40j10l5t = [ j for j in event.cleanJets if j.pt() > 40 ] + [ l for l in event.selectedLeptons if l.pt() > 10 ] + [ t for t in event.selectedIsoCleanTrack ]
             objects40j10l5t.sort(key = lambda obj : obj.pt(), reverse = True)
 
-        
+    
 
-        event.v_mvaMetSig00 = [ m.met().getSignificanceMatrix()(0,0) for m in event.diLeptons ]
+        if self.cfg_ana.isDilepton:
+            event.v_mvaMetSig00 = [ m.met().getSignificanceMatrix()(0,0) for m in event.diLeptons ]
+            event.mvaMetSig00 = event.diLepton.met().getSignificanceMatrix()(0,0)
+            event.mvaMetSig01 = event.diLepton.met().getSignificanceMatrix()(0,1)
+            event.mvaMetSig10 = event.diLepton.met().getSignificanceMatrix()(1,0)
+            event.mvaMetSig11 = event.diLepton.met().getSignificanceMatrix()(1,1)
 
-        event.mvaMetSig00 = event.diLepton.met().getSignificanceMatrix()(0,0)
-        event.mvaMetSig01 = event.diLepton.met().getSignificanceMatrix()(0,1)
-        event.mvaMetSig10 = event.diLepton.met().getSignificanceMatrix()(1,0)
-        event.mvaMetSig11 = event.diLepton.met().getSignificanceMatrix()(1,1)
-
-        event.svfitMass = event.diLepton.svfitMass()
-        event.svfitMassError = event.diLepton.svfitMassError()
-        event.svfitPt = event.diLepton.svfitPt()
+            event.svfitMass = event.diLepton.svfitMass()
+            event.svfitMassError = event.diLepton.svfitMassError()
+            event.svfitPt = event.diLepton.svfitPt()
 
         
         objectsXj10l5t = []
