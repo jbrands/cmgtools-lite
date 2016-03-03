@@ -11,7 +11,7 @@ dataDir = "$CMSSW_BASE/src/CMGTools/RootTools/data"
 
 #####################################################################################################
 
-#SUSYGluGlu_mt_160203 = kreator.makeComponentHEPHY("SUSYGluGlu_mt_160203","/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/jbrandst-SUSYGluGlu_Fall2015_mt_newGT-f501ce246bdf6b2bc4e4d7be0312f2fa/USER","PRIVATE","*.root","phys03",1.0)
+SUSYGluGlu_mva_160303 = kreator.makeComponentHEPHY("SUSYGluGlu_mva_160303","/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/jbrandst-SUSYGluGlu_Fall2015_newMVAMET_160302_3-87fe5eef8f7ead801c3114e6f087cc50/USER","PRIVATE","*.root","phys03",1.0)
 
 #SUSYGluGlu_mt_160210 = kreator.makeComponentHEPHY("SUSYGluGlu_mt_160210","/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/jbrandst-SUSYGluGlu_Fall2015_mt_newGT_160210-1960a87552f63b63e646807fa2728c2b/USER","PRIVATE","*.root","phys03",1.0)
 
@@ -21,7 +21,7 @@ dataDir = "$CMSSW_BASE/src/CMGTools/RootTools/data"
 #####################################################################################################
 #SingleMuon_16Dec_160219 = kreator.makeDataComponentHEPHY("SingleMuon_16Dec_160219","/SingleMuon/jbrandst-Data2015_16Dec_mt_160210-4850eb715c4e66bb333b420567db4539/USER", "PRIVATE", "*.root","phys03","$CMSSW_BASE/src/CMGTools/RootTools/data/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_v2.txt")
 
-SingleElectron_16Dec_160226 = kreator.makeDataComponentHEPHY("SingleElectron_16Dec_160226","/SingleElectron/jbrandst-Data2015_16Dec_et_160224-2d90d1cf4fc758c480cd278a993cb33c/USER", "PRIVATE", "*.root","phys03","$CMSSW_BASE/src/CMGTools/RootTools/data/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_v2.txt")
+#SingleElectron_16Dec_160226 = kreator.makeDataComponentHEPHY("SingleElectron_16Dec_160226","/SingleElectron/jbrandst-Data2015_16Dec_et_160224-2d90d1cf4fc758c480cd278a993cb33c/USER", "PRIVATE", "*.root","phys03","$CMSSW_BASE/src/CMGTools/RootTools/data/Cert_246908-260627_13TeV_PromptReco_Collisions15_25ns_JSON_v2.txt")
 
 
 #####################################################################################################

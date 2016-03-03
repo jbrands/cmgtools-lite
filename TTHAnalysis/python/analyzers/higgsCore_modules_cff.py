@@ -367,7 +367,7 @@ higgsCoreSequence = [
     triggerObjsAna,
     skimAnalyzer,
 #    mcWeighter,
-#    lheWeightAna,
+    lheWeightAna,
     #eventSelector,
     jsonAna,
     triggerAna,

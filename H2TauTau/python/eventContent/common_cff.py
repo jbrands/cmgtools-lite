@@ -30,7 +30,9 @@ common = [
     'keep *_generator_*_*',
     'keep *_genEvtWeightsCounter_*_*',
     'keep *_offlineBeamSpot_*_*',
-    'keep *_reducedEgamma_reducedConversions_*'
+    'keep *_reducedEgamma_reducedConversions_*',
+    'keep *_patJetsReapplyJEC_*_MVAMET',
+    'keep patMETs_MVAMET_MVAMET_MVAMET'
     ]
 
 commonDebug = copy.deepcopy(common) 

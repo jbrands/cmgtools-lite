@@ -66,7 +66,7 @@ higgsToTauTau_collections.update({
 #mf            "ivf"       : NTupleCollection("SV",     svType, 20, help="SVs from IVF"),
 #mf            "genBHadrons"  : NTupleCollection("GenBHad", heavyFlavourHadronType, 20, mcOnly=True, help="Gen-level B hadrons"),
 #mf            "genDHadrons"  : NTupleCollection("GenDHad", heavyFlavourHadronType, 20, mcOnly=True, help="Gen-level D hadrons"),
-            "diLeptons"          : NTupleCollection("dilepton",     dileptonH, 200, help="system of decay products of the two tau leptons"),
+            "dilepton"          : NTupleCollection("dilepton",     dileptonH, 200, help="system of decay products of the two tau leptons"),
             "LHE_weights"    : NTupleCollection("LHEweight",  weightsInfoType, 1000, mcOnly=True, help="LHE weight info"),
 
             #"met" : NTupleCollection("met", metTypeH, help="PF E_{T}^{miss}, after type 1 corrections"),                             
