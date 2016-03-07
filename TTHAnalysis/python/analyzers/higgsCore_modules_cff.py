@@ -7,6 +7,7 @@ from PhysicsTools.Heppy.analyzers.core.all import *
 from PhysicsTools.Heppy.analyzers.objects.all import *
 from PhysicsTools.Heppy.analyzers.gen.all import *
 from CMGTools.H2TauTau.proto.analyzers.TriggerAnalyzer import TriggerAnalyzer
+from CMGTools.H2TauTau.proto.analyzers.L1TriggerAnalyzer import L1TriggerAnalyzer
 from CMGTools.H2TauTau.proto.analyzers.MCWeighter import MCWeighter
 import os
 
@@ -62,6 +63,12 @@ triggerObjsAna = cfg.Analyzer(
     triggers = {
 
         },
+)
+L1triggerObjsAna = cfg.Analyzer(
+    L1TriggerAnalyzer,
+    name='L1TriggerAnalyzer',
+    label = 'l1extraParticles',
+    collections = 'IsoTau',
 )
 
 # Create flags for MET filter bits
@@ -364,7 +371,6 @@ ttHCoreEventAna = cfg.Analyzer(
 
 # Core sequence of all common modules
 higgsCoreSequence = [
-    triggerObjsAna,
     skimAnalyzer,
 #    mcWeighter,
     lheWeightAna,
@@ -389,5 +395,7 @@ higgsCoreSequence = [
     #ttHCoreEventAna,
     #ttHJetMETSkim
     triggerFlagsAna,
+    triggerObjsAna,
+    L1triggerObjsAna,
 #    eventFlagsAna,
 ]

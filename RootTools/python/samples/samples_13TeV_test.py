@@ -13,7 +13,7 @@ dataDir = "$CMSSW_BASE/src/CMGTools/RootTools/data"
 
 SUSYGluGlu_mva_160303 = kreator.makeComponentHEPHY("SUSYGluGlu_mva_160303","/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/jbrandst-SUSYGluGlu_Fall2015_newMVAMET_160302_3-87fe5eef8f7ead801c3114e6f087cc50/USER","PRIVATE","*.root","phys03",1.0)
 
-#SUSYGluGlu_mt_160210 = kreator.makeComponentHEPHY("SUSYGluGlu_mt_160210","/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/jbrandst-SUSYGluGlu_Fall2015_mt_newGT_160210-1960a87552f63b63e646807fa2728c2b/USER","PRIVATE","*.root","phys03",1.0)
+SUSYGluGlu_mt_160210 = kreator.makeComponentHEPHY("SUSYGluGlu_mt_160210","/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/jbrandst-SUSYGluGlu_Fall2015_mt_newGT_160210-1960a87552f63b63e646807fa2728c2b/USER","PRIVATE","*.root","phys03",1.0)
 
 #SUSYGluGlu_et_160203 = kreator.makeComponentHEPHY("SUSYGluGlu_et_160203","/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/jbrandst-SUSYGluGlu_Fall2015_et_newGT_160203-fcd7358c8ac03d2391eda9f4e6bf6bf2/USER","PRIVATE","*.root","phys03",1.0)
 

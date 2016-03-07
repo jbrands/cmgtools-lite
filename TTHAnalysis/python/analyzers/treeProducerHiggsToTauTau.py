@@ -58,7 +58,7 @@ higgsToTauTau_collections.update({
             "selectedTaus"    : NTupleCollection("tau", tauTypeH, 20, help="Taus after the preselection"),
 #            "selectedIsoTrack"    : NTupleCollection("track", isoTrackType, 50, help="isoTrack, sorted by pt"),
             ##------------------------------------------------
-            "cleanJetsAll"       : NTupleCollection("jet",     jetTypeH, 50, help="Jets after full selection and cleaning, sorted by pt"),
+            "cleanJetsAll"       : NTupleCollection("jet",     jetTypeH, 100, help="Jets after full selection and cleaning, sorted by pt"),
 #            "cleanJetsFwd"    : NTupleCollection("JetFwd",  jetTypeSusy, 25, help="Forward jets after full selection and cleaning, sorted by pt"),            
 #mf            "fatJets"         : NTupleCollection("FatJet",  fatJetType,  15, help="AK8 jets, sorted by pt"),
             #"reclusteredFatJets" : NTupleCollection("RCFatJet",     fourVectorType,20, help="FatJets reclusterd from ak4 cleanJetsAll"),
@@ -66,7 +66,7 @@ higgsToTauTau_collections.update({
 #mf            "ivf"       : NTupleCollection("SV",     svType, 20, help="SVs from IVF"),
 #mf            "genBHadrons"  : NTupleCollection("GenBHad", heavyFlavourHadronType, 20, mcOnly=True, help="Gen-level B hadrons"),
 #mf            "genDHadrons"  : NTupleCollection("GenDHad", heavyFlavourHadronType, 20, mcOnly=True, help="Gen-level D hadrons"),
-            "dilepton"          : NTupleCollection("dilepton",     dileptonH, 200, help="system of decay products of the two tau leptons"),
+            "dilepton"          : NTupleCollection("dilepton",     dileptonH, 1000, help="system of decay products of the two tau leptons"),
             "LHE_weights"    : NTupleCollection("LHEweight",  weightsInfoType, 1000, mcOnly=True, help="LHE weight info"),
 
             #"met" : NTupleCollection("met", metTypeH, help="PF E_{T}^{miss}, after type 1 corrections"),                             
@@ -85,6 +85,10 @@ higgsToTauTau_collections.update({
             "triggerObjectEvents_Ele23"            : NTupleCollection("triggerObject_Ele23",     triggerObjectEle23, 20, help="trigger objects HLT_Ele23_WPLoose_Gsf_v*"),
 
             "triggerObjectEvents_Ele32"            : NTupleCollection("triggerObject_Ele32",     triggerObjectEle32, 20, help="trigger objects HLT_Ele32_eta2p1_WP75_Gsf_v1"),
+            
+            "triggerObjectEvents_IsoPFTau35"            : NTupleCollection("triggerObject_IsoPFTau35",     triggerObjectIsoPFTau35, 20, help="trigger objects HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v2"),
+
+            "L1_DoubleIsoTau"            : NTupleCollection("L1_DoubleIsoTau",     L1_DoubleIsoTau, 20, help="L1 trigger objects"),
 
 })
 

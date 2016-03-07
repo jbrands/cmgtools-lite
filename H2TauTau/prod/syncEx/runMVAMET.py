@@ -7,7 +7,7 @@ from RecoMET.METPUSubtraction.MVAMETConfiguration_cff import runMVAMET
 
 process = cms.Process("MVAMET")
 process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(-1))
-#process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(100))
+#process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(200))
 numberOfFilesToProcess = -1
 
 #process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
@@ -26,10 +26,10 @@ dataset_user = 'CMS'
 dataset_name = ' /SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM'
 dataset_files = '.*root'
 
-process.source = datasetToSource(                                                                    
-    dataset_user,                                                                                    
-    dataset_name,                                                                                    
-    dataset_files,                                                                                   
+process.source = datasetToSource(                                                                   
+    dataset_user,
+    dataset_name,
+    dataset_files,
     )                                                                                                
 
 #process.source = cms.Source("PoolSource",
@@ -46,7 +46,7 @@ loadLocalSqlite(process, "Fall15_25nsV2_MC.db")
 jetCollection = "patJetsReapplyJEC"
 
 # configure MVA MET
-runMVAMET( process, jetCollectionPF = "patJetsReapplyJEC")
+runMVAMET( process, jetCollectionPF = jetCollection)
 process.MVAMET.srcLeptons  = cms.VInputTag("slimmedMuons", "slimmedElectrons", "slimmedTaus")
 process.MVAMET.requireOS = cms.bool(False)
 

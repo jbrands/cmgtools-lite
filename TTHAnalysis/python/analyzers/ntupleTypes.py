@@ -219,20 +219,20 @@ dileptonH = NTupleObjectType("dileptonH",  baseObjectTypes = [ fourVectorType ],
     NTupleVariable("metsig01", lambda x : x.getSignificanceMatrix()(0,1), float, help="MET significance matrix(0,1)"),
     NTupleVariable("metsig10", lambda x : x.getSignificanceMatrix()(1,0), float, help="MET significance matrix(1,0)"),
     NTupleVariable("metsig11", lambda x : x.getSignificanceMatrix()(1,1), float, help="MET significance matrix(1,1)"),
-    NTupleVariable("l1_pt", lambda x : x.userCand("lepton1").pt(), float, help="pt of first lepton"),
-    NTupleVariable("l1_eta", lambda x : x.userCand("lepton1").eta(), float, help="eta of first lepton"),
-    NTupleVariable("l1_phi", lambda x : x.userCand("lepton1").phi(), float, help="phi of first lepton"),
-    NTupleVariable("l1_mass", lambda x : x.userCand("lepton1").mass(), float, help="mass of first lepton"),
-    NTupleVariable("l1_pdgId", lambda x : x.userCand("lepton1").pdgId(), int, help="pdgId of first lepton"),
+    NTupleVariable("l2_pt", lambda x : x.userCand("lepton1").pt(), float, help="pt of first lepton"),
+    NTupleVariable("l2_eta", lambda x : x.userCand("lepton1").eta(), float, help="eta of first lepton"),
+    NTupleVariable("l2_phi", lambda x : x.userCand("lepton1").phi(), float, help="phi of first lepton"),
+    NTupleVariable("l2_mass", lambda x : x.userCand("lepton1").mass(), float, help="mass of first lepton"),
+    NTupleVariable("l2_pdgId", lambda x : x.userCand("lepton1").pdgId(), int, help="pdgId of first lepton"),
     #NTupleVariable("l1_key", lambda x : x.userCand("lepton1").key(), int, help="key of first lepton"),
     #NTupleVariable("l1_processIndex", lambda x : x.userCand("lepton1").id().processIndex(), int, help="processIndex of first lepton"),
     #NTupleVariable("l1_productIndex", lambda x : x.userCand("lepton1").id().productIndex(), int, help="productIndex of first lepton"),
-    NTupleVariable("l2_pt", lambda x : x.userCand("lepton0").pt(), float, help="pt of second lepton"),
-    NTupleVariable("l2_eta", lambda x : x.userCand("lepton0").eta(), float, help="eta of second lepton"),
-    NTupleVariable("l2_phi", lambda x : x.userCand("lepton0").phi(), float, help="phi of second lepton"),
-    NTupleVariable("l2_mass", lambda x : x.userCand("lepton0").mass(), float, help="mass of second lepton"),
+    NTupleVariable("l1_pt", lambda x : x.userCand("lepton0").pt(), float, help="pt of second lepton"),
+    NTupleVariable("l1_eta", lambda x : x.userCand("lepton0").eta(), float, help="eta of second lepton"),
+    NTupleVariable("l1_phi", lambda x : x.userCand("lepton0").phi(), float, help="phi of second lepton"),
+    NTupleVariable("l1_mass", lambda x : x.userCand("lepton0").mass(), float, help="mass of second lepton"),
     #NTupleVariable("l2_index", lambda x : x.userCand("lepton0").key(), int, help="index of second lepton"),
-    NTupleVariable("l2_pdgId", lambda x : x.userCand("lepton0").pdgId(), int, help="pdg of second lepton"),
+    NTupleVariable("l1_pdgId", lambda x : x.userCand("lepton0").pdgId(), int, help="pdg of second lepton"),
 
 ])
 ##------------------------------------------  
@@ -420,6 +420,20 @@ triggerObjectEle23 = NTupleObjectType("triggerTypeEle23",   baseObjectTypes = [ 
 ])
 
 triggerObjectEle32 = NTupleObjectType("triggerTypeEle32",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
+triggerObjectIsoPFTau35 = NTupleObjectType("triggerTypeIsoPFTau35",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
+L1_DoubleIsoTau = NTupleObjectType("L1_DoubleIsoTau",   baseObjectTypes = [  ], variables = [
         NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
         NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
         NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),

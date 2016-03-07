@@ -11,7 +11,7 @@ sep_line = '-'*70
 
 process = cms.Process("H2TAUTAU")
 
-process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(1000))
+process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(200))
 
 numberOfFilesToProcess = -1
 debugEventContent = False
@@ -48,7 +48,7 @@ dataset_files = '.*root'
 #    )
 
 process.source = cms.Source("PoolSource",
-                            fileNames = cms.untracked.vstring("file:localTestFile_nlo.root")
+                            fileNames = cms.untracked.vstring("file:localTestFile.root")
 #                            fileNames = cms.untracked.vstring("file:/data/jbrandstetter/CMGTools/tesFiles/WJets_miniAODv2.root") 
 )                                                                                                                                                                                                           
 

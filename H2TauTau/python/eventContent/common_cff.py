@@ -32,7 +32,8 @@ common = [
     'keep *_offlineBeamSpot_*_*',
     'keep *_reducedEgamma_reducedConversions_*',
     'keep *_patJetsReapplyJEC_*_MVAMET',
-    'keep patMETs_MVAMET_MVAMET_MVAMET'
+    'keep patMETs_MVAMET_MVAMET_MVAMET',
+    'keep *_l1extraParticles_IsoTau_*',
     ]
 
 commonDebug = copy.deepcopy(common) 

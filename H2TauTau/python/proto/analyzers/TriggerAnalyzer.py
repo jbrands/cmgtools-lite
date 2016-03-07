@@ -138,6 +138,7 @@ class TriggerAnalyzer(Analyzer):
         event.triggerObjectEvents_Ele22 = []
         event.triggerObjectEvents_Ele23 = []
         event.triggerObjectEvents_Ele32 = []
+        event.triggerObjectEvents_IsoPFTau35 = []
 
 
         if self.cfg_ana.addTriggerObjects:
@@ -166,6 +167,8 @@ class TriggerAnalyzer(Analyzer):
                             event.triggerObjectEvents_Ele23.append(to)
                         if(info.name == 'HLT_Ele32_eta2p1_WP75_Gsf_v1'):
                             event.triggerObjectEvents_Ele32.append(to)
+                        if(info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v2'):
+                            event.triggerObjectEvents_IsoPFTau35.append(to)
                         
                         info.objects.append(to)
                         info.objIds.add(abs(to.pdgId()))

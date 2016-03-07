@@ -61,25 +61,26 @@ class L1TriggerAnalyzer(Analyzer):
         #   9  Muon         
 
         collections = self.cfg_ana.collections
+        event.L1_DoubleIsoTau = self.handles[collections].product()
         
-        dRmax = 0.5
-        if hasattr(self.cfg_ana, 'dR'):
-            dRmax = self.cfg_ana.dR
+        #dRmax = 0.5
+        #if hasattr(self.cfg_ana, 'dR'):
+        #    dRmax = self.cfg_ana.dR
             
-        legs = {event.diLepton.leg1():dRmax,
-                event.diLepton.leg2():dRmax}    
+        #legs = {event.diLepton.leg1():dRmax,
+        #        event.diLepton.leg2():dRmax}    
                     
-        for coll in collections:
-     
-            mycoll = self.handles[coll].product()
-            for leg, l1 in product(legs.keys(), mycoll):
-                dR = deltaR(l1.eta(), l1.phi(), leg.eta(), leg.phi())
-                if dR < legs[leg]:
-                    leg.L1 = l1
-                    leg.L1flavour = self.l1objDict[coll]
-                    legs[leg] = dR  
+        #for coll in collections:
+        
+        #    mycoll = self.handles[coll].product()
+        #    for leg, l1 in product(legs.keys(), mycoll):
+        #        dR = deltaR(l1.eta(), l1.phi(), leg.eta(), leg.phi())
+        #        if dR < legs[leg]:
+        #            leg.L1 = l1
+        #            leg.L1flavour = self.l1objDict[coll]
+        #            legs[leg] = dR  
 
-        return True
+        #return True
 
 setattr(L1TriggerAnalyzer, 'defaultConfig', 
     cfg.Analyzer(
