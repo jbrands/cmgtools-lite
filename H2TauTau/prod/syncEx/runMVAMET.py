@@ -6,8 +6,8 @@ from RecoMET.METPUSubtraction.MVAMETConfiguration_cff import runMVAMET
 
 
 process = cms.Process("MVAMET")
+#process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(100))
 process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(-1))
-#process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(200))
 numberOfFilesToProcess = -1
 
 #process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
@@ -30,19 +30,23 @@ process.source = datasetToSource(
     dataset_user,
     dataset_name,
     dataset_files,
-    )                                                                                                
+    )
 
 #process.source = cms.Source("PoolSource",
 #                            fileNames = cms.untracked.vstring("file:localTestFile.root")
-#                            fileNames = cms.untracked.vstring("file:/data/jbrandstetter/CMGTools/tesFiles/WJets_miniAODv2.root")
+#                            fileNames = cms.untracked.vstring("file:localTestFile_DY.root")
 #                            )
 
 
- 
+isData=False 
+
 
 from RecoMET.METPUSubtraction.localSqlite import loadLocalSqlite
-#loadLocalSqlite(process, "CMGTools.RootTools.data.jec.Fall15_25nsV2_MC.db") 
 loadLocalSqlite(process, "Fall15_25nsV2_MC.db") 
+
+#if options.reapplyJEC:
+from RecoMET.METPUSubtraction.localSqlite import recorrectJets
+recorrectJets(process, isData)
 jetCollection = "patJetsReapplyJEC"
 
 # configure MVA MET

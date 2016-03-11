@@ -372,7 +372,7 @@ ttHCoreEventAna = cfg.Analyzer(
 # Core sequence of all common modules
 higgsCoreSequence = [
     skimAnalyzer,
-#    mcWeighter,
+    mcWeighter,
     lheWeightAna,
     #eventSelector,
     jsonAna,

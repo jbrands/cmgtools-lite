@@ -167,7 +167,7 @@ class TriggerAnalyzer(Analyzer):
                             event.triggerObjectEvents_Ele23.append(to)
                         if(info.name == 'HLT_Ele32_eta2p1_WP75_Gsf_v1'):
                             event.triggerObjectEvents_Ele32.append(to)
-                        if(info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v2'):
+                        if(info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v1' or info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v2' or info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v3' or info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v4'):
                             event.triggerObjectEvents_IsoPFTau35.append(to)
                         
                         info.objects.append(to)

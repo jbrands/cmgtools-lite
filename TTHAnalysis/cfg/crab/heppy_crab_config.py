@@ -15,7 +15,7 @@ os.system("tar czf cmgdataset.tar.gz --directory $HOME .cmgdataset")
 os.system("tar czf cafpython.tar.gz --directory /afs/cern.ch/cms/caf/ python")
 config.JobType.inputFiles = ['FrameworkJobReport.xml','heppy_crab_script.py','cmgdataset.tar.gz', 'python.tar.gz', 'cafpython.tar.gz']
 #config.JobType.outputFiles = ['RLTInfo.root','SkimReport.txt']
-#config.JobType.outputFiles = ['SkimReport.txt']
+config.JobType.outputFiles = ['SkimReport.txt']
 config.JobType.outputFiles = []
 
 config.section_("Data")
