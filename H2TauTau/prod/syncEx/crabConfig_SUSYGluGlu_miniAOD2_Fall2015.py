@@ -3,7 +3,7 @@ from WMCore.Configuration import Configuration
 config = Configuration()
 
 config.section_("General")
-config.General.requestName   = 'SUSYGluGlu_Fall2015_newMVAMET_160310'
+config.General.requestName   = 'SUSYGluGlu_Fall2015_newMVAMET_160312'
 config.General.transferLogs = True
 
 config.section_("JobType")
@@ -20,7 +20,7 @@ config.Data.totalUnits = -1
 config.Data.publication = True
 #config.Data.publication = False
 # This string is used to construct the output dataset name
-config.Data.outputDatasetTag = 'SUSYGluGlu_Fall2015_newMVAMET_160310'
+config.Data.outputDatasetTag = 'SUSYGluGlu_Fall2015_newMVAMET_160312'
 #!!!
 config.Data.ignoreLocality = True
 

@@ -40,10 +40,10 @@ class MCWeighter(Analyzer):
         print 'Files', self.cfg_comp.files
 
         runsHandle = Handle('double')
-        runsLabel = ('genEvtWeightsCounter', '', 'H2TAUTAU')
+        runsLabel = ('genEvtWeightsCounter', '', 'MVAMET') #JB
 
         runsHandleU = Handle('double')
-        runsLabelU = ('genEvtWeightsCounter', 'sumUnityGenWeights', 'H2TAUTAU')
+        runsLabelU = ('genEvtWeightsCounter', 'sumUnityGenWeights', 'MVAMET') #JB
 
         mcw = []
         mcuw = []

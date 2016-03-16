@@ -11,7 +11,7 @@ dataDir = "$CMSSW_BASE/src/CMGTools/RootTools/data"
 
 #####################################################################################################
 
-#SUSYGluGlu_mva_160310 = kreator.makeComponentHEPHY("SUSYGluGlu_mva_160309","/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/jbrandst-SUSYGluGlu_Fall2015_newMVAMET_160310-87fe5eef8f7ead801c3114e6f087cc50/USER","PRIVATE","*.root","phys03",1.0)
+SUSYGluGlu_mva_160312 = kreator.makeComponentHEPHY("SUSYGluGlu_mva_160312","/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/jbrandst-SUSYGluGlu_Fall2015_newMVAMET_160312-3ccb95530371a15c5bba8644a60df209/USER","PRIVATE","*.root","phys03",1.0)
 
 #SUSYGluGlu_mt_160210 = kreator.makeComponentHEPHY("SUSYGluGlu_mt_160210","/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/jbrandst-SUSYGluGlu_Fall2015_newMVAMET_160310-87fe5eef8f7ead801c3114e6f087cc50/USER","PRIVATE","*.root","phys03",1.0)
 
@@ -28,7 +28,7 @@ dataDir = "$CMSSW_BASE/src/CMGTools/RootTools/data"
 
 #TT_Fall2015_mt_160208 = kreator.makeComponentHEPHY("TT_Fall2015_mt_160208","/TT_TuneCUETP8M1_13TeV-powheg-pythia8/jbrandst-TT_TuneCUETP8M1_Fall2015_mt_160208-f501ce246bdf6b2bc4e4d7be0312f2fa/USER","PRIVATE","*.root","phys03",1.0)
 
-DYJets_Fall2015_newMVAMet_160311 = kreator.makeComponentHEPHY("DYJets_Fall15_newMVAMet_160311","/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/jbrandst-DYJetsToLL_MCFall15_160310-87fe5eef8f7ead801c3114e6f087cc50/USER","PRIVATE","*.root","phys03",1.0) 
+#DYJets_Fall2015_newMVAMet_160311 = kreator.makeComponentHEPHY("DYJets_Fall15_newMVAMet_160311","/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/jbrandst-DYJetsToLL_MCFall15_160310-87fe5eef8f7ead801c3114e6f087cc50/USER","PRIVATE","*.root","phys03",1.0) 
 
 #DYJets_Fall2015_mt_160220_wo1step = kreator.makeMCComponent("DYJets_Fall2015_mt_160220_wo1step","/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/RunIIFall15MiniAODv2-PU25nsData2015v1_76X_mcRun2_asymptotic_v12-v1/MINIAODSIM","CMS",".*root",1.0)
 

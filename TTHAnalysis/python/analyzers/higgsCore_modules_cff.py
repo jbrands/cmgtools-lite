@@ -11,6 +11,9 @@ from CMGTools.H2TauTau.proto.analyzers.L1TriggerAnalyzer import L1TriggerAnalyze
 from CMGTools.H2TauTau.proto.analyzers.MCWeighter import MCWeighter
 import os
 
+PDFGen = "MG" #MF LHE
+#PDFGen = "aMC" #MF LHE
+
 PDFWeights = [ ("NNPDF30_lo_as_0130",101) ]
 #PDFWeights = [ ("CT10",53), ("MSTW2008lo68cl",41), ("MMHT2014lo68cl",51), ("NNPDF21_100",101) ]
 #PDFWeights = [ ("NNPDF30_lo_as_0130",101) ] #("NNPDF30_lo_as_0130_nf_4",101)] 
@@ -145,7 +148,8 @@ genAna = cfg.Analyzer(
 
 pdfwAna = cfg.Analyzer(
     PDFWeightsAnalyzer, name="PDFWeightsAnalyzer",
-    PDFWeights = [ pdf for pdf,num in PDFWeights ]
+    PDFWeights = [ pdf for pdf,num in PDFWeights ],
+    PDFGen = PDFGen #MF LHE
     )
 
 # Lepton Analyzer (generic)
@@ -381,7 +385,7 @@ higgsCoreSequence = [
     genAna,
     #genHiggsAna,
     #genHFAna,
-#    pdfwAna,
+    pdfwAna,
     #susyScanAna,
     vertexAna,
     lepAna,

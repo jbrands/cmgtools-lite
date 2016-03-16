@@ -34,6 +34,7 @@ common = [
     'keep *_patJetsReapplyJEC_*_MVAMET',
     'keep patMETs_MVAMET_MVAMET_MVAMET',
     'keep *_l1extraParticles_IsoTau_*',
+    'keep LHEEventProduct_*_*_*',
     ]
 
 commonDebug = copy.deepcopy(common) 
