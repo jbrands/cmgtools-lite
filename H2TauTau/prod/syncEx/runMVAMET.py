@@ -7,7 +7,7 @@ from RecoMET.METPUSubtraction.MVAMETConfiguration_cff import runMVAMET
 #from CMGTools.diLeptonSelector.diLeptonFilter_cfi.py import
 
 process = cms.Process("MVAMET")
-process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(100))
+process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(200))
 #process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(-1))
 numberOfFilesToProcess = -1
 
@@ -34,8 +34,9 @@ dataset_files = '.*root'
 #    )
 
 process.source = cms.Source("PoolSource",
+                            fileNames = cms.untracked.vstring("file:localTestFile_WJets.root")
 #                            fileNames = cms.untracked.vstring("file:localTestFile.root")
-                            fileNames = cms.untracked.vstring("file:localTestFile_DY.root")
+#                            fileNames = cms.untracked.vstring("file:localTestFile_DY.root")
                             )
 
 

@@ -18,8 +18,8 @@ void PdfWeightProducerTool::addPdfSet(const std::string &name) {
     weights_[name] = std::vector<double>();
 }
 
-void PdfWeightProducerTool::beginJob(const LHERunInfoProduct & run) { //MF LHE
-  //void PdfWeightProducerTool::beginJob() { //MF LHE
+//void PdfWeightProducerTool::beginJob(const LHERunInfoProduct & run) { //MF LHE
+void PdfWeightProducerTool::beginJob() { //MF LHE
     for (unsigned int i = 0, n = pdfs_.size(); i < n; ++i) {
         LHAPDF::initPDFSet(i+1, pdfs_[i]);
     }
@@ -27,8 +27,8 @@ void PdfWeightProducerTool::beginJob(const LHERunInfoProduct & run) { //MF LHE
     exWeights_ = std::vector<double>();
 
     //MF LHE FROM HERE
+    /*    
     int print_header = 0;
-
     if (print_header){
 
       typedef std::vector<LHERunInfoProduct::Header>::const_iterator headers_const_iterator;
@@ -44,7 +44,7 @@ void PdfWeightProducerTool::beginJob(const LHERunInfoProduct & run) { //MF LHE
       }
       printf("LHE HEADER END\n");
     }
-
+    */
     //MF LHE TILL HERE
 }
 

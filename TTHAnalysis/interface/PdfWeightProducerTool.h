@@ -14,8 +14,8 @@ class PdfWeightProducerTool {
     public:
         PdfWeightProducerTool() {}
         void addPdfSet(const std::string &name) ;
-        void beginJob(const LHERunInfoProduct & run) ; //MF LHE
-	//        void beginJob() ; //MF LHE
+	//        void beginJob(const LHERunInfoProduct & run) ; //MF LHE
+	void beginJob() ; //MF LHE
 	void extractWeight( const GenEventInfoProduct & pdfstuff , const LHEEventProduct & EvtHandle ) ; //MF LHE
 	const std::vector<double> getExWeights(const std::string &name, const std::string &utype) const ;
         void processEvent(const GenEventInfoProduct & pdfstuff ) ;

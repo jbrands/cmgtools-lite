@@ -4,7 +4,8 @@ import imp, os
 # number of jobs to run per dataset decided based on splitFactor and fineSplitFactor from cfg file
 # in principle one only needs to modify the following two lines:
 #production_label = 'DATA_76X_16Dec_newTauIso'
-production_label = 'MC_76X_fall2015_newMVAMet'
+#production_label = 'MC_76X_fall2015_newMVAMet'
+production_label = 'DATA_76X_fall2015_newMVAMet'
 cmg_version = 'CMSSW_7_6_3'
 storageSite = "T2_AT_Vienna"
 
