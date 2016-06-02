@@ -53,7 +53,8 @@ class JetAnalyzer(Analyzer):
         self.btagSF = BTagSF(0, wp='medium')
         self.recalibrateJets = self.cfg_ana.recalibrateJets if hasattr(cfg_ana, 'recalibrateJets') else False
 
-        mcGT = cfg_ana.mcGT if hasattr(cfg_ana, 'mcGT') else "76X_mcRun2_asymptotic_RunIIFall15DR76_v1"
+        #mcGT = cfg_ana.mcGT if hasattr(cfg_ana, 'mcGT') else "76X_mcRun2_asymptotic_RunIIFall15DR76_v1"
+        mcGT = cfg_ana.mcGT if hasattr(cfg_ana, 'mcGT') else "80X_mcRun2_asymptotic_2016_miniAODv2"
         dataGT = cfg_ana.dataGT if hasattr(cfg_ana, 'dataGT') else "76X_dataRun2_16Dec2015_v0"
 
         if self.recalibrateJets:

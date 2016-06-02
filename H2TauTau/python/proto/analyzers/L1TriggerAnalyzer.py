@@ -71,40 +71,41 @@ class L1TriggerAnalyzer(Analyzer):
         #   9  Muon         
 
         collections = self.cfg_ana.collections
+        event.L1_DoubleIsoTau = self.handles[collections].product()
         
-        dRmax = 0.5
-        if hasattr(self.cfg_ana, 'dR'):
-            dRmax = self.cfg_ana.dR
+        #dRmax = 0.5
+        #if hasattr(self.cfg_ana, 'dR'):
+        #    dRmax = self.cfg_ana.dR
             
-        legs = {event.diLepton.leg1():dRmax,
-                event.diLepton.leg2():dRmax}    
+        #legs = {event.diLepton.leg1():dRmax,
+        #        event.diLepton.leg2():dRmax}    
                     
-        for coll in collections:
+        #for coll in collections:
      
-            mycoll = self.handles[coll].product()
-            for leg, l1 in product(legs.keys(), mycoll):
-                if l1.pt() < self.l1PtCut:
-                    continue
-                dR = deltaR(l1.eta(), l1.phi(), leg.eta(), leg.phi())
-                if dR < legs[leg]:
-                    leg.L1 = l1
-                    leg.L1flavour = self.l1objDict[coll]
-                    legs[leg] = dR  
+        #    mycoll = self.handles[coll].product()
+        #    for leg, l1 in product(legs.keys(), mycoll):
+        #        if l1.pt() < self.l1PtCut:
+        #            continue
+        #        dR = deltaR(l1.eta(), l1.phi(), leg.eta(), leg.phi())
+        #        if dR < legs[leg]:
+        #            leg.L1 = l1
+        #            leg.L1flavour = self.l1objDict[coll]
+        #            legs[leg] = dR  
 
-        if hasattr(self.cfg_ana, 'requireMatches'):
-            self.counters.counter('L1TriggerAnalyzer').inc('all events')
-            if 'leg1' in self.cfg_ana.requireMatches:
-                if not hasattr(event.diLepton.leg1(), 'L1'):
-                    return False
-                else:
-                    self.counters.counter('L1TriggerAnalyzer').inc('leg 1 match')
-            if 'leg2' in self.cfg_ana.requireMatches:
-                if not hasattr(event.diLepton.leg2(), 'L1'):
-                    return False
-                else:
-                    self.counters.counter('L1TriggerAnalyzer').inc('leg 2 match')
+        #if hasattr(self.cfg_ana, 'requireMatches'):
+        #    self.counters.counter('L1TriggerAnalyzer').inc('all events')
+        #    if 'leg1' in self.cfg_ana.requireMatches:
+        #        if not hasattr(event.diLepton.leg1(), 'L1'):
+        #            return False
+        #        else:
+        #            self.counters.counter('L1TriggerAnalyzer').inc('leg 1 match')
+        #    if 'leg2' in self.cfg_ana.requireMatches:
+        #        if not hasattr(event.diLepton.leg2(), 'L1'):
+        #            return False
+        #        else:
+        #            self.counters.counter('L1TriggerAnalyzer').inc('leg 2 match')
 
-        return True
+        #return True
 
 setattr(L1TriggerAnalyzer, 'defaultConfig', 
     cfg.Analyzer(
