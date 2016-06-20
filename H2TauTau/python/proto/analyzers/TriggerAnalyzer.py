@@ -136,6 +136,16 @@ class TriggerAnalyzer(Analyzer):
         if self.cfg_ana.requireTrigger:
             if not trigger_passed:
                 return False
+
+        event.triggerObjectEvents_IsoMu17 = []
+        event.triggerObjectEvents_IsoMu18 = []
+        event.triggerObjectEvents_IsoMu24 = []
+        event.triggerObjectEvents_IsoMu22 = []
+        event.triggerObjectEvents_Ele22 = []
+        event.triggerObjectEvents_Ele23 = []
+        event.triggerObjectEvents_Ele32 = []
+        event.triggerObjectEvents_IsoPFTau35 = []
+            
         
 #         if event.eventId == 104644585: import pdb ; pdb.set_trace()
         if self.cfg_ana.addTriggerObjects:
@@ -146,17 +156,27 @@ class TriggerAnalyzer(Analyzer):
                 for info in trigger_infos:
 #                     if event.eventId == 104644585: import pdb ; pdb.set_trace()
                     if to.hasPathName(info.name):
-                        if to in info.objects:
-                            continue
-                        # print 'TO name', [n for n in to.filterLabels()], to.hasPathName(info.name, False)
-                        if self.triggerObjects or self.extraTriggerObjects:
-                            if not any(n in to.filterLabels() for n in self.triggerObjects + self.extraTriggerObjects):
-                                continue
-                            info.object_names.append([obj_n for obj_n in self.triggerObjects if obj_n in to.filterLabels()])
-                        else:
-                            info.object_names.append('')
-                        info.objects.append(to)
-                        info.objIds.add(abs(to.pdgId()))
+                         if(info.name == 'HLT_IsoMu17_eta2p1_v1'):
+                             event.triggerObjectEvents_IsoMu17.append(to)
+                         if(info.name == 'HLT_IsoMu18_v2' or info.name == 'HLT_IsoMu18_v1' or info.name == 'HLT_IsoMu18_v3' or info.name == 'HLT_IsoMu18_v4'):
+                             event.triggerObjectEvents_IsoMu18.append(to)
+                         if(info.name == 'HLT_IsoMu24_eta2p1_v1'):
+                             event.triggerObjectEvents_IsoMu24.append(to)
+                         if(info.name == 'HLT_IsoMu24_eta2p1_v2'):
+                             event.triggerObjectEvents_IsoMu24.append(to)
+                         if(info.name == 'HLT_IsoMu22_v1'):
+                             event.triggerObjectEvents_IsoMu22.append(to)
+                         if(info.name == 'HLT_Ele22_eta2p1_WP75_Gsf_v1'):
+                             event.triggerObjectEvents_Ele22.append(to)
+                         if(info.name == 'HLT_Ele23_WPLoose_Gsf_v1' or info.name == 'HLT_Ele23_WPLoose_Gsf_v2' or info.name == 'HLT_Ele23_WPLoose_Gsf_v3' or info.name == 'HLT_Ele23_WPLoose_Gsf_v4'):
+                             event.triggerObjectEvents_Ele23.append(to)
+                         if(info.name == 'HLT_Ele32_eta2p1_WP75_Gsf_v1'):
+                             event.triggerObjectEvents_Ele32.append(to)
+                         if(info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v1' or info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v2' or info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v3' or info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v4'):
+                             event.triggerObjectEvents_IsoPFTau35.append(to)
+                             
+                         info.objects.append(to)
+                         info.objIds.add(abs(to.pdgId()))
         
         
         # RIC: remove duplicated trigger objects 
