@@ -34,7 +34,8 @@ common = [
     'keep *_reducedEgamma_reducedConversions_*',
     'keep LHEEventProduct_externalLHEProducer_*_*',
     'keep *_l1extraParticles_*_*',
-    # 'keep *_mvaMETTauMu_*_H2TAUTAU'
+    'keep LHEEventProduct_*_*_*',
+    'keep patMETs_*_*_*',
     ]
 
 commonDebug = copy.deepcopy(common) 
