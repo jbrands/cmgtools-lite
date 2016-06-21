@@ -29,7 +29,7 @@ common = [
     'keep *_puppi_*_*',
     'keep *_slimmedMETsPuppi_*_*',
     'keep *_generator_*_*',
-    'keep *_genEvtWeightsCounter_*_H2TAUTAU',
+    'keep *_genEvtWeightsCounter_*_MVAMET',
     'keep *_offlineBeamSpot_*_*',
     'keep *_reducedEgamma_reducedConversions_*',
     'keep LHEEventProduct_externalLHEProducer_*_*',

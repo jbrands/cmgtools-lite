@@ -27,17 +27,17 @@ dataset_user = 'CMS'
 dataset_name = '/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM '
 dataset_files = '.*root'
 
-# process.source = datasetToSource(                                                                   
-#    dataset_user,
-#    dataset_name,
-#    dataset_files,
-#    )
+process.source = datasetToSource(                                                                   
+   dataset_user,
+   dataset_name,
+   dataset_files,
+   )
 
-process.source = cms.Source("PoolSource",
-                            fileNames = cms.untracked.vstring("file:localTestFile2.root")
-#                            fileNames = cms.untracked.vstring("file:localTestFile.root")
-#                            fileNames = cms.untracked.vstring("file:localTestFile_DY.root")
-                            )
+# process.source = cms.Source("PoolSource",
+#                             fileNames = cms.untracked.vstring("file:localTestFile2.root")
+# #                            fileNames = cms.untracked.vstring("file:localTestFile.root")
+# #                            fileNames = cms.untracked.vstring("file:localTestFile_DY.root")
+#                             )
 
 
 isData=False 

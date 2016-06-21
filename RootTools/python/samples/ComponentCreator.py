@@ -1,4 +1,5 @@
 import PhysicsTools.HeppyCore.framework.config as cfg
+from CMGTools.Production.datasetToSource import datasetToSource, myDatasetToSource
 from CMGTools.Production import eostools
 from CMGTools.Production.dataset import createDataset, createMyDataset
 import re
@@ -17,7 +18,50 @@ class ComponentCreator(object):
          )
 
          component.dataset_entries = self.getPrimaryDatasetEntries(dataset,user,pattern,useAAA=useAAA)
+         
          return component
+
+
+    def makeComponentHEPHY(self,name,dataset,user,pattern,dbsInstance, xSec=1, readCache = False):
+
+        component = cfg.MCComponent(
+            dataset=dataset,
+            name = name,
+            files = self.getMyFilesHEPHY(dataset, user, pattern, dbsInstance, readCache),
+            xSection = xSec,
+            nGenEvents = 1,
+            triggers = [],
+            effCorrFactor = 1,
+        )
+
+        return component
+
+    def makeDataComponentHEPHY(self,name,dataset,user,pattern,dbsInstance,json=None):
+        component = cfg.DataComponent(
+            #dataset = dataset,
+            name = name,
+            files = self.getMyFilesHEPHY(dataset, user, pattern, dbsInstance),
+            intLumi=1,
+            triggers = [],
+            json = json
+            )
+        return component
+
+    def makeDataComponent(self,name,dataset,user,pattern,json=None,run_range=None,triggers=[],vetoTriggers=[],useAAA=False,jsonFilter=False):
+        component = cfg.DataComponent(
+            #dataset = dataset,
+            name = name,
+            files = self.getFiles(dataset,user,pattern,run_range=run_range,useAAA=useAAA,json=(json if jsonFilter else None)),
+            intLumi = 1,
+            triggers = triggers,
+            json = (json if jsonFilter else None)
+            )
+        component.json = json
+        component.vetoTriggers = vetoTriggers
+        component.dataset_entries = self.getPrimaryDatasetEntries(dataset,user,pattern)
+        component.dataset = dataset
+        component.run_range = run_range
+        return component
 
     def makePrivateMCComponent(self,name,dataset,files,xSec=1):
          if len(files) == 0:
@@ -154,33 +198,40 @@ class ComponentCreator(object):
         )
         return component
 
-    def makeDataComponent(self,name,dataset,user,pattern,json=None,run_range=None,triggers=[],vetoTriggers=[],useAAA=False,jsonFilter=False):
+    def makeDataComponent(self,name,dataset,user,pattern,json=None,run_range=None,triggers=[],vetoTriggers=[],useAAA=False):
         component = cfg.DataComponent(
             #dataset = dataset,
             name = name,
-            files = self.getFiles(dataset,user,pattern,run_range=run_range,useAAA=useAAA,json=(json if jsonFilter else None)),
+            files = self.getFiles(dataset,user,pattern,run_range=run_range,useAAA=useAAA),
             intLumi = 1,
             triggers = triggers,
-            json = (json if jsonFilter else None)
+            json = json
             )
-        component.json = json
         component.vetoTriggers = vetoTriggers
-        component.dataset_entries = self.getPrimaryDatasetEntries(dataset,user,pattern,run_range=run_range)
-        component.dataset = dataset
-        component.run_range = run_range
+        component.dataset_entries = self.getPrimaryDatasetEntries(dataset,user,pattern)
         return component
 
-    def getFiles(self, dataset, user, pattern, useAAA=False, run_range=None, json=None):
+    def getFiles(self, dataset, user, pattern, useAAA=False, run_range=None):
         # print 'getting files for', dataset,user,pattern
-        ds = createDataset( user, dataset, pattern, readcache=True, run_range=run_range, json=json )
+        ds = createDataset( user, dataset, pattern, readcache=True, run_range=run_range )
         files = ds.listOfGoodFiles()
         mapping = 'root://eoscms.cern.ch//eos/cms%s'
         if useAAA: mapping = 'root://cms-xrd-global.cern.ch/%s'
         return [ mapping % f for f in files]
 
-    def getPrimaryDatasetEntries(self, dataset, user, pattern, useAAA=False, run_range=None):
+    def getMyFilesHEPHY(self, dataset, user, pattern, dbsInstance, readCache = False):
         # print 'getting files for', dataset,user,pattern
-        ds = createDataset( user, dataset, pattern, True, run_range=run_range )
+        ds = myDatasetToSource( user, dataset, pattern, dbsInstance, readCache = readCache )
+        #ds = createDataset( user, dataset, pattern, readcache=True, run_range=None )
+        files = ds.fileNames
+#        mapping = 'root://xrootd-cms.infn.it/%s'
+        mapping = 'root://hephyse.oeaw.ac.at/%s'
+        return [ mapping % f for f in files]
+
+
+    def getPrimaryDatasetEntries(self, dataset, user, pattern, useAAA=False):
+        # print 'getting files for', dataset,user,pattern
+        ds = createDataset( user, dataset, pattern, True )
         return ds.primaryDatasetEntries
 
     def getMyFiles(self, dataset, user, pattern, dbsInstance, useAAA=False):
