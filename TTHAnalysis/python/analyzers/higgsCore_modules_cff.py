@@ -387,7 +387,7 @@ higgsCoreSequence = [
     genAna,
     #genHiggsAna,
     #genHFAna,
-    pdfwAna,
+#    pdfwAna,
     #susyScanAna,
     vertexAna,
     lepAna,

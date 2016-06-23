@@ -1,10 +1,13 @@
 from WMCore.Configuration import Configuration
+import os
 ################################################################################
 class DatasetChooser():
     def __init__(self, datasets_path, pref_dataset = ''):
         
-           
-        self.datasets_path = datasets_path
+        if os.path.exists(datasets_path):
+            self.datasets_path = datasets_path
+        else:
+            raise Warning('File {0} not found!!!'.format(dataset_path))
 
     def timestamp(self, tag):
         from time import localtime
@@ -19,7 +22,6 @@ class DatasetChooser():
 
     def GetOpenJob(self):
         from json import load, dump
-        from os import environ
         from sys import exit
 
         with open(self.datasets_path ,'rb') as FSO:
@@ -32,8 +34,9 @@ class DatasetChooser():
                     self.strTag = self.timestamp( '{0}_{1}'.format(el,
                                                     dsets[sets][el]['prod_label'] 
                                                                    ) 
-                                                )
-                    dsets[sets][el]['status'] = self.timestamp( environ['USER'][:-1] ) 
+                                                  )
+                    self.strProdLabel = dsets[sets][el]['prod_label']
+                    dsets[sets][el]['status'] = self.timestamp( 'done' ) 
                     with open(self.datasets_path ,'wb') as FSO:
                         dump(dsets, FSO,indent=4)
                     return
@@ -42,18 +45,22 @@ class DatasetChooser():
 
 #################################################################################
 
-#job = DatasetChooser('../steerUtils/datasets.json')
-#job.GetOpenJob()
+user = os.environ['USER']
+job = DatasetChooser('/afs/hephy.at/work/{0}/{1}/CMSSW_8_0_11/src/CMGTools/HephyTools/datasets.json'.format(user[0],user))
+job.GetOpenJob()
 
-#tag = job.strTag
-#dataset = job.strDatacard
+tag = job.strTag
+dataset = job.strDatacard
+prodLabel = job.strProdLabel
 
-tag = "SUSYGluGluToHToTauTau_MCSpring16_pythia8_160621"
-dataset = '/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM'
+# tag = "SUSYGluGluToHToTauTau_MCSpring16_pythia8_160622"
+# dataset = '/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM'
+# prodLabel = 'MCSpring16'
+
 config = Configuration()
 config.section_("General")
 config.General.requestName = tag
-
+config.General.workArea = 'crab_{0}'.format( prodLabel ) 
 config.General.transferLogs = True
 
 config.section_("JobType")

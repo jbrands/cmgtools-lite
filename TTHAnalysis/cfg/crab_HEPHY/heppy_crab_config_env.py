@@ -55,7 +55,7 @@ config.JobType.scriptArgs = ["datasetname="+datasetname]
 #config.Data.publishDataName = dataset
 ##final output: /store/user/$USER/babies/cmg_version/production_label/dataset/150313_114158/0000/foo.b
 
-config.JobType.inputFiles.append("sample_"+datasetname+".pkl")
+config.JobType.inputFiles.append("{0}/sample_{1}.pkl".format(config.General.workArea, datasetname))
 
 if "INPUT_DBS" in os.environ:
     config.Data.inputDBS = os.environ["INPUT_DBS"]

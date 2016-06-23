@@ -16,7 +16,7 @@ common = [
     'keep patTrigger*_*_*_*',
     'keep recoVertexs_*_*_*',
     'keep cmgMETSignificances_*_*_*',
-    'keep patCompositeCandidates_cmg*CorSVFitFullSel_*_H2TAUTAU',
+    'keep patCompositeCandidates_cmg*CorSVFitFullSel_*_MVAMET',
     'keep patJets_patJetsAK4PF_*_*',
     'keep PileupSummaryInfos_*_*_*',
     'keep recoGenParticles_prunedGenParticles_*_*',

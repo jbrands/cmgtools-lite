@@ -11,7 +11,7 @@ parser = OptionParser(usage="python launch.py [options] component1 [ component2 
 parser.add_option("--production_label", dest="production_label", help="production label", default="heppy")
 parser.add_option("--remoteDir", dest="remoteDir", help="remote subdirectory", default="")
 parser.add_option("--cmg_version", dest="cmg_version", help="CMG version",
-                                   default="CMGTools-from-CMSSW_8_0_5")
+                                   default="CMGTools-from-CMSSW_8_0_11")
 parser.add_option("--unitsPerJob", dest="unitsPerJob", help="Nr. of units (files) / crab job", type="int", default=1)
 parser.add_option("--totalUnits", dest="totalUnits", help="Total nr. of units (files)", type="int", default=None)
 parser.add_option("--inputDBS", dest="inputDBS", help="dbs instance", default="phys03")
@@ -66,7 +66,11 @@ import pickle
 for comp in selectedComponents:
 #    print "generating sample_"+comp.name+".pkl"
     print "Processing ",comp.name
-    fout = open("sample_"+comp.name+".pkl","wb")
+    workArea = 'crab_{0}'.format( options.production_label )
+    if not os.path.exists( workArea ):
+        os.mkdir(workArea)
+    
+    fout = open("{0}/sample_{1}.pkl".format(workArea, comp.name),"wb")
     pickle.dump(comp,fout)
     fout.close()
     #    os.environ["DATASET"] = str(comp.name)

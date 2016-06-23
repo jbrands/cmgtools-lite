@@ -20,7 +20,8 @@ if datasetname==None:
 
 print "Loading dataset with name ",datasetname
 import pickle
-comp = pickle.load(open("sample_"+datasetname+".pkl","rb"))
+comp = pickle.load(open("sample_{0}.pkl".format(datasetname),"rb"))
+
 comp.puFileData = "$CMSSW_BASE/src/CMGTools/RootTools/data/MyDataPileupHistogram_observed_new.root"
 comp.puFileMC = "$CMSSW_BASE/src/CMGTools/RootTools/data/MyMCPileupHistogram_normOfficial.root"
 
