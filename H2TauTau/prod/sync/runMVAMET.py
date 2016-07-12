@@ -3,17 +3,19 @@ from CMGTools.Production.datasetToSource import datasetToSource
 import FWCore.ParameterSet.Config as cms
 from PhysicsTools.PatAlgos.tools.tauTools import *
 from RecoMET.METPUSubtraction.MVAMETConfiguration_cff import runMVAMET
+from RecoMET.METPUSubtraction.jet_recorrections import loadLocalSqlite, recorrectJets
+
 #from CMGTools.diLeptonSelector.diLeptonFilter_cfi.py import
 
 process = cms.Process("MVAMET")
-process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(200))
+process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(1000))
 #process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(-1))
 numberOfFilesToProcess = -1
 
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 #process.GlobalTag.globaltag = '76X_mcRun2_asymptotic_RunIIFall15DR76_v1'
 #process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_miniAODv2'
-process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_miniAODv2'
+process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_miniAODv2_v1'
 
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
 process.load('Configuration.StandardSequences.MagneticField_38T_cff')
@@ -23,21 +25,21 @@ process.load('Configuration.StandardSequences.MagneticField_38T_cff')
 #process.load('RecoBTag.Configuration.RecoBTag_cff')
 
 
-dataset_user = 'CMS'
-dataset_name = '/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM '
-dataset_files = '.*root'
+# dataset_user = 'CMS'
+# dataset_name = '/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM '
+# dataset_files = '.*root'
 
-process.source = datasetToSource(                                                                   
-   dataset_user,
-   dataset_name,
-   dataset_files,
-   )
+# process.source = datasetToSource(                                                                   
+#    dataset_user,
+#    dataset_name,
+#    dataset_files,
+#    )
 
-# process.source = cms.Source("PoolSource",
-#                             fileNames = cms.untracked.vstring("file:localTestFile2.root")
-# #                            fileNames = cms.untracked.vstring("file:localTestFile.root")
-# #                            fileNames = cms.untracked.vstring("file:localTestFile_DY.root")
-#                             )
+process.source = cms.Source("PoolSource",
+                             fileNames = cms.untracked.vstring("file:sig.root")
+#                            fileNames = cms.untracked.vstring("file:localTestFile.root")
+#                            fileNames = cms.untracked.vstring("file:localTestFile_DY.root")
+                            )
 
 
 isData=False 
@@ -51,16 +53,14 @@ process.eventDiLeptonFilter
 #process.electronPreSelection
 process.p *= (process.eventDiLeptonFilter) 
 
-from RecoMET.METPUSubtraction.jet_recorrections import loadLocalSqlite
+
 loadLocalSqlite(process, "Spring16_25nsV3_MC.db", tag = 'JetCorrectorParametersCollection_Spring16_25nsV3_MC_AK4PFchs') 
 # loadLocalSqlite(process, "Fall15_25nsV2_MC.db", tag = 'JetCorrectorParametersCollection_Fall15_25nsV2_MC_AK4PFchs') 
-
-
 #if options.reapplyJEC:
-from RecoMET.METPUSubtraction.jet_recorrections import recorrectJets
+
 recorrectJets(process, isData)
-jetCollection = "patJetsReapplyJEC"
-#jetCollection = "slimmedJets"
+#jetCollection = "patJetsReapplyJEC"
+jetCollection = "slimmedJets"
 
 # configure MVA MET
 runMVAMET( process, jetCollectionPF = jetCollection)

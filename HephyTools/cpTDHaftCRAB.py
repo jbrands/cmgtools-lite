@@ -4,6 +4,7 @@ import shutil
 import multiprocessing as mp
 import numpy as np
 import shlex
+import argparse
 import time
 import os
 import sys
@@ -15,6 +16,7 @@ class CMCHandler():
     def __init__(self, source, dest):
         self.source = source
         self.dest = dest
+        self.getTrees()
 
     def getTrees(self):
         
@@ -23,9 +25,20 @@ class CMCHandler():
             proc = sp.Popen(["dpns-ls {0}".format(self.source)], stdout=sp.PIPE, stderr=sp.PIPE, shell=True)
             (out, err) = proc.communicate()
             strout = out.split('\n')
+            strout.remove('')
+
             if '0000' in strout:
-                sub_folders = strout[:-1]
+                sub_folders = strout
                 break
+
+            if len(strout) > 1:
+                for ind, fldr in enumerate(strout): 
+                    if ind == 0:
+                        latest = ind
+                    else:
+                        if int( strout[ind].replace('_','') ) > int( strout[latest].replace('_','') ):
+                            latest = ind
+                strout = [ strout[latest] ]
 
             self.source += '/{0}'.format( strout[0] )
 
@@ -38,24 +51,75 @@ class CMCHandler():
             files[folder]['path'] = path
             files[folder]['files'] = out.split('\n')[:-1]
 
-        return files
+        
+        self.files = files
 
-    def copyFiles(self,ftype, sub = 'all', force = False,max_proc = 4):
+    def validateCopy(self):
+        src_files = {'tree':[], 'Skim':[]}
+        dest_files = {'tree':[], 'Skim':[]}
+        miss_files = {'tree':[], 'Skim':[], 'merg':[]}
+        for fldr in self.files.keys():
+            for f in self.files[fldr]['files']:
+                if 'tree' in f or 'Skim' in f: 
+                    nfile = int(''.join([s for s in f if s.isdigit()]))
+                    if 'tree' in f:
+                        src_files['tree'].append(nfile)
+                    elif 'Skim' in f:
+                        src_files['Skim'].append(nfile)
+
+
+        if self.getFiledDiff(src_files['tree'], src_files['Skim'], 'treefiles', 'Skimfiles'):
+            return False
+
+        for f in os.listdir( self.dest ):
+            nfile = int(''.join([s for s in f if s.isdigit()]))
+            if 'tree' in f:
+                dest_files['tree'].append(nfile)
+            elif 'Skim' in f:
+                dest_files['Skim'].append(nfile)
+
+        if self.getFiledDiff(dest_files['tree'], dest_files['Skim'], 'treefiles', 'Skimfiles'):
+            return False
+
+        if self.getFiledDiff(src_files['tree'], dest_files['tree'], 'source files', 'dest files'):
+            return False
+
+        return True
+
+
+    def getFiledDiff(self, files_1, files_2, strF1 = 'files_1', strF2 = 'files_2'):
+        if sorted(files_1) == sorted(files_2):
+            return False
+        else:
+
+            if len(files_1) >= len(files_2):
+                print('Missing {0}:'.format(strF2 ))
+                print(list(set(files_1) - set(files_2)))
+            else:
+                print('Missing {0}:'.format(strF1) )
+                print(list(set(files_2) - set(files_1)))
+
+            return True      
 
 
 
-        if os.path.exists(self.dest) and not force:
+    def copyFiles(self,ftype, sub = 'all',ignore = False , recreate = False, max_proc = 4):
+
+        if os.path.exists(self.dest) and recreate:
+            print( '{0} will be created anew'.format(self.dest) )
+            shutil.rmtree( self.dest )
+            os.mkdir( self.dest )
+        elif os.path.exists(self.dest) and not ignore:
             print( '{0} already exists'.format(self.dest) )
             sys.exit()
+        elif not os.path.exists(self.dest):
+            os.mkdir( self.dest )
         elif ftype != 'tree' and ftype != 'Skim':
             print( 'Use \'Skim\' or \'tree_\' as ftype!!!' )
             sys.exit()
-        elif not os.path.exists(self.dest) and force:
-            os.mkdir( self.dest )
-        elif not force:
-            os.mkdir( self.dest )
+
         
-        trees = self.getTrees()
+        trees = self.files
         cp_cmd = 'lcg-cp srm://hephyse.oeaw.ac.at'
         cmd_list = []
         for folder in trees:
@@ -108,7 +172,8 @@ class CMCHandler():
         unmerged = []
         for file in os.listdir(self.dest):
             if 'unmerged' in file:
-                unmerged.append( [file,int(file.replace('.root','').replace('tree_unmerged_','')) ] )  
+                nfile = int(''.join([s for s in file if s.isdigit()]))
+                unmerged.append( [file, nfile ] ) 
 
         unmerged = np.array(unmerged)
         unmerged = unmerged[ np.array(unmerged[:,1],dtype='int').argsort() ]
@@ -164,31 +229,46 @@ class CMCHandler():
 
             if 'lcg-cp' in cmd:
                 count += 1
-                print('*', end='')
-                if (i+1) % 50 == 0:
-                    print('  50')
+                print('\r{0}{1}{2}'.format('*'*count,' '*(77-count), i+1), end='')
+                if (i+1) % 75 == 0:
+                    print('')
                     count = 0
-                elif i == len(cmd_list)-1:
-                    print('{0}{1}'.format(' '*(52-count), count) )
+                
 
     def cleanup(self):
-        print('Removing unneeded Files')
+        
         skimfiles = []
+        tree_files = []
         for file in os.listdir(self.dest):
             if 'unmerged' in file:
-                print('*', end='')
-                os.remove('/'.join( [self.dest,file] ) )
+                tree_files.append(file)
             if 'Skim' in file:
                 skimfiles.append(file)
 
         if not os.path.exists( '/'.join([self.dest,'Skimreport']) ):
             os.mkdir( '/'.join([self.dest,'Skimreport']) )
 
+        print('Removing unneeded Files')
+        ntree = 100./ float( len(tree_files) )
+        nskim = 100./ float( len(skimfiles) )
+        tmp = 0.
+        for file in tree_files:
+            tmp += ntree
+            if tmp > 1.0:
+                print('*', end='')
+                tmp = 0.
+            os.remove('/'.join( [self.dest,file] ) )
+        print('   Finished')
+
         print('\nMoving Skimfiles')
+        tmp = 0.
         for file in skimfiles:
-            print('*',end="")
+            tmp += nskim
+            if tmp > 1.0:
+                print('*', end='')
+                tmp=0.
             shutil.move( '/'.join([self.dest,file]), '/'.join([self.dest,'Skimreport',file]))
-        print('\nFinished')
+        print('   Finished')
 
 
 
@@ -196,15 +276,29 @@ class CMCHandler():
 
 if __name__ == '__main__':
 
-    source = '/dpm/oeaw.ac.at/home/cms/store/user/mspanrin/cmgTuples/VVTo2L2Nu_MCFall15_160407'
-    dest = '/data/mspanring/cmgtools/test'
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', help='Tag of dataset to copy', type=str, metavar = 'TAG', required = True)
+    parser.add_argument('-f', help='Force overwrite', action='store_true')
+
+    args = vars(parser.parse_args())
+
+    Dset = args['d']
+
+    source = '/dpm/oeaw.ac.at/home/cms/store/user/mspanrin/cmgTuples/{0}'.format( Dset )
+    dest = '/data/higgs/data_2016/cmgTuples/{0}'.format( Dset )
 
     ch = CMCHandler(source, dest)
-    ch.copyFiles(ftype = 'tree')
+    ch.copyFiles(ftype = 'tree',
+                 recreate = args.get('f',False))
 
     ch.copyFiles(ftype = 'Skim',
-                 force = True,
+                 ignore = True,
                  max_proc=8)
+   
+    # if ch.validateCopy():
+    #     print('All files copied from DPM')
+    # else:
+    #     sys.exit()    
 
     ch.getSkimCount()
     ch.mergeTrees()

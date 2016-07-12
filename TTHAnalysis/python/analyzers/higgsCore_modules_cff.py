@@ -387,7 +387,7 @@ higgsCoreSequence = [
     genAna,
     #genHiggsAna,
     #genHFAna,
-#    pdfwAna,
+    pdfwAna,
     #susyScanAna,
     vertexAna,
     lepAna,
@@ -402,6 +402,6 @@ higgsCoreSequence = [
     #ttHJetMETSkim
     triggerFlagsAna,
     triggerObjsAna,
-    L1triggerObjsAna,
+#    L1triggerObjsAna,
 #    eventFlagsAna,
 ]

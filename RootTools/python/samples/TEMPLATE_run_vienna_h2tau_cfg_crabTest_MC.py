@@ -78,34 +78,107 @@ ttHEventAna = cfg.Analyzer(
 #from CMGTools.TTHAnalysis.samples.samples_13TeV_PHYS14  import *
 #from CMGTools.RootTools.samples.samples_13TeV_74X_privat  import *
 
-
 triggerFlagsAna.triggerBits = {
-    "Ele22_eta2p1_WP75_Gsf"                   : [ "HLT_Ele22_eta2p1_WP75_Gsf" ],
-    "Ele23_WPLoose_Gsf"                       : [ "HLT_Ele23_WPLoose_Gsf_v*" ],
-    "IsoMu17_eta2p1"                          : [ "HLT_IsoMu17_eta2p1" ],
-    "IsoMu18_v"                               : [ "HLT_IsoMu18_v" ],
-    "IsoMu17_eta2p1_LooseIsoPFTau20"          : [ "HLT_IsoMu17_eta2p1_LooseIsoPFTau20_v*" ],
-    "IsoMu24_eta2p1"                          : [ "HLT_IsoMu24_eta2p1_v*" ],
-    "IsoMu20_eta2p1_IterTrk02"                : [ "HLT_IsoMu20_eta2p1_IterTrk02_v*" ],
-    "IsoTkMu20_eta2p1_IterTrk02"              : [ "HLT_IsoTkMu20_eta2p1_IterTrk02_v*" ],
-    "IsoMu24_IterTrk02"                       : [ "HLT_IsoMu24_IterTrk02_v*" ],
-    "IsoTkMu24_IterTrk02"                     : [ "HLT_IsoTkMu24_IterTrk02_v*" ],
-    "Ele32_eta2p1_WP75_Gsf"                   : [ "HLT_Ele32_eta2p1_WP75_Gsf_v*"],
-    "DoubleMediumIsoPFTau35_eta2p1"           : [ "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v2"],
-#put trigger here for data                                                                            
+
+ 'IsoMu18'                                              : ['HLT_IsoMu18_v3'],
+ 'IsoMu20'                                              : ['HLT_IsoMu20_v4'],
+ 'IsoMu22'                                              : ['HLT_IsoMu22_v3'],
+ 'IsoMu22_eta2p'                                        : ['HLT_IsoMu22_eta2p1_v2'],
+ 'IsoMu24'                                              : ['HLT_IsoMu24_v2'],
+ 'IsoMu27'                                              : ['HLT_IsoMu27_v4'],
+ 'IsoTkMu18'                                            : ['HLT_IsoTkMu18_v3'],
+ 'IsoTkMu20'                                            : ['HLT_IsoTkMu20_v5'],
+ 'IsoTkMu22'                                            : ['HLT_IsoTkMu22_v3'],
+ 'IsoTkMu22_eta2p'                                      : ['HLT_IsoTkMu22_eta2p1_v2'],
+ 'IsoTkMu24'                                            : ['HLT_IsoTkMu24_v2'],
+ 'IsoTkMu27'                                            : ['HLT_IsoTkMu27_v4'],
+ 'IsoMu17_eta2p1_LooseIsoPFTau20_SingleL1'              : ['HLT_IsoMu17_eta2p1_LooseIsoPFTau20_SingleL1_v5'],
+ 'IsoMu17_eta2p1_LooseIsoPFTau2'                        : ['HLT_IsoMu17_eta2p1_LooseIsoPFTau20_v5'],
+ 'IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1'              : ['HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v2'],
+ 'IsoMu19_eta2p1_LooseIsoPFTau2'                        : ['HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v2'],
+ 'IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1'              : ['HLT_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1_v2'],
+ 'Ele23_WPLoose_Gsf'                                    : ['HLT_Ele23_WPLoose_Gsf_v4'],
+ 'Ele24_eta2p1_WPLoose_Gsf'                             : ['HLT_Ele24_eta2p1_WPLoose_Gsf_v2'],
+ 'Ele25_WPTight_Gsf'                                    : ['HLT_Ele25_WPTight_Gsf_v2'],
+ 'Ele25_eta2p1_WPLoose_Gsf'                             : ['HLT_Ele25_eta2p1_WPLoose_Gsf_v2'],
+ 'Ele25_eta2p1_WPTight_Gsf'                             : ['HLT_Ele25_eta2p1_WPTight_Gsf_v2'],
+ 'Ele27_WPLoose_Gsf'                                    : ['HLT_Ele27_WPLoose_Gsf_v2'],
+ 'Ele27_WPTight_Gsf'                                    : ['HLT_Ele27_WPTight_Gsf_v2'],
+ 'Ele27_eta2p1_WPLoose_Gsf'                             : ['HLT_Ele27_eta2p1_WPLoose_Gsf_v3'],
+ 'Ele27_eta2p1_WPTight_Gsf'                             : ['HLT_Ele27_eta2p1_WPTight_Gsf_v3'],
+ 'Ele32_eta2p1_WPTight_Gsf'                             : ['HLT_Ele32_eta2p1_WPTight_Gsf_v3'],
+ 'Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1'    : ['HLT_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v3'],
+ 'Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1'    : ['HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2'],
+ 'Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20'             : ['HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_v2'],
+ 'Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1'    : ['HLT_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2'],
+ 'Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1'    : ['HLT_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2']
+
 }
 
 triggerObjsAna.triggers = {
-   "HLT_IsoMu17_eta2p1_v1",
-   "HLT_IsoMu18_v2",
-   "HLT_Ele23_WPLoose_Gsf_v3",
-   "HLT_IsoMu24_eta2p1_v2",
-   "HLT_IsoMu22_v1",
-   "HLT_Ele22_eta2p1_WP75_Gsf_v1",
-   "HLT_Ele32_eta2p1_WP75_Gsf_v1",
-   "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v2",
+    'HLT_IsoMu18_v3',
+    'HLT_IsoMu20_v4',
+    'HLT_IsoMu22_v3',
+    'HLT_IsoMu22_eta2p1_v2',
+    'HLT_IsoMu24_v2',
+    'HLT_IsoMu27_v4',
+    'HLT_IsoTkMu18_v3',
+    'HLT_IsoTkMu20_v5',
+    'HLT_IsoTkMu22_v3',
+    'HLT_IsoTkMu22_eta2p1_v2',
+    'HLT_IsoTkMu24_v2',
+    'HLT_IsoTkMu27_v4',
+    'HLT_IsoMu17_eta2p1_LooseIsoPFTau20_SingleL1_v5',
+    'HLT_IsoMu17_eta2p1_LooseIsoPFTau20_v5',
+    'HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v2',
+    'HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v2',
+    'HLT_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1_v2',
+    'HLT_Ele23_WPLoose_Gsf_v4',
+    'HLT_Ele24_eta2p1_WPLoose_Gsf_v2',
+    'HLT_Ele25_WPTight_Gsf_v2',
+    'HLT_Ele25_eta2p1_WPLoose_Gsf_v2',
+    'HLT_Ele25_eta2p1_WPTight_Gsf_v2',
+    'HLT_Ele27_WPLoose_Gsf_v2',
+    'HLT_Ele27_WPTight_Gsf_v2',
+    'HLT_Ele27_eta2p1_WPLoose_Gsf_v3',
+    'HLT_Ele27_eta2p1_WPTight_Gsf_v3',
+    'HLT_Ele32_eta2p1_WPTight_Gsf_v3',
+    'HLT_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v3',
+    'HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2',
+    'HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_v2',
+    'HLT_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2',
+    'HLT_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2',
    #put trigger here for data                                                                         
 }
+
+
+# triggerFlagsAna.triggerBits = {
+#     "Ele22_eta2p1_WP75_Gsf"                   : [ "HLT_Ele22_eta2p1_WP75_Gsf" ],
+#     "Ele23_WPLoose_Gsf"                       : [ "HLT_Ele23_WPLoose_Gsf_v*" ],
+#     "IsoMu17_eta2p1"                          : [ "HLT_IsoMu17_eta2p1" ],
+#     "IsoMu18_v"                               : [ "HLT_IsoMu18_v" ],
+#     "IsoMu17_eta2p1_LooseIsoPFTau20"          : [ "HLT_IsoMu17_eta2p1_LooseIsoPFTau20_v*" ],
+#     "IsoMu24_eta2p1"                          : [ "HLT_IsoMu24_eta2p1_v*" ],
+#     "IsoMu20_eta2p1_IterTrk02"                : [ "HLT_IsoMu20_eta2p1_IterTrk02_v*" ],
+#     "IsoTkMu20_eta2p1_IterTrk02"              : [ "HLT_IsoTkMu20_eta2p1_IterTrk02_v*" ],
+#     "IsoMu24_IterTrk02"                       : [ "HLT_IsoMu24_IterTrk02_v*" ],
+#     "IsoTkMu24_IterTrk02"                     : [ "HLT_IsoTkMu24_IterTrk02_v*" ],
+#     "Ele32_eta2p1_WP75_Gsf"                   : [ "HLT_Ele32_eta2p1_WP75_Gsf_v*"],
+#     "DoubleMediumIsoPFTau35_eta2p1"           : [ "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v2"],
+# #put trigger here for data                                                                            
+# }
+
+# triggerObjsAna.triggers = {
+#    "HLT_IsoMu17_eta2p1_v1",
+#    "HLT_IsoMu18_v2",
+#    "HLT_IsoMu22_v1",
+#    "HLT_IsoMu24_eta2p1_v2",
+#    "HLT_Ele22_eta2p1_WP75_Gsf_v1",
+#    "HLT_Ele23_WPLoose_Gsf_v3",
+#    "HLT_Ele32_eta2p1_WP75_Gsf_v1",
+#    "HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v2",
+#    #put trigger here for data                                                                         
+# }
 
 # Tree Producer
 from CMGTools.TTHAnalysis.analyzers.treeProducerHiggsToTauTau import *

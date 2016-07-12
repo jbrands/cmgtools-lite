@@ -113,6 +113,7 @@ def updateInformationFile(paths, RESUB = True):
                             resubmitJob( splInfo[1] )
                             splInfo[2] = str( int(splInfo[2]) +1 )
                             info_content[i] = ';'.join(splInfo)
+                            print 'resubmitting failed jobs'
 
                 elif status == 'PUBLICATE':
                     if int(splInfo[3]) > 5:
@@ -124,6 +125,7 @@ def updateInformationFile(paths, RESUB = True):
                             resubmitPublication( splInfo[1] )
                             splInfo[3] = str( int(splInfo[3]) +1 )
                             info_content[i] = ';'.join(splInfo)
+                            print 'publishing missing files'
 
 
         with open('das_urls.json','wb') as FSO:
@@ -196,7 +198,7 @@ def getStatus(path):
     elif PFAIL:
       return 'PUBLICATE', das_url
     else:
-      return '',''
+      return '', das_url
 
 
 
@@ -204,25 +206,21 @@ if __name__ == '__main__':
     user = os.environ['USER']
     user_fold = '/'.join([user[0],user])
     
-    paths =['/afs/hephy.at/work/{0}/CMSSW_8_0_11/src/CMGTools/H2TauTau/prod/sync/crab_MCSpring16'.format(user_fold),
+    paths =['/afs/hephy.at/work/{0}/CMSSW_8_0_11/src/CMGTools/H2TauTau/prod/MCSpring16/crab_MCSpring16'.format(user_fold),
             '/afs/hephy.at/work/{0}/CMSSW_8_0_11/src/CMGTools/TTHAnalysis/cfg/crab_HEPHY/crab_MCSpring16'.format(user_fold)
            ]
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-ptime', help='Time between two status checks.', type=int, metavar = 'INT',default=3000)
     parser.add_argument('-nrep', help='Number of status checks.', type=int, metavar = 'INT',default=1)
-    parser.add_argument('-res', help='Resubmit failed job?', type=int, metavar = '0/1',default=0)
+    parser.add_argument('-res', help='Resubmit failed job?', action='store_true')
 
     args = vars(parser.parse_args())
 
 
     ptime = args.get('ptime',3000)
     nrep = args.get('nrep',1)
-    res = args.get('res',0)
-
-    if res == 1: res = True
-    else: res = False
-
+    res = args.get('res',False)
     for i in xrange(nrep):
         updateInformationFile(paths, RESUB=res)
         if nrep > 1 and i != nrep-1:

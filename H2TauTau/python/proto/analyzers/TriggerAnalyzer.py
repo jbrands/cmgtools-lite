@@ -137,15 +137,45 @@ class TriggerAnalyzer(Analyzer):
             if not trigger_passed:
                 return False
 
-        event.triggerObjectEvents_IsoMu17 = []
         event.triggerObjectEvents_IsoMu18 = []
-        event.triggerObjectEvents_IsoMu24 = []
+        event.triggerObjectEvents_IsoMu20 = []
         event.triggerObjectEvents_IsoMu22 = []
-        event.triggerObjectEvents_Ele22 = []
-        event.triggerObjectEvents_Ele23 = []
-        event.triggerObjectEvents_Ele32 = []
-        event.triggerObjectEvents_IsoPFTau35 = []
-            
+        event.triggerObjectEvents_IsoMu22_eta2p1 = []
+        event.triggerObjectEvents_IsoMu24 = []
+        event.triggerObjectEvents_IsoMu27 = []
+        event.triggerObjectEvents_IsoTkMu18 = []
+        event.triggerObjectEvents_IsoTkMu20 = []
+        event.triggerObjectEvents_IsoTkMu22 = []
+        event.triggerObjectEvents_IsoTkMu22_eta2p1 = []
+        event.triggerObjectEvents_IsoTkMu24 = []
+        event.triggerObjectEvents_IsoTkMu27 = []
+        event.triggerObjectEvents_IsoMu17_eta2p1_LooseIsoPFTau20_SingleL1 = []
+        event.triggerObjectEvents_IsoMu17_eta2p1_LooseIsoPFTau20 = []
+        event.triggerObjectEvents_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1 = []
+        event.triggerObjectEvents_IsoMu19_eta2p1_LooseIsoPFTau20 = []
+        event.triggerObjectEvents_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1 = []
+        event.triggerObjectEvents_Ele23_WPLoose_Gsf = []
+        event.triggerObjectEvents_Ele24_eta2p1_WPLoose_Gsf = []
+        event.triggerObjectEvents_Ele25_WPTight_Gsf = []
+        event.triggerObjectEvents_Ele25_eta2p1_WPLoose_Gsf = []
+        event.triggerObjectEvents_Ele25_eta2p1_WPTight_Gsf = []
+        event.triggerObjectEvents_Ele27_WPLoose_Gsf = []
+        event.triggerObjectEvents_Ele27_WPTight_Gsf = []
+        event.triggerObjectEvents_Ele27_eta2p1_WPLoose_Gsf = []
+        event.triggerObjectEvents_Ele27_eta2p1_WPTight_Gsf = []
+        event.triggerObjectEvents_Ele32_eta2p1_WPTight_Gsf = []
+        event.triggerObjectEvents_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = []
+        event.triggerObjectEvents_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = []
+        event.triggerObjectEvents_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 = []
+        event.triggerObjectEvents_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = []
+        event.triggerObjectEvents_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = []
+
+
+
+
+
+
+
         
 #         if event.eventId == 104644585: import pdb ; pdb.set_trace()
         if self.cfg_ana.addTriggerObjects:
@@ -153,30 +183,77 @@ class TriggerAnalyzer(Analyzer):
 #             if event.eventId == 104644585: import pdb ; pdb.set_trace()
             for to in triggerObjects:
                 to.unpackPathNames(names)
+
                 for info in trigger_infos:
 #                     if event.eventId == 104644585: import pdb ; pdb.set_trace()
-                    if to.hasPathName(info.name):
-                         if(info.name == 'HLT_IsoMu17_eta2p1_v1'):
-                             event.triggerObjectEvents_IsoMu17.append(to)
-                         if(info.name == 'HLT_IsoMu18_v2' or info.name == 'HLT_IsoMu18_v1' or info.name == 'HLT_IsoMu18_v3' or info.name == 'HLT_IsoMu18_v4'):
-                             event.triggerObjectEvents_IsoMu18.append(to)
-                         if(info.name == 'HLT_IsoMu24_eta2p1_v1'):
-                             event.triggerObjectEvents_IsoMu24.append(to)
-                         if(info.name == 'HLT_IsoMu24_eta2p1_v2'):
-                             event.triggerObjectEvents_IsoMu24.append(to)
-                         if(info.name == 'HLT_IsoMu22_v1'):
-                             event.triggerObjectEvents_IsoMu22.append(to)
-                         if(info.name == 'HLT_Ele22_eta2p1_WP75_Gsf_v1'):
-                             event.triggerObjectEvents_Ele22.append(to)
-                         if(info.name == 'HLT_Ele23_WPLoose_Gsf_v1' or info.name == 'HLT_Ele23_WPLoose_Gsf_v2' or info.name == 'HLT_Ele23_WPLoose_Gsf_v3' or info.name == 'HLT_Ele23_WPLoose_Gsf_v4'):
-                             event.triggerObjectEvents_Ele23.append(to)
-                         if(info.name == 'HLT_Ele32_eta2p1_WP75_Gsf_v1'):
-                             event.triggerObjectEvents_Ele32.append(to)
-                         if(info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v1' or info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v2' or info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v3' or info.name == 'HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v4'):
-                             event.triggerObjectEvents_IsoPFTau35.append(to)
-                             
-                         info.objects.append(to)
-                         info.objIds.add(abs(to.pdgId()))
+                    if to.hasPathName(info.name, True):
+                        if(info.name == 'HLT_IsoMu18_v3'):
+                            event.triggerObjectEvents_IsoMu18.append(to)
+                        if(info.name == 'HLT_IsoMu20_v4'):
+                            event.triggerObjectEvents_IsoMu20.append(to)
+                        if(info.name == 'HLT_IsoMu22_v3'):
+                            event.triggerObjectEvents_IsoMu22.append(to)
+                        if(info.name == 'HLT_IsoMu22_eta2p1_v2'):
+                            event.triggerObjectEvents_IsoMu22_eta2p1.append(to)
+                        if(info.name == 'HLT_IsoMu24_v2'):
+                            event.triggerObjectEvents_IsoMu24.append(to)
+                        if(info.name == 'HLT_IsoMu27_v4'):
+                            event.triggerObjectEvents_IsoMu27.append(to)
+                        if(info.name == 'HLT_IsoTkMu18_v3'):
+                            event.triggerObjectEvents_IsoTkMu18.append(to)
+                        if(info.name == 'HLT_IsoTkMu20_v5'):
+                            event.triggerObjectEvents_IsoTkMu20.append(to)
+                        if(info.name == 'HLT_IsoTkMu22_v3'):
+                            event.triggerObjectEvents_IsoTkMu22.append(to)
+                        if(info.name == 'HLT_IsoTkMu22_eta2p1_v2'):
+                            event.triggerObjectEvents_IsoTkMu22_eta2p1.append(to)
+                        if(info.name == 'HLT_IsoTkMu24_v2'):
+                            event.triggerObjectEvents_IsoTkMu24.append(to)
+                        if(info.name == 'HLT_IsoTkMu27_v4'):
+                            event.triggerObjectEvents_IsoTkMu27.append(to)
+                        if(info.name == 'HLT_IsoMu17_eta2p1_LooseIsoPFTau20_SingleL1_v5'):
+                            event.triggerObjectEvents_IsoMu17_eta2p1_LooseIsoPFTau20_SingleL1.append(to)
+                        if(info.name == 'HLT_IsoMu17_eta2p1_LooseIsoPFTau20_v5'):
+                            event.triggerObjectEvents_IsoMu17_eta2p1_LooseIsoPFTau20.append(to)
+                        if(info.name == 'HLT_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1_v2'):
+                            event.triggerObjectEvents_IsoMu19_eta2p1_LooseIsoPFTau20_SingleL1.append(to)
+                        if(info.name == 'HLT_IsoMu19_eta2p1_LooseIsoPFTau20_v2'):
+                            event.triggerObjectEvents_IsoMu19_eta2p1_LooseIsoPFTau20.append(to)
+                        if(info.name == 'HLT_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1_v2'):
+                            event.triggerObjectEvents_IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1.append(to)
+                        if(info.name == 'HLT_Ele23_WPLoose_Gsf_v4'):
+                            event.triggerObjectEvents_Ele23_WPLoose_Gsf.append(to)
+                        if(info.name == 'HLT_Ele24_eta2p1_WPLoose_Gsf_v2'):
+                            event.triggerObjectEvents_Ele24_eta2p1_WPLoose_Gsf.append(to)
+                        if(info.name == 'HLT_Ele25_WPTight_Gsf_v2'):
+                            event.triggerObjectEvents_Ele25_WPTight_Gsf.append(to)
+                        if(info.name == 'HLT_Ele25_eta2p1_WPLoose_Gsf_v2'):
+                            event.triggerObjectEvents_Ele25_eta2p1_WPLoose_Gsf.append(to)
+                        if(info.name == 'HLT_Ele25_eta2p1_WPTight_Gsf_v2'):
+                            event.triggerObjectEvents_Ele25_eta2p1_WPTight_Gsf.append(to)
+                        if(info.name == 'HLT_Ele27_WPLoose_Gsf_v2'):
+                            event.triggerObjectEvents_Ele27_WPLoose_Gsf.append(to)
+                        if(info.name == 'HLT_Ele27_WPTight_Gsf_v2'):
+                            event.triggerObjectEvents_Ele27_WPTight_Gsf.append(to)
+                        if(info.name == 'HLT_Ele27_eta2p1_WPLoose_Gsf_v3'):
+                            event.triggerObjectEvents_Ele27_eta2p1_WPLoose_Gsf.append(to)
+                        if(info.name == 'HLT_Ele27_eta2p1_WPTight_Gsf_v3'):
+                            event.triggerObjectEvents_Ele27_eta2p1_WPTight_Gsf.append(to)
+                        if(info.name == 'HLT_Ele32_eta2p1_WPTight_Gsf_v3'):
+                            event.triggerObjectEvents_Ele32_eta2p1_WPTight_Gsf.append(to)
+                        if(info.name == 'HLT_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v3'):
+                            event.triggerObjectEvents_Ele22_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1.append(to)
+                        if(info.name == 'HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2'):
+                            event.triggerObjectEvents_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1.append(to)
+                        if(info.name == 'HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_v2'):
+                            event.triggerObjectEvents_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20.append(to)
+                        if(info.name == 'HLT_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2'):
+                            event.triggerObjectEvents_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1.append(to)
+                        if(info.name == 'HLT_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2'):
+                            event.triggerObjectEvents_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1.append(to)
+
+                        info.objects.append(to)
+                        info.objIds.add(abs(to.pdgId()))
         
         
         # RIC: remove duplicated trigger objects 
