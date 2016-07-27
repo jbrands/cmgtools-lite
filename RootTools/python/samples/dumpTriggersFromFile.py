@@ -16,7 +16,7 @@ if len(argv) == 1:
 
 events = Events(argv[1])
 
-triggerBits, triggerBitLabel = Handle("edm::TriggerResults"), ("TriggerResults","","HLT2")
+triggerBits, triggerBitLabel = Handle("edm::TriggerResults"), ("TriggerResults","","HLT")
 triggerObjects, triggerObjectLabel  = Handle("std::vector<pat::TriggerObjectStandAlone>"), "selectedPatTrigger"
 triggerPrescales, triggerPrescaleLabel  = Handle("pat::PackedTriggerPrescales"), "patTrigger"
 

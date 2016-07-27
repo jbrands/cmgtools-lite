@@ -207,6 +207,7 @@ if __name__ == '__main__':
     user_fold = '/'.join([user[0],user])
     
     paths =['/afs/hephy.at/work/{0}/CMSSW_8_0_11/src/CMGTools/H2TauTau/prod/MCSpring16/crab_MCSpring16'.format(user_fold),
+            '/afs/hephy.at/work/{0}/CMSSW_8_0_11/src/CMGTools/H2TauTau/prod/DATA/crab_DATA'.format(user_fold),
             '/afs/hephy.at/work/{0}/CMSSW_8_0_11/src/CMGTools/TTHAnalysis/cfg/crab_HEPHY/crab_MCSpring16'.format(user_fold)
            ]
 

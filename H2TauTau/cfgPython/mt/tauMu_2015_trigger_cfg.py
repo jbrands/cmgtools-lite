@@ -136,7 +136,7 @@ for i, module in enumerate(sequence):
         # RIC specify the collections to be used. 
         # Useful if trigger is rerun with another process name.
         # Defaults to PAT
-        module.triggerResultsHandle = ('TriggerResults'    , '', 'HLT2')
+        module.triggerResultsHandle = ('TriggerResults'    , '', 'HLT')
         module.triggerObjectsHandle = ('selectedPatTrigger', '', 'PAT')
 
     if module.name == 'H2TauTauTreeProducerTauMu': 

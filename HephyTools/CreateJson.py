@@ -35,8 +35,12 @@ for data in raw_data:
 		key = key.replace('_TuneCUETP8M1','')
 		key = key.replace('/','').replace('-','_')
 		key += gen
-		
-		prod_label = 'MC{0}'.format(data.split('RunII')[1].split('Mini')[0])
+		if 'RunII' in data:
+			prod_label = 'MC{0}'.format(data.split('RunII')[1].split('Mini')[0])
+		else:
+			prod_label = 'DATA'
+		if 'reHLT' in data:
+			prod_label += '_reHLT'
 
 		if not key in dsets.get(current,''):
 

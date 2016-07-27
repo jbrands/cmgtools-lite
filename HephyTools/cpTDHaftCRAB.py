@@ -211,7 +211,8 @@ class CMCHandler():
 
 
     def exec_cmd(self,cmd, q):
-        p = sp.Popen(shlex.split(cmd), shell=False)
+        shlCmd = shlex.split(cmd)
+        p = sp.Popen(shlCmd, shell=False)
         p.wait()
         q.put(object)
 
@@ -219,20 +220,21 @@ class CMCHandler():
     def applyCmdMulti(self,cmd_list, max_proc=4):
         count = 0
         done_queue = mp.Queue()
+        nCmd = 50./float( len(cmd_list) )
         for i, cmd in enumerate(cmd_list):
-            if i >= max_proc:
+            if i > max_proc:
                 done_queue.get(block=True)
             proc = mp.Process(target=self.exec_cmd, args=(cmd, done_queue))
             proc.start()
             if i == len(cmd_list)-1:
                 proc.join()
 
-            if 'lcg-cp' in cmd:
-                count += 1
-                print('\r{0}{1}{2}'.format('*'*count,' '*(77-count), i+1), end='')
-                if (i+1) % 75 == 0:
-                    print('')
-                    count = 0
+
+            count += nCmd
+            if 'lcg-cp' in cmd: print('\r[{0}>{1}]  {2}'.format('='*int(count),' '*(50-int(count) ), i+1), end='')
+            #if (i+1) % 75 == 0:
+            #    print('')
+            #    count = 0
                 
 
     def cleanup(self):

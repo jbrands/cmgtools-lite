@@ -8,13 +8,14 @@ from RecoMET.METPUSubtraction.jet_recorrections import loadLocalSqlite, recorrec
 #from CMGTools.diLeptonSelector.diLeptonFilter_cfi.py import
 
 process = cms.Process("MVAMET")
-process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(1000))
-#process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(-1))
+#process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(100))
+process.maxEvents = cms.untracked.PSet(input=cms.untracked.int32(-1))
 numberOfFilesToProcess = -1
 
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_condDBv2_cff')
 #process.GlobalTag.globaltag = '76X_mcRun2_asymptotic_RunIIFall15DR76_v1'
 #process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_miniAODv2'
+#process.GlobalTag.globaltag = '80X_dataRun2_Prompt_ICHEP16JEC_v0'
 process.GlobalTag.globaltag = '80X_mcRun2_asymptotic_2016_miniAODv2_v1'
 
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
@@ -42,7 +43,7 @@ process.source = cms.Source("PoolSource",
                             )
 
 
-isData=False 
+isData=False
 
 if not hasattr(process, "p"):                                                                                                                      
          process.p = cms.Path() 
@@ -59,8 +60,8 @@ loadLocalSqlite(process, "Spring16_25nsV3_MC.db", tag = 'JetCorrectorParametersC
 #if options.reapplyJEC:
 
 recorrectJets(process, isData)
-#jetCollection = "patJetsReapplyJEC"
-jetCollection = "slimmedJets"
+jetCollection = "patJetsReapplyJEC"
+#jetCollection = "slimmedJets"
 
 # configure MVA MET
 runMVAMET( process, jetCollectionPF = jetCollection)
@@ -87,6 +88,10 @@ if not isData:
 if numberOfFilesToProcess > 0:
     process.source.fileNames = process.source.fileNames[:numberOfFilesToProcess]
 
+
+if isData:
+    json='Cert_271036-276384_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt'
+    print json
 ## logger
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
 process.MessageLogger.cerr.FwkReport.reportEvery = 10

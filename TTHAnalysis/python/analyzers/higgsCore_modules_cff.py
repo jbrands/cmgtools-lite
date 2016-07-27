@@ -41,16 +41,19 @@ eventSelector = cfg.Analyzer(
 
 # Apply json file (if the dataset has one)
 jsonAna = cfg.Analyzer(
-    JSONAnalyzer, name="JSONAnalyzer",
+    JSONAnalyzer,
+    name="JSONAnalyzer",
     )
 
 # Filter using the 'triggers' and 'vetoTriggers' specified in the dataset
 triggerAna = cfg.Analyzer(
-    TriggerBitFilter, name="TriggerBitFilter",
+    TriggerBitFilter,
+    name="TriggerBitFilter",
     )
 # Create flags for trigger bits
 triggerFlagsAna = cfg.Analyzer(
-    TriggerBitAnalyzer, name="TriggerFlags",
+    TriggerBitAnalyzer,
+    name="TriggerFlags",
     processName = 'HLT',
     outprefix   = 'trig',
     triggerBits = {
@@ -59,13 +62,12 @@ triggerFlagsAna = cfg.Analyzer(
     )
 triggerObjsAna = cfg.Analyzer(
     TriggerAnalyzer,
-    name='TriggerAnalyzer',
+    name = 'TriggerAnalyzer',
     addTriggerObjects=True,
     requireTrigger=False,
     usePrescaled=False,
-    triggers = {
-
-        },
+    triggerResultsHandle = ('TriggerResults', '', 'HLT'),
+    extraTrig = [],
 )
 L1triggerObjsAna = cfg.Analyzer(
     L1TriggerAnalyzer,
@@ -376,32 +378,33 @@ ttHCoreEventAna = cfg.Analyzer(
 
 
 # Core sequence of all common modules
+    
 higgsCoreSequence = [
     skimAnalyzer,
     mcWeighter,
+    genAna,
+    vertexAna,
+    lepAna,
+    jetAna,
+    metAna,
     lheWeightAna,
     #eventSelector,
     jsonAna,
-    triggerAna,
     pileUpAna,
-    genAna,
     #genHiggsAna,
     #genHFAna,
     pdfwAna,
     #susyScanAna,
-    vertexAna,
-    lepAna,
     #ttHLepSkim,
     #ttHLepMCAna,
     #photonAna,
     tauAna,
     #isoTrackAna,
-    jetAna,
-    metAna,
     #ttHCoreEventAna,
     #ttHJetMETSkim
     triggerFlagsAna,
     triggerObjsAna,
+    triggerAna,
 #    L1triggerObjsAna,
 #    eventFlagsAna,
 ]

@@ -36,15 +36,16 @@ class ComponentCreator(object):
 
         return component
 
-    def makeDataComponentHEPHY(self,name,dataset,user,pattern,dbsInstance,json=None):
+    def makeDataComponentHEPHY(self,name,dataset,user,pattern,dbsInstance,json=None, readCache = False):
         component = cfg.DataComponent(
             #dataset = dataset,
             name = name,
-            files = self.getMyFilesHEPHY(dataset, user, pattern, dbsInstance),
+            files = self.getMyFilesHEPHY(dataset, user, pattern, dbsInstance, readCache),
             intLumi=1,
             triggers = [],
             json = json
             )
+        component.dataset = dataset
         return component
 
     def makeDataComponent(self,name,dataset,user,pattern,json=None,run_range=None,triggers=[],vetoTriggers=[],useAAA=False,jsonFilter=False):

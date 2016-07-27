@@ -36,6 +36,8 @@ common = [
     'keep *_l1extraParticles_*_*',
     'keep LHEEventProduct_*_*_*',
     'keep patMETs_*_*_*',
+#    'keep *_caloStage2Digis_*_*',
+ #   'keep *_selectedPatTrigger_*_*'
     ]
 
 commonDebug = copy.deepcopy(common) 
