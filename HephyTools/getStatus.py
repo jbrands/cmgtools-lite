@@ -208,10 +208,13 @@ if __name__ == '__main__':
     
     paths =['{0}/src/CMGTools/H2TauTau/prod/MCSpring16/crab_MCSpring16'.format(os.environ['CMSSW_BASE']),
             '{0}/src/CMGTools/H2TauTau/prod/MCSpring16/crab_MCSpring16_reHLT'.format(os.environ['CMSSW_BASE']),
+            '{0}/src/CMGTools/H2TauTau/prod/sync/crab_MCSpring16_reHLT'.format(os.environ['CMSSW_BASE']),
+            '{0}/src/CMGTools/H2TauTau/prod/sync/crab_MCSpring16_reHLT_2'.format(os.environ['CMSSW_BASE']),
+            '{0}/src/CMGTools/H2TauTau/prod/sync/crab_MCSpring16'.format(os.environ['CMSSW_BASE']),                        
             '{0}/src/CMGTools/H2TauTau/prod/DATA/crab_DATA'.format(os.environ['CMSSW_BASE']),
             '{0}/src/CMGTools/TTHAnalysis/cfg/crab_HEPHY/crab_MCSpring16'.format(os.environ['CMSSW_BASE']),
             '{0}/src/CMGTools/TTHAnalysis/cfg/crab_HEPHY/crab_DATA16B'.format(os.environ['CMSSW_BASE']),
-            #'{0}/src/CMGTools/TTHAnalysis/cfg/crab_HEPHY/crab_MCSpring16_reHLT'.format(os.environ['CMSSW_BASE'])
+            '{0}/src/CMGTools/TTHAnalysis/cfg/crab_HEPHY/crab_MCSpring16_reHLT'.format(os.environ['CMSSW_BASE'])
            ]
 
     parser = argparse.ArgumentParser()

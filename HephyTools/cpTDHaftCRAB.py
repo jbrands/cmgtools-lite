@@ -114,7 +114,7 @@ class CMCHandler():
             sys.exit()
         elif not os.path.exists(self.dest):
             os.mkdir( self.dest )
-        elif ftype != 'tree' and ftype != 'Skim':
+        elif ftype != 'tree' and ftype != 'Skim' and ftype != 'RLTInfo':
             print( 'Use \'Skim\' or \'tree_\' as ftype!!!' )
             sys.exit()
 
@@ -137,14 +137,9 @@ class CMCHandler():
                                             )
                                         )
 
-        # if ftype == 'tree':
         print( 'Start copying {0} files'.format(ftype) )
         self.applyCmdMulti( cmd_list,  max_proc=max_proc)
         print( '\nFinished' )
-        # elif ftype == 'Skim':
-        #     self.ApplyCmd( cmd_list )
-
-
 
     def getSkimCount(self):
         strSrch = 'Sum Unity Weights'
@@ -229,48 +224,58 @@ class CMCHandler():
             if i == len(cmd_list)-1:
                 proc.join()
 
-
             count += nCmd
-            if 'lcg-cp' in cmd: print('\r[{0}>{1}]  {2}'.format('='*int(count),' '*(50-int(count) ), i+1), end='')
-            #if (i+1) % 75 == 0:
-            #    print('')
-            #    count = 0
-                
+            if 'lcg-cp' in cmd: print('\r[{0}>{1}]  ( {2}/{3} )'.format('='*int(count),' '*(50-int(count) ), i+1, len(cmd_list) ), end='')
 
-    def cleanup(self):
+    def cleanup(self, rtype = 'mc'):
         
         skimfiles = []
         tree_files = []
+        rltfiles = []
         for file in os.listdir(self.dest):
             if 'unmerged' in file:
                 tree_files.append(file)
             if 'Skim' in file:
                 skimfiles.append(file)
+            if 'RLTInfo' in file:
+                rltfiles.append(file)
 
-        if not os.path.exists( '/'.join([self.dest,'Skimreport']) ):
-            os.mkdir( '/'.join([self.dest,'Skimreport']) )
 
         print('Removing unneeded Files')
-        ntree = 100./ float( len(tree_files) )
-        nskim = 100./ float( len(skimfiles) )
-        tmp = 0.
+        ntree = 50./ float( len(tree_files) )
+
+        count = 0.
         for file in tree_files:
-            tmp += ntree
-            if tmp > 1.0:
-                print('*', end='')
-                tmp = 0.
+            count += ntree
+            print('\r[{0}>{1}]'.format('='*int(count),' '*(50-int(count) )), end='')    
             os.remove('/'.join( [self.dest,file] ) )
         print('   Finished')
+        
+        if rtype == 'mc':
 
-        print('\nMoving Skimfiles')
-        tmp = 0.
-        for file in skimfiles:
-            tmp += nskim
-            if tmp > 1.0:
-                print('*', end='')
-                tmp=0.
-            shutil.move( '/'.join([self.dest,file]), '/'.join([self.dest,'Skimreport',file]))
-        print('   Finished')
+            if not os.path.exists( '/'.join([self.dest,'Skimreport']) ):
+                os.mkdir( '/'.join([self.dest,'Skimreport']) )
+
+            print('\nMoving Skimfiles')
+            count = 0.
+            for file in skimfiles:
+                count += ntree
+                print('\r[{0}>{1}]'.format('='*int(count),' '*(50-int(count) )), end='')
+                shutil.move( '/'.join([self.dest,file]), '/'.join([self.dest,'Skimreport',file]))
+            print('   Finished')
+
+        if rtype == 'data':
+
+            if not os.path.exists( '/'.join([self.dest,'RLTInfo']) ):
+                os.mkdir( '/'.join([self.dest,'RLTInfo']) )
+
+            print('\nMoving RLTInfo files')
+            count = 0.
+            for file in rltfiles:
+                count += ntree
+                print('\r[{0}>{1}]'.format('='*int(count),' '*(50-int(count) )), end='')
+                shutil.move( '/'.join([self.dest,file]), '/'.join([self.dest,'RLTInfo',file]))
+            print('   Finished')
 
 
 
@@ -281,10 +286,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', help='Tag of dataset to copy', type=str, metavar = 'TAG', required = True)
     parser.add_argument('-f', help='Force overwrite', action='store_true')
+    parser.add_argument('-t', help='', type=str, metavar = 'RUNTYPE',choices = ['mc','data'], default = 'mc')
 
     args = vars(parser.parse_args())
 
     Dset = args['d']
+    rtype = args['t']
 
     source = '/dpm/oeaw.ac.at/home/cms/store/user/mspanrin/cmgTuples/{0}'.format( Dset )
     dest = '/data/higgs/data_2016/cmgTuples/{0}'.format( Dset )
@@ -292,19 +299,26 @@ if __name__ == '__main__':
     ch = CMCHandler(source, dest)
     ch.copyFiles(ftype = 'tree',
                  recreate = args.get('f',False))
-
-    ch.copyFiles(ftype = 'Skim',
-                 ignore = True,
-                 max_proc=8)
+    
+    if rtype == 'mc':
+        ch.copyFiles(ftype = 'Skim',
+                     ignore = True,
+                     max_proc=8)
    
     # if ch.validateCopy():
     #     print('All files copied from DPM')
     # else:
     #     sys.exit()    
 
-    ch.getSkimCount()
-    ch.mergeTrees()
-    ch.cleanup()
+        ch.getSkimCount()
+
+    elif rtype == 'data':
+        ch.copyFiles(ftype = 'RLTInfo',
+                     ignore = True,
+                     max_proc=8)
+    
+    ch.mergeTrees()   
+    ch.cleanup(rtype = rtype)
 
 
 

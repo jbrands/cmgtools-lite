@@ -40,8 +40,8 @@ import imp
 #cfo = imp.load_source("heppy_config", "heppy_config.py", handle)
 from CMGTools.RootTools.samples.TEMPLATE_run_vienna_h2tau_cfg_MC import cfg
 from CMGTools.RootTools.samples.TEMPLATE_run_vienna_h2tau_cfg_MC import sequence as seq
-# from CMGTools.RootTools.samples.TEMPLATE_run_vienna_h2tau_cfg_DATA import cfg
-# from CMGTools.RootTools.samples.TEMPLATE_run_vienna_h2tau_cfg_DATA import sequence as seq
+#from CMGTools.RootTools.samples.TEMPLATE_run_vienna_h2tau_cfg_DATA import cfg
+#from CMGTools.RootTools.samples.TEMPLATE_run_vienna_h2tau_cfg_DATA import sequence as seq
 pre = None
 #config = cfo.config
 #cfg = cfo.cfg
@@ -67,6 +67,7 @@ print PSet.process.output.fileName
 os.system("ls -lR")
 os.rename("Output/tree.root", "tree.root")
 os.rename("Output/SkimReport.txt", "SkimReport.txt")
+os.rename("Output/RLTInfo.root", "RLTInfo.root")
 #os.system("ls -lR")
 
 # print in crab log file the content of the job log files, so one can see it from 'crab getlog'
