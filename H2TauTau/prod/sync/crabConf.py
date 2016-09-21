@@ -45,8 +45,8 @@ class DatasetChooser():
 
 #################################################################################
 
-user = os.environ['USER']
-job = DatasetChooser('/afs/hephy.at/work/{0}/{1}/CMSSW_8_0_11/src/CMGTools/HephyTools/datasets.json'.format(user[0],user))
+user = os.environ['CMSSW_BASE']
+job = DatasetChooser('{0}/src/CMGTools/HephyTools/datasets.json'.format(user))
 job.GetOpenJob()
 
 tag = job.strTag

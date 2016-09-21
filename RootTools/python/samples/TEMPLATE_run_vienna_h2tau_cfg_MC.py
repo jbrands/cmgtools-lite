@@ -27,7 +27,7 @@ jetAna.minLepPt = 10
 jetAna.jetPt = 20
 jetAna.jetEta = 4.7
 
-jetAna.mcGT     = "Spring16_25nsV3_MC"
+jetAna.mcGT     = "Spring16_25nsV6_MC"
 jetAna.dataGT   = "Fall15_25nsV2_DATA"
 jetAna.do_mc_match = True
 jetAna.smearJets = False #should be false in susycore, already                                      
@@ -78,7 +78,7 @@ ttHEventAna = cfg.Analyzer(
 #from CMGTools.TTHAnalysis.samples.samples_13TeV_PHYS14  import *
 #from CMGTools.RootTools.samples.samples_13TeV_74X_privat  import *
 
-triggerFlagsAna.processName = 'HLT2'
+triggerFlagsAna.processName = 'HLT'
 triggerFlagsAna.triggerBits = {
 
  "IsoMu18"                                              : [ ''.join(["HLT_IsoMu18_v",str(i)])  for i in xrange(1,5)],
@@ -115,7 +115,7 @@ triggerFlagsAna.triggerBits = {
  "Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1"    : [ ''.join(["HLT_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v",str(i)])  for i in xrange(1,5)]
 
 }
-triggerObjsAna.triggerResultsHandle = ('TriggerResults', '', 'HLT2')
+triggerObjsAna.triggerResultsHandle = ('TriggerResults', '', 'HLT')
 
 triggerObjsAna.extraTrig = triggerFlagsAna.triggerBits["IsoMu18"]
 triggerObjsAna.extraTrig += triggerFlagsAna.triggerBits["IsoMu20"]

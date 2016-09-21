@@ -38,7 +38,12 @@ if __name__ == '__main__':
         getComponent(Datasets, key,False)
 else:
 #####################################################################################################    
-    SUSYGluGluToHToTauTau_M_160_pythia8_MCSpring16_reHLT_160826 = getComponent(Datasets,"SUSYGluGluToHToTauTau_M_160_pythia8_MCSpring16_reHLT_160826",False)
+    TT_powheg_MCSpring16_160919  = getComponent(Datasets,"TT_powheg_MCSpring16_160919",False)
+    DYJetsToLL_M_50_madgraphMLM_MCSpring16_160919 = getComponent(Datasets,"DYJetsToLL_M_50_madgraphMLM_MCSpring16_160919",False)
+    DY1JetsToLL_M_50_madgraphMLM_MCSpring16_160919 = getComponent(Datasets,"DY1JetsToLL_M_50_madgraphMLM_MCSpring16_160919",False)
+    DY2JetsToLL_M_50_madgraphMLM_MCSpring16_160919 = getComponent(Datasets,"DY2JetsToLL_M_50_madgraphMLM_MCSpring16_160919",False)
+    DY3JetsToLL_M_50_madgraphMLM_MCSpring16_160919 = getComponent(Datasets,"DY3JetsToLL_M_50_madgraphMLM_MCSpring16_160919",False)
+    # SUSYGluGluToHToTauTau_M_160_pythia8_MCSpring16_reHLT_160826 = getComponent(Datasets,"SUSYGluGluToHToTauTau_M_160_pythia8_MCSpring16_reHLT_160826",False)
     # SUSYGluGluToHToTauTau_M_160_pythia8_MCSpring16_160622 = getComponent(Datasets,"SUSYGluGluToHToTauTau_M_160_pythia8_MCSpring16_160622",True)
     # W4JetsToLNu_madgraphMLM_MCSpring16_160630 = getComponent(Datasets, "W4JetsToLNu_madgraphMLM_MCSpring16_160630",True)
     # W3JetsToLNu_madgraphMLM_MCSpring16_160630 = getComponent(Datasets, "W3JetsToLNu_madgraphMLM_MCSpring16_160630",True)

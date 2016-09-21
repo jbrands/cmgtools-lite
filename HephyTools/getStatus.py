@@ -10,10 +10,11 @@ def getCrabFolders(paths):
 
     crab_folders = []
     for path in paths:
-        for folder in os.listdir(path):
-            if os.path.isdir( '/'.join([ path, folder ]) ) and 'crab_' in folder:
+        if os.path.isdir( path ):
+            for folder in os.listdir(path):
+                if os.path.isdir( '/'.join([ path, folder ]) ) and 'crab_' in folder:
 
-                crab_folders.append( '/'.join([ path, folder ]) )
+                    crab_folders.append( '/'.join([ path, folder ]) )
     return crab_folders
 
 def readInformationFile():
