@@ -97,6 +97,7 @@ def updateInformationFile(paths, RESUB = True):
 
             else:
                 status, das_url = getStatus( splInfo[1] )
+                das_urls[job_name] = ''
                 if status == 'COMPLETED':
                     splInfo[0] = 'COMPLETED'
                     completed_jobs.append( job_name  )
