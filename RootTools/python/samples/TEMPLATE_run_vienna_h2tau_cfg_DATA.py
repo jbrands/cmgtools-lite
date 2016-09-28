@@ -27,8 +27,8 @@ jetAna.minLepPt = 10
 jetAna.jetPt = 20
 jetAna.jetEta = 4.7
 
-jetAna.mcGT     = "Spring16_25nsV3_MC"
-jetAna.dataGT   = "Fall15_25nsV2_DATA"
+jetAna.mcGT     = "Spring16_25nsV6_MC"
+jetAna.dataGT   = "Spring16_25nsV6_DATA"
 jetAna.do_mc_match = False                                    
 jetAna.calculateSeparateCorrections = True 
 jetAna.recalibrateJets =  True #For data  
@@ -119,7 +119,7 @@ triggerObjsAna.extraTrig += triggerFlagsAna.triggerBits["IsoMu19_eta2p1_LooseIso
 triggerObjsAna.extraTrig += triggerFlagsAna.triggerBits["IsoMu21_eta2p1_LooseIsoPFTau20_SingleL1"]
 
 
-jsonAna.json="$CMSSW_BASE/src/CMGTools/RootTools/data/Cert_271036-276384_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt"
+jsonAna.json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt'
 
 from CMGTools.TTHAnalysis.analyzers.treeProducerHiggsToTauTau import *
 ## Tree Producer

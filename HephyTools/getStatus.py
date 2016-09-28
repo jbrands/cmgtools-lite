@@ -6,15 +6,35 @@ import json
 from subprocess import Popen, PIPE
 
 
+def colorprint(string, color):
+    if color is 'red':
+        if ':' in string:
+            print string.split(':')[0]+ ':' + '\033[91m' + string.split(':')[1] + '\033[0m'
+        else:
+            print '\033[91m' + string+ '\033[0m'
+    elif color is 'yellow':
+        if ':' in string:
+            print string.split(':')[0]+':'+ '\033[93m' + string.split(':')[1] + '\033[0m'
+        else:
+            print '\033[93m' + string+ '\033[0m'
+
+    elif color is 'green':
+        if ':' in string:
+            print string.split(':')[0]+':'+ '\033[92m' + string.split(':')[1] + '\033[0m'
+        else:
+            print '\033[92m' + string+ '\033[0m'
+
+    else: print string
 def getCrabFolders(paths):
 
     crab_folders = []
     for path in paths:
-        if os.path.isdir( path ):
-            for folder in os.listdir(path):
-                if os.path.isdir( '/'.join([ path, folder ]) ) and 'crab_' in folder:
+        if os.path.exists(path):
+            if os.path.isdir( path ):
+                for folder in os.listdir(path):
+                    if os.path.isdir( '/'.join([ path, folder ]) ) and 'crab_' in folder:
 
-                    crab_folders.append( '/'.join([ path, folder ]) )
+                        crab_folders.append( '/'.join([ path, folder ]) )
     return crab_folders
 
 def readInformationFile():
@@ -184,14 +204,27 @@ def getStatus(path):
             PUBL = False
 
         if JOBS:
-            print line
             if 'failed' in line:
                 JFAIL = True
+                colorprint(line, 'red')
+            elif 'finished' in line: 
+                colorprint(line, 'green')
+            elif 'transferring' in line:
+                colorprint(line, 'yellow')
+            else:
+                print line
 
         if PUBL:
-            print line
             if 'failed' in line:
                 PFAIL = True
+                colorprint(line, 'red')
+            elif 'finished' in line: 
+                colorprint(line, 'green')
+            elif 'transferring' in line:
+                colorprint(line, 'yellow')
+            else:
+                print line
+
 
     if JCOMP:
       return 'COMPLETED', das_url

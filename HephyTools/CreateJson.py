@@ -33,7 +33,7 @@ for data in raw_data:
 		
 		key = data.split('_13TeV')[0]
 		key = key.replace('_TuneCUETP8M1','')
-		key = key.replace('/','').replace('-','_')
+		key = key.replace('/','').replace('-','_').replace('\n','')
 		key += gen
 		if 'RunII' in data:
 			prod_label = 'MC{0}'.format(data.split('RunII')[1].split('Mini')[0])
