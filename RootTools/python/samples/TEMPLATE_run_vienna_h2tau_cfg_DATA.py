@@ -102,9 +102,9 @@ triggerFlagsAna.triggerBits = {
  "Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1"    : [ ''.join(["HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v",str(i)])  for i in xrange(1,7)],
  "Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20"             : [ ''.join(["HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_v",str(i)])  for i in xrange(1,7)],
  "Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1"    : [ ''.join(["HLT_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v",str(i)])  for i in xrange(1,7)],
- "Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1"    : [ ''.join(["HLT_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v",str(i)])  for i in xrange(1,7)]
- "DoubleMediumIsoPFTau32_Trk1_eta2p1_Reg"               : [ ''.join(["HLT_DoubleMediumIsoPFTau32_Trk1_eta2p1_Reg_v",str(i)])  for i in xrange(1,7)]
- "DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg"               : [ ''.join(["HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v",str(i)])  for i in xrange(1,7)]
+ "Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1"    : [ ''.join(["HLT_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v",str(i)])  for i in xrange(1,7)],
+ "DoubleMediumIsoPFTau32_Trk1_eta2p1_Reg"               : [ ''.join(["HLT_DoubleMediumIsoPFTau32_Trk1_eta2p1_Reg_v",str(i)])  for i in xrange(1,7)],
+ "DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg"               : [ ''.join(["HLT_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg_v",str(i)])  for i in xrange(1,7)],
  "DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg"               : [ ''.join(["HLT_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg_v",str(i)])  for i in xrange(1,7)]
 
 }
