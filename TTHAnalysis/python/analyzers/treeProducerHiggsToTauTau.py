@@ -105,7 +105,9 @@ higgsToTauTau_collections.update({
             'TOE_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20' : NTupleCollection( 'triggerObject_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20', triggerObjectEle24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20, 20 , help='trigger objects HLT_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_v2'),
             'TOE_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1' : NTupleCollection( 'triggerObject_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1', triggerObjectEle27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1, 20 , help='trigger objects HLT_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2'),
             'TOE_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1' : NTupleCollection( 'triggerObject_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1', triggerObjectEle32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1, 20 , help='trigger objects HLT_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1_v2'),
-
+            'TOE_DoubleMediumIsoPFTau32_Trk1_eta2p1_Reg' : NTupleCollection( 'triggerObjectDoubleMediumIsoPFTau32_Trk1_eta2p1_Reg', triggerObjectDoubleMediumIsoPFTau32_Trk1_eta2p1_Reg, 20 , help='triggerObjectDoubleMediumIsoPFTau32_Trk1_eta2p1_Reg'),
+            'TOE_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg' : NTupleCollection( 'triggerObjectDoubleMediumIsoPFTau35_Trk1_eta2p1_Reg', triggerObjectDoubleMediumIsoPFTau35_Trk1_eta2p1_Reg, 20 , help='triggerObjectDoubleMediumIsoPFTau35_Trk1_eta2p1_Reg'),
+            'TOE_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg' : NTupleCollection( 'triggerObjectDoubleMediumIsoPFTau40_Trk1_eta2p1_Reg', triggerObjectDoubleMediumIsoPFTau40_Trk1_eta2p1_Reg, 20 , help='triggerObjectDoubleMediumIsoPFTau40_Trk1_eta2p1_Reg'),
 
             # "triggerObjectEvents_IsoMu17"            : NTupleCollection("triggerObject_IsoMu17",   triggerObjectIsoMu17, 20, help="trigger objects HLT_IsoMu17_eta2p1"),
             # "triggerObjectEvents_IsoMu18"            : NTupleCollection("triggerObject_IsoMu18",   triggerObjectIsoMu18, 20, help="trigger objects HLT_IsoMu18_v"),

@@ -175,7 +175,9 @@ class TriggerAnalyzer(Analyzer):
         event.TOE_Ele24_eta2p1_WPLoose_Gsf_LooseIsoPFTau20 = []
         event.TOE_Ele27_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = []
         event.TOE_Ele32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = []
-        
+        event.TOE_DoubleMediumIsoPFTau32_Trk1_eta2p1_Reg = []
+        event.TOE_DoubleMediumIsoPFTau35_Trk1_eta2p1_Reg = []
+        event.TOE_DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg = [] 
 #         if event.eventId == 104644585: import pdb ; pdb.set_trace()
         if self.cfg_ana.addTriggerObjects:
             triggerObjects = self.handles['triggerObjects'].product()

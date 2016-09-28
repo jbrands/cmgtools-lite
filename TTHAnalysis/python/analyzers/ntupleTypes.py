@@ -569,6 +569,27 @@ triggerObjectEle32_eta2p1_WPLoose_Gsf_LooseIsoPFTau20_SingleL1 = NTupleObjectTyp
         NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
         NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
 ])
+triggerObjectDoubleMediumIsoPFTau32_Trk1_eta2p1_Reg = NTupleObjectType("triggerTypeDoubleMediumIsoPFTau32_Trk1_eta2p1_Reg",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
+triggerObjectDoubleMediumIsoPFTau35_Trk1_eta2p1_Reg = NTupleObjectType("triggerTypeDoubleMediumIsoPFTau35_Trk1_eta2p1_Reg",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
+triggerObjectDoubleMediumIsoPFTau40_Trk1_eta2p1_Reg = NTupleObjectType("triggerTypeDoubleMediumIsoPFTau40_Trk1_eta2p1_Reg",   baseObjectTypes = [  ], variables = [
+        NTupleVariable("eta", lambda x : x.eta(), float, mcOnly=False, help="eta of trigger object"),
+        NTupleVariable("phi", lambda x : x.phi(), float, mcOnly=False, help="phi of trigger object"),
+        NTupleVariable("pdgId", lambda x : x.pdgId(), float, mcOnly=False, help="pdgId of trigger object"),
+        NTupleVariable("pt", lambda x : x.pt(), float, mcOnly=False, help="pt of trigger object"),
+])
+
 
 
 # triggerObjectIsoMu17 = NTupleObjectType("triggerTypeIsoMu17",   baseObjectTypes = [  ], variables = [
