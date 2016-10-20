@@ -117,7 +117,6 @@ def updateInformationFile(paths, RESUB = True):
 
             else:
                 status, das_url = getStatus( splInfo[1] )
-                das_urls[job_name] = ''
                 if status == 'COMPLETED':
                     splInfo[0] = 'COMPLETED'
                     completed_jobs.append( job_name  )
@@ -126,7 +125,7 @@ def updateInformationFile(paths, RESUB = True):
                     info_content[i] = ';'.join(splInfo)
 
                 elif status == 'RESUBMIT':
-                    if int(splInfo[2]) > 5:
+                    if int(splInfo[2]) > 20:
                         splInfo[0] = 'FAILED'
                         failed_jobs.append( job_name )
                         info_content[i] = ';'.join(splInfo)
@@ -138,7 +137,7 @@ def updateInformationFile(paths, RESUB = True):
                             print 'resubmitting failed jobs'
 
                 elif status == 'PUBLICATE':
-                    if int(splInfo[3]) > 5:
+                    if int(splInfo[3]) > 20:
                         splInfo[0] = 'FAILED'
                         failed_jobs.append( job_name )
                         info_content[i] = ';'.join(splInfo)
@@ -248,7 +247,7 @@ if __name__ == '__main__':
             '{0}/src/CMGTools/H2TauTau/prod/sync/crab_MCSpring16'.format(os.environ['CMSSW_BASE']),                        
             '{0}/src/CMGTools/H2TauTau/prod/DATA/crab_DATA'.format(os.environ['CMSSW_BASE']),
             '{0}/src/CMGTools/TTHAnalysis/cfg/crab_HEPHY/crab_MCSpring16'.format(os.environ['CMSSW_BASE']),
-            '{0}/src/CMGTools/TTHAnalysis/cfg/crab_HEPHY/crab_DATA16B'.format(os.environ['CMSSW_BASE']),
+            '{0}/src/CMGTools/TTHAnalysis/cfg/crab_HEPHY/crab_DATA'.format(os.environ['CMSSW_BASE']),
             '{0}/src/CMGTools/TTHAnalysis/cfg/crab_HEPHY/crab_MCSpring16_reHLT'.format(os.environ['CMSSW_BASE'])
            ]
 

@@ -147,7 +147,7 @@ triggerObjsAna.extraTrig += triggerFlagsAna.triggerBits["DoubleMediumIsoPFTau35_
 triggerObjsAna.extraTrig += triggerFlagsAna.triggerBits["DoubleMediumIsoPFTau40_Trk1_eta2p1_Reg"]
 
 
-jsonAna.json='/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt'
+jsonAna.json='$CMSSW_BASE/src/CMGTools/RootTools/data/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt'
 
 from CMGTools.TTHAnalysis.analyzers.treeProducerHiggsToTauTau import *
 ## Tree Producer

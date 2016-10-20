@@ -78,7 +78,7 @@ ttHEventAna = cfg.Analyzer(
 #from CMGTools.TTHAnalysis.samples.samples_13TeV_PHYS14  import *
 #from CMGTools.RootTools.samples.samples_13TeV_74X_privat  import *
 
-TriggerTag = 'HLT'
+TriggerTag = 'HLT2'
 
 triggerFlagsAna.processName = TriggerTag
 triggerFlagsAna.triggerBits = {

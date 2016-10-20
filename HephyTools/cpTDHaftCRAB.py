@@ -16,6 +16,8 @@ class CMCHandler():
     def __init__(self, source, dest):
         self.source = source
         self.dest = dest
+        if os.path.exists('copy.log'):
+            os.remove('copy.log')
         self.getTrees()
 
     def getTrees(self):
@@ -207,7 +209,10 @@ class CMCHandler():
 
     def exec_cmd(self,cmd, q):
         shlCmd = shlex.split(cmd)
-        p = sp.Popen(shlCmd, shell=False)
+            
+        log = open('copy.log', 'a')
+        p = sp.Popen(shlCmd,stdout = log, stderr = log, shell=False)
+
         p.wait()
         q.put(object)
 
@@ -225,7 +230,7 @@ class CMCHandler():
                 proc.join()
 
             count += nCmd
-            if 'lcg-cp' in cmd: print('\r[{0}>{1}]  ( {2}/{3} )'.format('='*int(count),' '*(50-int(count) ), i+1, len(cmd_list) ), end='')
+            print('\r[{0}>{1}]  ( {2}/{3} )'.format('='*int(count),' '*(50-int(count) ), i+1, len(cmd_list) ), end='')
 
     def cleanup(self, rtype = 'mc'):
         
@@ -241,7 +246,7 @@ class CMCHandler():
                 rltfiles.append(file)
 
 
-        print('Removing unneeded Files')
+        print('\nRemoving unneeded Files')
         ntree = 50./ float( len(tree_files) )
 
         count = 0.
@@ -285,6 +290,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', help='Tag of dataset to copy', type=str, metavar = 'TAG', required = True)
+    parser.add_argument('-u', help='dpns-Username who createt dataset', type=str, metavar = 'dpns-USERNAME', required = True)
     parser.add_argument('-f', help='Force overwrite', action='store_true')
     parser.add_argument('-t', help='', type=str, metavar = 'RUNTYPE',choices = ['mc','data'], default = 'mc')
 
@@ -292,8 +298,9 @@ if __name__ == '__main__':
 
     Dset = args['d']
     rtype = args['t']
+    dpnsUser = args['u']
 
-    source = '/dpm/oeaw.ac.at/home/cms/store/user/mspanrin/cmgTuples/{0}'.format( Dset )
+    source = '/dpm/oeaw.ac.at/home/cms/store/user/{0}/cmgTuples/{1}'.format( dpnsUser, Dset )
     dest = '/data/higgs/data_2016/cmgTuples/{0}'.format( Dset )
 
     ch = CMCHandler(source, dest)
