@@ -1,24 +1,24 @@
 from WMCore.Configuration import Configuration
 import os
-################################################################################
+################################################################################                                                                                                                                                        
 class DatasetChooser():
     def __init__(self, datasets_path, pref_dataset = ''):
-        
+
         if os.path.exists(datasets_path):
             self.datasets_path = datasets_path
         else:
             raise Warning('File {0} not found!!!'.format(dataset_path))
 
-    def timestamp(self, tag):
+    def timestamp(self):
         from time import localtime
-        if tag is '': return ''
+
 
         lt = localtime()
         y = str(lt.tm_year).replace('20','')
         m = str(lt.tm_mon) if lt.tm_mon>9 else '{0}{1}'.format('0',lt.tm_mon)
         d = str(lt.tm_mday) if lt.tm_mday>9 else '{0}{1}'.format('0',lt.tm_mday)
 
-        return '%s_%s%s%s' % (tag, y,m,d)
+        return ''.join([y,m,d])
 
     def GetOpenJob(self):
         from json import load, dump
@@ -27,26 +27,24 @@ class DatasetChooser():
         with open(self.datasets_path ,'rb') as FSO:
             dsets=load(FSO)
 
-        for sets in dsets:
-            for el in dsets[sets]:
-                if dsets[sets][el]['status'] == 'open':
+        for sets in dsets.keys():
+            for el in dsets[sets].keys():
+                if dsets[sets][el]['step_1']['status'] == 'open':
                     self.strDatacard = dsets[sets][el]['datacard']
-                    self.strTag = self.timestamp( '{0}_{1}'.format(el,
-                                                    dsets[sets][el]['prod_label'] 
-                                                                   ) 
-                                                  )
+                    self.strTag = '{0}_{1}_{2}'.format(el, dsets[sets][el]['prod_label'], self.timestamp() )
+
                     self.strProdLabel = dsets[sets][el]['prod_label']
-                    dsets[sets][el]['status'] = self.timestamp( 'done' ) 
+                    dsets[sets][el]['step_1']['status'] = 'done'
+                    dsets[sets][el]['step_1']['time'] = self.timestamp()
                     with open(self.datasets_path ,'wb') as FSO:
                         dump(dsets, FSO,indent=4)
                     return
 
         raise Warning('No more jobs')
 
-#################################################################################
-
-user = os.environ['CMSSW_BASE']
-job = DatasetChooser('{0}/src/CMGTools/HephyTools/datasets.json'.format(user))
+################################################################################# 
+cmssw_base = os.environ['CMSSW_BASE']
+job = DatasetChooser('{0}/src/CMGTools/HephyTools/datasets.json'.format(cmssw_base) )
 job.GetOpenJob()
 
 tag = job.strTag
