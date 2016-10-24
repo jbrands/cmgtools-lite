@@ -1,81 +1,55 @@
 #! /usr/bin/env pythonOB
 import imp, os, sys
-import json
 from optparse import OptionParser
 
 # datasets to run as defined from run_susyMT2.cfg
 # number of jobs to run per dataset decided based on splitFactor and fineSplitFactor from cfg file
 # in principle one only needs to modify the following two lines:
 
-
-
-#####################################################################################################
-from CMGTools.RootTools.samples.ComponentCreator import ComponentCreator
-kreator = ComponentCreator()
-
-def getDataset(input_tag):
-    cmssw_base = os.environ['CMSSW_BASE']
-    with open('{0}/src/CMGTools/HephyTools/datasets.json'.format(cmssw_base) ,'rb') as FSO:
-        dsets=json.load(FSO)
-
-    Datasets = {}
-    for sets in dsets.keys():
-        for el in dsets[sets].keys():
-            
-
-            if dsets[sets][el]['das_url'] != '':
-                tag = '{0}_{1}_{2}'.format( el,dsets[sets][el]['prod_label'] ,dsets[sets][el]['step_1']['time'] )
-                if tag == input_tag:
-                 
-                    Datasets[tag] ={'url': dsets[sets][el]['das_url']}
-                    Datasets[tag]['prod_label'] = dsets[sets][el]['prod_label']
-
-
-    if Datasets == {}: 
-        print 'No url availabe for {0}'.format(input_tag) 
-        sys.exit()
-
-
-    return Datasets
-
-def getComponent(Datasets, name, readCache):
-    return kreator.makeComponentHEPHY(name, Datasets[name]['url'], "PRIVATE", ".*root", "phys03",1.0, readCache= readCache)
-
-def getDataComponent(Datasets, name, readCache):
-    dataDir = "$CMSSW_BASE/src/CMGTools/RootTools/data/"
-    json = dataDir + 'Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt'
-
-    return kreator.makeDataComponentHEPHY(name, Datasets[name]['url'], "PRIVATE", ".*root", "phys03",
-                                          readCache = readCache,
-                                          json = json)
-#####################################################################################################
-
-
-
-
 parser = OptionParser(usage="python launch.py [options] component1 [ component2 ...]",
                       description="Launch heppy jobs with CRAB3. Components correspond to the variables defined in heppy_samples.py (their name attributes)")
-parser.add_option("--tag", dest="tag", help="sample TAG")
-parser.add_option("--cmg_version", dest="cmg_version", help="CMG version", default="CMGTools-from-CMSSW_8_0_11")
+parser.add_option("--production_label", dest="production_label", help="production label", default="heppy")
+parser.add_option("--remoteDir", dest="remoteDir", help="remote subdirectory", default="")
+parser.add_option("--cmg_version", dest="cmg_version", help="CMG version",
+                                   default="CMGTools-from-CMSSW_8_0_11")
 parser.add_option("--unitsPerJob", dest="unitsPerJob", help="Nr. of units (files) / crab job", type="int", default=1)
 parser.add_option("--totalUnits", dest="totalUnits", help="Total nr. of units (files)", type="int", default=None)
 parser.add_option("--inputDBS", dest="inputDBS", help="dbs instance", default="phys03")
 parser.add_option("--lumiMask", dest="lumiMask", help="lumi mask (for data)", default=None)
 ( options, args ) = parser.parse_args()
 
+handle = open("heppy_samples.py", 'r')
+cfo = imp.load_source("heppy_samples", "heppy_samples.py", handle)
+handle.close()
 
-Datasets = getDataset(options.tag)
+import PhysicsTools.HeppyCore.framework.config as cfg
+allComponents = { }
+for d in cfo.__dict__:
+        if d=='comp':continue
+        c = cfo.__dict__[d]
+        if isinstance(c,cfg.Component):
+                if c.name in allComponents:
+                        print "Ignoring duplicate component: variable name = ",d," component name = ",c.name
+                allComponents[c.name] = c
+        
+selectedComponents = [ ]
+for c in args:
+    if c in allComponents:
+        selectedComponents.append(allComponents[c])
+    else:
+        print "*** Skipping undefined component: ",c
+if not selectedComponents:
+    print "Did not find any matching component! Available components are"
+    for c in sorted(allComponents.keys()):
+        print "   ",c
+    sys.exit(1)
 
-if Datasets[options.tag]['prod_label'] == 'DATA':
-    selectedComponents = [getDataComponent(Datasets,options.tag, False)]
-else:
-    selectedComponents = [getComponent(Datasets,options.tag, False)]
-
+sys.exit()
 os.system("scram runtime -sh")
 os.system("source /cvmfs/cms.cern.ch/crab3/crab.sh")
 
-os.environ["CMG_PROD_LABEL"]  = Datasets[options.tag]['prod_label']
-os.environ["CMG_REMOTE_DIR"]  = options.tag
+os.environ["CMG_PROD_LABEL"]  = options.production_label
+os.environ["CMG_REMOTE_DIR"]  = options.remoteDir
 os.environ["CMG_VERSION"] = options.cmg_version
 os.environ["CMG_UNITS_PER_JOB"] = str(options.unitsPerJob)
 os.environ["CMG_LUMI_MASK"] = options.lumiMask if options.lumiMask else "None"
@@ -93,7 +67,7 @@ import pickle
 for comp in selectedComponents:
 #    print "generating sample_"+comp.name+".pkl"
     print "Processing ",comp.name
-    workArea = 'crab_{0}'.format( Datasets[options.tag]['prod_label'] )
+    workArea = 'crab_{0}'.format( options.production_label )
     if not os.path.exists( workArea ):
         os.mkdir(workArea)
     

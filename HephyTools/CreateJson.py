@@ -45,12 +45,13 @@ for data in raw_data:
 		if not key in dsets.get(current,''):
 
 			data_struct[current][key] = {'datacard':data.replace('\n','')}
-			data_struct[current][key]['status'] = 'open'
+			data_struct[current][key]['step_1'] = {'status':'open', 'time':''}
+			data_struct[current][key]['das_url'] = ''
 			data_struct[current][key]['prod_label'] = prod_label
 
 		else:
 			data_struct[current][key] = {'datacard':dsets[current][key]['datacard']}
-			data_struct[current][key]['status'] = dsets[current][key]['status']
+			data_struct[current][key]['step_1'] = dsets[current][key]['step_1']
 			data_struct[current][key]['prod_label'] = dsets[current][key]['prod_label']
 
 with open('datasets.json','wb') as FSO:

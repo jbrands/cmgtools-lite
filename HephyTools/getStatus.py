@@ -73,6 +73,19 @@ def removeInformation(folders, information):
 
     return information
 
+def writeDASurl(tag,das_url):
+
+    with open('datasets.json' ,'rb') as FSO:
+        dsets=json.load(FSO)
+
+    for sets in dsets.keys():
+        for el in dsets[sets].keys():
+            if el in tag:
+                dsets[sets][el]['das_url'] = das_url
+
+    with open('datasets.json' ,'wb') as FSO:
+        json.dump(dsets, FSO,indent=4)
+
 
 
 def updateInformationFile(paths, RESUB = True):
@@ -86,13 +99,6 @@ def updateInformationFile(paths, RESUB = True):
             FSO.write( '\n'.join(info_content) )
 
     else:
-        if os.path.isfile('das_urls.json'):
-            with open('das_urls.json','rb') as FSO:
-		das_urls = json.load(FSO)
-        else:
-            with open('das_urls.json','wb') as FSO:
-		json.dump({}, FSO)
-		das_urls = {}
         
         info_content = addInformation(crab_folders, info_content)
         info_content = removeInformation(crab_folders, info_content)
@@ -121,7 +127,7 @@ def updateInformationFile(paths, RESUB = True):
                     splInfo[0] = 'COMPLETED'
                     completed_jobs.append( job_name  )
                     if das_url != '':
-                        das_urls[job_name] = das_url
+                        writeDASurl(job_name, das_url)
                     info_content[i] = ';'.join(splInfo)
 
                 elif status == 'RESUBMIT':
@@ -147,11 +153,7 @@ def updateInformationFile(paths, RESUB = True):
                             splInfo[3] = str( int(splInfo[3]) +1 )
                             info_content[i] = ';'.join(splInfo)
                             print 'publishing missing files'
-
-
-        with open('das_urls.json','wb') as FSO:
-            json.dump(das_urls, FSO,indent=4)
-        
+   
         with open('job_information.dat','w') as FSO:
             FSO.write('\n'.join(info_content))
 
