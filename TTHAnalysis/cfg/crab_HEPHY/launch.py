@@ -13,7 +13,7 @@ from optparse import OptionParser
 from CMGTools.RootTools.samples.ComponentCreator import ComponentCreator
 kreator = ComponentCreator()
 
-def timestamp(self):
+def timestamp():
     from time import localtime
 
 
