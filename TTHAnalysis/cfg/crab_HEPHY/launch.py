@@ -50,13 +50,13 @@ def getDataset(input_tag):
     return Datasets
 
 def getComponent(Datasets, name, readCache):
-    return kreator.makeComponentHEPHY(name, Datasets[name]['url'], "PRIVATE", ".*root", "phys03",1.0, readCache= readCache)
+    return kreator.makeComponentHEPHY('{0}_{1}'.format(name, timestamp()), Datasets[name]['url'], "PRIVATE", ".*root", "phys03",1.0, readCache= readCache)
 
 def getDataComponent(Datasets, name, readCache):
     dataDir = "$CMSSW_BASE/src/CMGTools/RootTools/data/"
     json = dataDir + 'Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt'
 
-    return kreator.makeDataComponentHEPHY(name, Datasets[name]['url'], "PRIVATE", ".*root", "phys03",
+    return kreator.makeDataComponentHEPHY('{0}_{1}'.format(name, timestamp()), Datasets[name]['url'], "PRIVATE", ".*root", "phys03",
                                           readCache = readCache,
                                           json = json)
 #####################################################################################################
@@ -104,7 +104,7 @@ import pickle
 for comp in selectedComponents:
 #    print "generating sample_"+comp.name+".pkl"
     print "Processing ",comp.name
-    workArea = 'crab_{0}_{1}'.format( Datasets[options.tag]['prod_label'], timestamp() )
+    workArea = 'crab_{0}'.format( Datasets[options.tag]['prod_label'] )
     if not os.path.exists( workArea ):
         os.mkdir(workArea)
     
