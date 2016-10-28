@@ -13,6 +13,17 @@ from optparse import OptionParser
 from CMGTools.RootTools.samples.ComponentCreator import ComponentCreator
 kreator = ComponentCreator()
 
+def timestamp(self):
+    from time import localtime
+
+
+    lt = localtime()
+    y = str(lt.tm_year).replace('20','')
+    m = str(lt.tm_mon) if lt.tm_mon>9 else '{0}{1}'.format('0',lt.tm_mon)
+    d = str(lt.tm_mday) if lt.tm_mday>9 else '{0}{1}'.format('0',lt.tm_mday)
+
+    return ''.join([y,m,d])
+
 def getDataset(input_tag):
     cmssw_base = os.environ['CMSSW_BASE']
     with open('{0}/src/CMGTools/HephyTools/datasets.json'.format(cmssw_base) ,'rb') as FSO:
@@ -24,7 +35,7 @@ def getDataset(input_tag):
             
 
             if dsets[sets][el]['das_url'] != '':
-                tag = '{0}_{1}_{2}'.format( el,dsets[sets][el]['prod_label'] ,dsets[sets][el]['step_1']['time'] )
+                tag = '{0}_{1}'.format( el,dsets[sets][el]['prod_label'] )
                 if tag == input_tag:
                  
                     Datasets[tag] ={'url': dsets[sets][el]['das_url']}
@@ -75,7 +86,7 @@ os.system("scram runtime -sh")
 os.system("source /cvmfs/cms.cern.ch/crab3/crab.sh")
 
 os.environ["CMG_PROD_LABEL"]  = Datasets[options.tag]['prod_label']
-os.environ["CMG_REMOTE_DIR"]  = options.tag
+os.environ["CMG_REMOTE_DIR"]  = '{0}_{1}'.format(options.tag, timestamp())
 os.environ["CMG_VERSION"] = options.cmg_version
 os.environ["CMG_UNITS_PER_JOB"] = str(options.unitsPerJob)
 os.environ["CMG_LUMI_MASK"] = options.lumiMask if options.lumiMask else "None"
@@ -93,7 +104,7 @@ import pickle
 for comp in selectedComponents:
 #    print "generating sample_"+comp.name+".pkl"
     print "Processing ",comp.name
-    workArea = 'crab_{0}'.format( Datasets[options.tag]['prod_label'] )
+    workArea = 'crab_{0}_{1}'.format( Datasets[options.tag]['prod_label'], timestamp() )
     if not os.path.exists( workArea ):
         os.mkdir(workArea)
     
