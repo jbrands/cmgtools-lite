@@ -1,9 +1,10 @@
 from WMCore.Configuration import Configuration
 import os
-################################################################################                                                                                                                                                        
+import sys
+################################################################################
 class DatasetChooser():
     def __init__(self, datasets_path, pref_dataset = ''):
-
+        
         if os.path.exists(datasets_path):
             self.datasets_path = datasets_path
         else:
@@ -42,7 +43,8 @@ class DatasetChooser():
 
         raise Warning('No more jobs')
 
-################################################################################# 
+#################################################################################
+
 cmssw_base = os.environ['CMSSW_BASE']
 job = DatasetChooser('{0}/src/CMGTools/HephyTools/datasets.json'.format(cmssw_base) )
 job.GetOpenJob()
@@ -50,6 +52,10 @@ job.GetOpenJob()
 tag = job.strTag
 dataset = job.strDatacard
 prodLabel = job.strProdLabel
+
+print tag
+print dataset
+print prodLabel
 
 # tag = "SUSYGluGluToHToTauTau_MCSpring16_pythia8_160622"
 # dataset = '/SUSYGluGluToHToTauTau_M-160_TuneCUETP8M1_13TeV-pythia8/RunIISpring16MiniAODv1-PUSpring16_80X_mcRun2_asymptotic_2016_v3-v1/MINIAODSIM'
@@ -81,9 +87,9 @@ config.Data.ignoreLocality = True
 
 # These values only make sense for processing data
 #    Select input data based on a lumi mask
-#config.Data.lumiMask = 'Cert_190456-208686_8TeV_PromptReco_Collisions12_JSON.txt'
+#config.Data.lumiMask = 'Cert_271036-276384_13TeV_PromptReco_Collisions16_JSON_NoL1T.txt'
 #    Select input data based on run-ranges
-#config.Data.runRange = '190456-194076'
+#config.Data.runRange = ''
 
 config.section_("Site")
 # Where the output files will be transmitted to

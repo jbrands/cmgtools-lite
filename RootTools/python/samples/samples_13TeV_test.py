@@ -39,7 +39,7 @@ if __name__ == '__main__':
 else:
 #####################################################################################################    
     json_path = dataDir + 'Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON.txt'
-    VBF  = getComponent(Datasets,"VBF",False)
+    VBF  = getComponent(Datasets,"VBF",True)
 #    SingleMuonRun2016B_PromptReco_v2MINIAOD_DATA_160921 = getDataComponent(Datasets, 'SingleMuonRun2016B_PromptReco_v2MINIAOD_DATA_160921',False,json_path)
 #    SingleMuonRun2016C_PromptReco_v2MINIAOD_DATA_160926 = getDataComponent(Datasets, 'SingleMuonRun2016C_PromptReco_v2MINIAOD_DATA_160926',False,json_path)
 #    SingleMuonRun2016D_PromptReco_v2MINIAOD_DATA_160926 = getDataComponent(Datasets, 'SingleMuonRun2016D_PromptReco_v2MINIAOD_DATA_160926',False,json_path)

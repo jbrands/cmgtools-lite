@@ -55,7 +55,7 @@ class diLeptonSelector : public edm::stream::EDFilter<> {
   edm::EDGetTokenT<pat::MuonCollection> tokenMuon_;
   edm::EDGetTokenT<pat::ElectronCollection> tokenElectron_;
   double tauPtCut_, tauPtHardCut_, tauEtaCut_;
-  double muonPtCut_, muonEtaCut_;
+  double muonPtCut_,muonSoftPtCut_ ,muonEtaCut_;
   double electronPtCut_, electronEtaCut_;
 };
 
@@ -68,6 +68,7 @@ diLeptonSelector::diLeptonSelector(const edm::ParameterSet& params):
   tauPtHardCut_(params.getParameter<double>("tauPtHardCut")),
   tauEtaCut_(params.getParameter<double>("tauEtaCut")),
   muonPtCut_(params.getParameter<double>("muonPtCut")),
+  muonSoftPtCut_(params.getParameter<double>("muonSoftPtCut")),
   muonEtaCut_(params.getParameter<double>("muonEtaCut")),
   electronPtCut_(params.getParameter<double>("electronPtCut")),
   electronEtaCut_(params.getParameter<double>("electronEtaCut"))
@@ -98,6 +99,7 @@ bool diLeptonSelector::filter(edm::Event& iEvent, const edm::EventSetup& params)
    int counterSoftTaus = 0;
    int counterHardTaus = 0;
    int counterMuons = 0;
+   int counterSoftMuons = 0;
    int counterElectrons = 0;
 
    for (auto it : tauCollection)
@@ -118,6 +120,10 @@ bool diLeptonSelector::filter(edm::Event& iEvent, const edm::EventSetup& params)
 	 {
 	   counterMuons++;
 	 }
+       if(it.pt() > muonSoftPtCut_ && abs(it.eta()) < muonEtaCut_) 
+	 {
+	   counterSoftMuons++;
+	 }
      }
    for (auto it : electronCollection)
      {    
@@ -129,6 +135,7 @@ bool diLeptonSelector::filter(edm::Event& iEvent, const edm::EventSetup& params)
    
    if( counterHardTaus >= 2 ) return true;
    if( counterSoftTaus >=1 && counterMuons >=1 ) return true;
+   if( counterSoftMuons >=1 && counterMuons >=1 ) return true;
    if( counterSoftTaus >=1 && counterElectrons >=1 ) return true;
 
    return false;
